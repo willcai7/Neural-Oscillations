@@ -76,7 +76,7 @@ scatter(spikes2(2:maxrow+1,i), i*ones(1,maxrow),'.','b');
 hold on
 end
 
-%% Full model: Homogeneous
+%% Full model: Sychronized
 param3.ne       = 300;
 param3.ni       = 100;
 param3.p_ee     = 0.15;
@@ -93,8 +93,8 @@ param3.Mr       = 66;
 param3.lambda_e = 1/7;
 param3.lambda_i = 1/7; 
 %7000 spikes/sec means time constant is 1/7 ms.
-param3.tau_ee   = 4; 
-param3.tau_ie   = 1.2; 
+param3.tau_ee   = 1.3; 
+param3.tau_ie   = 0.95; 
 param3.tau_i    = 4.5;
 
 iter            = 1500000;

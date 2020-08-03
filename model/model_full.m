@@ -2,16 +2,27 @@ function [spike] = model_full(s,iter,param)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
-% neurons?' written by Yao Li.
+% neurons?' written by Yao Li. 
+
+% In the folder reference, there is a simple note about this full model.
+
 % Here the input param is a struct that contains 
-% [ param.M, param.Mr, 
-% param.lambda_e, param.lambda_i, 
-% param.tau_ee,param.tau_ie, param.tau_i, param.tau_r, 
-% param.ni, param.ne, 
-% param.s_ee, param.s_ei, param.s_ie, param.s_ii,
-% param.p_ee, param.p_ei, param.p_ie, param.p_ii,]
+% * param.M, param.Mr: 
+% *     Numbers of potential state.
+% * param.lambda_e, param.lambda_i: 
+% *     Parameters for the external drive's kicks.
+% * param.tau_ee,param.tau_ie, param.tau_i, param.tau_r:
+% *     Parameters for the delay time of each kind of spikes.
+% * param.ni, param.ne:
+% *     Numbers of E,I neurons.
+% * param.s_ee, param.s_ei, param.s_ie, param.s_ii:
+% *     Parameters for the spike effects.
+% * param.p_ee, param.p_ei, param.p_ie, param.p_ii:
+% *     The probability about the synaptic neurons.
+
 % The input s is the initial status matrix. If s is false, we will set it
 % as a zero matrix.
+
 % The output spike is a matrix where each columns represent the spike times
 % of a neuron.The first row is the total num of its spikes.
 %==========================================================================
