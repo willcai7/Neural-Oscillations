@@ -54,12 +54,6 @@ spike=zeros(2000,param.ne+param.ni);
 
 t=0;
 
-
-C_ee = 0;
-C_ie = 0;
-C_ei = 0;
-C_ii = 0;
-
 while t<= duration_time
     %disp(["iteration: ", step]);
     m(2:4,:)=c(2:4,:)./s(2:4,:);

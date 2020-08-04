@@ -32,6 +32,7 @@ end_time1 = clock;
 run_time1 = etime(end_time1, start_time1);
 firing_rate1 = firing_rate(spikes1, param1.ne, param1.ni);
 scatterplot(spikes1,param1.ne, param1.ni,'n=400-t=1000-hom')
+firing_rate1
 
 %% Full model: Regular
 param2.ne       = 300;
@@ -62,6 +63,7 @@ end_time2 = clock;
 run_time2 = etime(end_time2, start_time2);
 firing_rate2 = firing_rate(spikes2, param2.ne, param2.ni);
 scatterplot(spikes2,param2.ne, param2.ni,'n=400-t=1000-reg')
+firing_rate2
 
 %% Full model: Sychronized
 param3.ne       = 300;
@@ -93,6 +95,7 @@ run_time3 = etime(end_time3, start_time3);
 
 firing_rate3 = firing_rate(spikes3, param3.ne, param3.ni);
 scatterplot(spikes3,param3.ne, param3.ni,'n=400-t=1000-syn')
+firing_rate3
 
 %% Full model: homogeneous & small-size & random initialization
 
@@ -128,6 +131,7 @@ run_time4 = etime(end_time4, start_time4);
 
 firing_rate4 = firing_rate(spikes4, param4.ne, param4.ni);
 scatterplot(spikes4, param4.ne, param4.ni,'n=100-t=1000-hom')
+firing_rate4
 
 %% Full model: regular & small-size & random initialization
 
@@ -163,6 +167,7 @@ run_time5 = etime(end_time5, start_time5);
 
 firing_rate5 = firing_rate(spikes5, param5.ne, param5.ni);
 scatterplot(spikes5, param5.ne, param5.ni,'n=100-t=1000-reg')
+firing_rate5
 
 %% Full model: synchronized & small-size & random initialization
 
