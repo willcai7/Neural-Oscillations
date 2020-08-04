@@ -92,4 +92,8 @@ bar(x,corr_ii,1,'b');
 ylim([0 0.3]);
 title('I spikes conditioned on I at t=0');
 
+set(gcf,'Position',[10,10,2000,150]);
+saveas(gcf,['output\',name,'.png']);
+end
+
             
