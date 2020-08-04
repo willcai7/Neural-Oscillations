@@ -191,10 +191,10 @@ param6.tau_ie   = 0.95;
 param6.tau_i    = 4.5;
 duration_time   = 1000;
 
-% random inilialization
-%s = zeros(4,param6.ne+param6.ni);
-%s(1,:) = double(rand(1,param6.ne+param6.ni)>0.8);
-%s(2:3,:) = unidrnd(param6.M+param6.Mr+1,[2,param6.ne+param6.ni])- param6.M-1;
+%random inilialization
+s = zeros(4,param6.ne+param6.ni);
+s(1,:) = double(rand(1,param6.ne+param6.ni)>0.8);
+s(2:3,:) = unidrnd(param6.M+param6.Mr+1,[2,param6.ne+param6.ni])- param6.M-1;
 
 start_time6 = clock;
 spikes6 = model_full(s, duration_time, param6);
