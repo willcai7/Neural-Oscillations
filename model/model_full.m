@@ -1,4 +1,4 @@
-function [spike] = model_full(s,iter,param)
+function [spike] = model_full(s,duration_time,param)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
@@ -49,12 +49,18 @@ m(1,:)=c(1,:);
 %m is mean matrix of the next random trial. The first row of m is the same as
 %the first row of c, while the other three rows is obtained by c(2:4,:)./s(2:4,:)
 
-spike=zeros(iter,param.ne+param.ni);
+spike=zeros(2000,param.ne+param.ni);
 %spike is the spike time train of each neuron. The first row of spike is spike count.
 
 t=0;
 
-for step=1:iter
+
+C_ee = 0;
+C_ie = 0;
+C_ei = 0;
+C_ii = 0;
+
+while t<= duration_time
     %disp(["iteration: ", step]);
     m(2:4,:)=c(2:4,:)./s(2:4,:);
     a=exprnd(m);
