@@ -109,6 +109,8 @@ spikes3 = model_full(s, iter, param3);
 end_time3 = clock;
 run_time3 = etime(end_time3, start_time3);
 
+firing_rate3 = firing_rate(spikes3, param3.ne, param3.ni);
+
 %scatter plot
 maxrow=max(spikes3(1,:));
 for i=1:300
@@ -140,7 +142,7 @@ param4.lambda_i = 1/7;
 param4.tau_ee   = 2.3; 
 param4.tau_ie   = 0.95; 
 param4.tau_i    = 4.5;
-iter            = 1000000;
+iter            = 100000;
 
 % random inilialization
 s = zeros(4,param4.ne+param4.ni);
@@ -151,6 +153,8 @@ start_time4 = clock;
 spikes4 = model_full(s, iter, param4);
 end_time4 = clock;
 run_time4 = etime(end_time4, start_time4);
+
+firing_rate4 = firing_rate(spikes4, param4.ne, param4.ni);
 
 %scatter plot
 maxrow=max(spikes4(1,:));
