@@ -31,7 +31,8 @@ spikes1 = model_full(s, duration_time, param1);
 end_time1 = clock;
 run_time1 = etime(end_time1, start_time1);
 firing_rate1 = firing_rate(spikes1, param1.ne, param1.ni);
-scatterplot(spikes1,param1.ne, param1.ni,'n=400-t=1000-hom')
+scatterplot(spikes1,param1.ne, param1.ni,'scatter-n=400-t=1000-hom')
+correlation(spikes1,param1.ne, param1.ni,'correlation-n=400-t=1000-hom')
 firing_rate1
 
 %% Full model: Regular
@@ -62,7 +63,8 @@ spikes2 = model_full(s, duration_time, param2);
 end_time2 = clock;
 run_time2 = etime(end_time2, start_time2);
 firing_rate2 = firing_rate(spikes2, param2.ne, param2.ni);
-scatterplot(spikes2,param2.ne, param2.ni,'n=400-t=1000-reg')
+scatterplot(spikes2,param2.ne, param2.ni,'scatter-n=400-t=1000-reg')
+correlation(spikes2,param2.ne, param2.ni,'correlation-n=400-t=1000-reg')
 firing_rate2
 
 %% Full model: Sychronized
@@ -94,7 +96,8 @@ end_time3 = clock;
 run_time3 = etime(end_time3, start_time3);
 
 firing_rate3 = firing_rate(spikes3, param3.ne, param3.ni);
-scatterplot(spikes3,param3.ne, param3.ni,'n=400-t=1000-syn')
+scatterplot(spikes3,param3.ne, param3.ni,'scatter-n=400-t=1000-syn')
+correlation(spikes3,param3.ne, param3.ni,'correlation-n=400-t=1000-syn')
 firing_rate3
 
 %% Full model: homogeneous & small-size & random initialization
@@ -130,7 +133,8 @@ end_time4 = clock;
 run_time4 = etime(end_time4, start_time4);
 
 firing_rate4 = firing_rate(spikes4, param4.ne, param4.ni);
-scatterplot(spikes4, param4.ne, param4.ni,'n=100-t=1000-hom')
+scatterplot(spikes4, param4.ne, param4.ni,'scatter-n=100-t=1000-hom')
+correlation(spikes4,param4.ne, param4.ni,'correlation-n=100-t=1000-hom')
 firing_rate4
 
 %% Full model: regular & small-size & random initialization
@@ -166,7 +170,8 @@ end_time5 = clock;
 run_time5 = etime(end_time5, start_time5);
 
 firing_rate5 = firing_rate(spikes5, param5.ne, param5.ni);
-scatterplot(spikes5, param5.ne, param5.ni,'n=100-t=1000-reg')
+scatterplot(spikes5, param5.ne, param5.ni,'scatter-n=100-t=1000-reg')
+correlation(spikes5,param5.ne, param5.ni,'correlation-n=100-t=1000-reg')
 firing_rate5
 
 %% Full model: synchronized & small-size & random initialization
@@ -202,5 +207,6 @@ end_time6 = clock;
 run_time6 = etime(end_time6, start_time6);
 
 firing_rate6 = firing_rate(spikes6, param6.ne, param6.ni);
-scatterplot(spikes6, param6.ne, param6.ni,'n=100-t=1000-syn')
+scatterplot(spikes6, param6.ne, param6.ni,'scatter-n=100-t=1000-syn')
+correlation(spikes6,param6.ne, param6.ni,'correlation-n=100-t=1000-syn')
 firing_rate6
