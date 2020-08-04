@@ -10,9 +10,9 @@ function [spike] = model_full(s,iter,param)
 % * param.M, param.Mr: 
 % *     Numbers of potential state.
 % * param.lambda_e, param.lambda_i: 
-% *     Parameters for the external drive's kicks.
+% *     Parameters for the external drive's Poisson kicks.
 % * param.tau_ee,param.tau_ie, param.tau_i, param.tau_r:
-% *     Parameters for the delay time of each kind of spikes.
+% *     Parameters for the exponential distributed delay time of each kind of spikes.
 % * param.ni, param.ne:
 % *     Numbers of E,I neurons.
 % * param.s_ee, param.s_ei, param.s_ie, param.s_ii:
@@ -55,7 +55,7 @@ spike=zeros(iter,param.ne+param.ni);
 t=0;
 
 for step=1:iter
-    disp(["iteration: ", step]);
+    %disp(["iteration: ", step]);
     m(2:4,:)=c(2:4,:)./s(2:4,:);
     a=exprnd(m);
     %exponential distribution random variable
