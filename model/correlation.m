@@ -1,4 +1,4 @@
-function [] = correlation(spike,ne,ni)
+function [] = correlation(spike,ne,ni,name)
 % A function to compute and show correlation.
 timewindow_upper=985; %note that timewindow_upper <= duration_time-15
 timewindow_lower=785; %note that timewindow_lower >= 15
