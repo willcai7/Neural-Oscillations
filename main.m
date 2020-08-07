@@ -204,7 +204,7 @@ s(2:3,:) = unidrnd(param6.M+param6.Mr+1,[2,param6.ne+param6.ni])- param6.M-1;
 start_time6 = clock;
 spikes6 = model_full(s, duration_time, param6);
 end_time6 = clock;
-run_time6 = etime(end_time6, start_time6);
+run_time6 = etime(end_time6, start_time6);  
 
 firing_rate6 = firing_rate(spikes6, param6.ne, param6.ni);
 scatterplot(spikes6, param6.ne, param6.ni,'scatter-n=100-t=1000-syn')
