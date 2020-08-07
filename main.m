@@ -124,18 +124,18 @@ duration_time   = 1000;
 
 % random inilialization
 s = zeros(4,param4.ne+param4.ni);
-s(1,:) = double(rand(1,param4.ne+param4.ni)>0.8);
-s(2:3,:) = unidrnd(param4.M+param4.Mr+1,[2,param4.ne+param4.ni])- param4.M-1;
+s(2:3,:) = double(rand(2,param4.ne+param4.ni)>0.8);
+s(1,:) = unidrnd(param4.M+param4.Mr+1,[1,param4.ne+param4.ni])- param4.Mr-1;
 
 start_time4 = clock;
-spikes4 = model_full(s, duration_time, param4);
+spikes4 = model_full(s, duration_time, param4,'n=100-hom');
 end_time4 = clock;
 run_time4 = etime(end_time4, start_time4);
 
-firing_rate4 = firing_rate(spikes4, param4.ne, param4.ni);
-scatterplot(spikes4, param4.ne, param4.ni,'scatter-n=100-t=1000-hom')
-correlation(spikes4,param4.ne, param4.ni,'correlation-n=100-t=1000-hom')
-firing_rate4
+% firing_rate4 = firing_rate(spikes4, param4.ne, param4.ni);
+% scatterplot(spikes4, param4.ne, param4.ni,'scatter-n=100-t=1000-hom')
+% correlation(spikes4,param4.ne, param4.ni,'correlation-n=100-t=1000-hom')
+% firing_rate4
 
 %% Full model: regular & small-size & random initialization
 
@@ -160,19 +160,20 @@ param5.tau_i    = 4.5;
 duration_time   = 1000;
 
 % random inilialization
-% s = zeros(4,param5.ne+param5.ni);
-% s(1,:) = double(rand(1,param5.ne+param5.ni)>0.8);
-% s(2:3,:) = unidrnd(param5.M+param5.Mr+1,[2,param5.ne+param5.ni])- param5.M-1;
+s = zeros(4,param5.ne+param5.ni);
+s(2:3,:) = double(rand(2,param5.ne+param5.ni)>0.8);
+s(1,:) = unidrnd(param5.M+param5.Mr+1,[1,param5.ne+param5.ni])- param5.Mr-1;
+
 
 start_time5 = clock;
-spikes5 = model_full(s, duration_time, param5);
+spikes5 = model_full(s, duration_time, param5,'n=100-reg');
 end_time5 = clock;
 run_time5 = etime(end_time5, start_time5);
 
-firing_rate5 = firing_rate(spikes5, param5.ne, param5.ni);
-scatterplot(spikes5, param5.ne, param5.ni,'scatter-n=100-t=1000-reg')
-correlation(spikes5,param5.ne, param5.ni,'correlation-n=100-t=1000-reg')
-firing_rate5
+% firing_rate5 = firing_rate(spikes5, param5.ne, param5.ni);
+% scatterplot(spikes5, param5.ne, param5.ni,'scatter-n=100-t=1000-reg')
+% correlation(spikes5,param5.ne, param5.ni,'correlation-n=100-t=1000-reg')
+% firing_rate5
 
 %% Full model: synchronized & small-size & random initialization
 
@@ -198,15 +199,16 @@ duration_time   = 1000;
 
 %random inilialization
 s = zeros(4,param6.ne+param6.ni);
-s(1,:) = double(rand(1,param6.ne+param6.ni)>0.8);
-s(2:3,:) = unidrnd(param6.M+param6.Mr+1,[2,param6.ne+param6.ni])- param6.M-1;
+s(2:3,:) = double(rand(2,param6.ne+param6.ni)>0.8);
+s(1,:) = unidrnd(param6.M+param6.Mr+1,[1,param6.ne+param6.ni])- param6.Mr-1;
+
 
 start_time6 = clock;
-spikes6 = model_full(s, duration_time, param6);
+spikes6 = model_full(s, duration_time, param6,'n=100-syn');
 end_time6 = clock;
 run_time6 = etime(end_time6, start_time6);  
 
-firing_rate6 = firing_rate(spikes6, param6.ne, param6.ni);
-scatterplot(spikes6, param6.ne, param6.ni,'scatter-n=100-t=1000-syn')
-correlation(spikes6,param6.ne, param6.ni,'correlation-n=100-t=1000-syn')
-firing_rate6
+% firing_rate6 = firing_rate(spikes6, param6.ne, param6.ni);
+% scatterplot(spikes6, param6.ne, param6.ni,'scatter-n=100-t=1000-syn')
+% correlation(spikes6,param6.ne, param6.ni,'correlation-n=100-t=1000-syn')
+% firing_rate6

@@ -2,14 +2,14 @@ function [spike] = model_full(s,duration_time,param,name)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
-% neurons?' written by Yao Li.
+% neurons?' written by Yao Li. 
 
 % In the folder reference, there is a simple note about this full model.
 
-% Here the input param is a struct that contains
-% * param.M, param.Mr:
+% Here the input param is a struct that contains 
+% * param.M, param.Mr: 
 % *     Numbers of potential state.
-% * param.lambda_e, param.lambda_i:
+% * param.lambda_e, param.lambda_i: 
 % *     Parameters for the external drive's Poisson kicks.
 % * param.tau_ee,param.tau_ie, param.tau_i, param.tau_r:
 % *     Parameters for the exponential distributed delay time of each kind of spikes.
@@ -27,18 +27,18 @@ function [spike] = model_full(s,duration_time,param,name)
 % of a neuron.The first row is the total num of its spikes.
 %==========================================================================
 c                                 = zeros(4,param.ne + param.ni);
-c(1,1:param.ne)                   = param.lambda_e;
+c(1,1:param.ne)                   = param.lambda_e; 
 c(1,param.ne+1:param.ne+param.ni) = param.lambda_i;
-c(2,1:param.ne)                   = param.tau_ee;
-c(2,param.ne+1:param.ne+param.ni) = param.tau_ie;
+c(2,1:param.ne)                   = param.tau_ee; 
+c(2,param.ne+1:param.ne+param.ni) = param.tau_ie; 
 c(3,:)                            = param.tau_i;
 c(4,:)                            = param.tau_r;
-%c is time constant matrix. The first row is lambda_e(i), the second row
+%c is time constant matrix. The first row is lambda_e(i), the second row 
 %correspond to H_e, the third row correspond to H_i, the fourth row
 %correspond to tau_r.
 
 if s == false
-    s=zeros(4,param.ne+param.ni);
+s=zeros(4,param.ne+param.ni);
 end
 %s is state matrix. The first three rows indicate the triplet(V,H_e,H_i)for
 %each neuron, the fourth row is 1 and 0 indicating whether a neuron is at refractory
@@ -55,7 +55,7 @@ spike=zeros(2000,param.ne+param.ni);
 t=0;
 i=1;
 
-out=VideoWriter('output\Dynamical-motion.avi');
+out=VideoWriter('ouput\Dynamical-motion.avi');
 out.FrameRate=10;
 open(out);
 
@@ -66,35 +66,35 @@ while t<= duration_time
     %exponential distribution random variable
     min_a=min(min(a));
     [x,y]=find(a==min_a);
-    %the position of the minimum decides the next operation.
+    %the position of the minimum decides the next operation. 
     t=t+a(x,y);
     
-    if floor(t/2)-floor((t-a(x,y))/2)==1
+    if floor(t)-floor((t-a(x,y)))==1
         subplot(2,2,1);
         histogram(s(1,1:param.ne),[-param.Mr:5:param.M]);
         mean=sum(s(1,1:param.ne))/param.ne;
         hold on
         histogram(mean*ones(1,2),[-param.Mr:0.1:param.M]);
         ylim([0 20]);
-        title('Distribution of membrane potential of I neurons');
+        label('Distribution of membrane potential of I neurons');
         subplot(2,2,2);
         histogram(s(1,param.ne+1:param.ne+param.ni),[-param.Mr:5:param.M]);
         mean=sum(s(1,param.ne+1:param.ne+param.ni))/param.ni;
         hold on
         histogram(mean*ones(1,2),[-param.Mr:0.1:param.M]);
         ylim([0 10]);
-        title('Distribution of membrane potential of I neurons');
+        label('Distribution of membrane potential of I neurons');
         subplot(2,2,3);
         bar([1,2],[sum(s(2,1:param.ne)),sum(s(2,param.ne+1:param.ne+param.ni))]);
         ylim([0 250])
-        title('Pending E spikes on E and I neurons');
+        label('Pending E spikes on E and I neurons');
         subplot(2,2,4)
         bar([1,2],[sum(s(3,1:param.ne)),sum(s(3,param.ne+1:param.ne+param.ni))]);
         ylim([0 400])
-        title('Pending I spikes on E and I neurons');
+        label('Pending I spikes on E and I neurons');
         set(gcf,'Position',[10,10,2000,2000]);
-        F=getframe(gcf);
         writeVideo(out,F);
+        pause(0.01);
         close;
     end
     
@@ -116,7 +116,7 @@ while t<= duration_time
         end
     elseif x==3 %H_i operates
         s(x,y)=s(x,y)-1;
-        if s(4,y)==0
+        if s(4,y)==0 
             if y<=param.ne
                 sv=(s(1,y)+param.Mr)*param.s_ei/(param.M+param.Mr);
                 ssv=floor(sv);
@@ -159,7 +159,7 @@ while t<= duration_time
     end
 end
 %the following paragraph is used to compute the distribution of delta_t.
-% subplot(2,2,1)
+% subplot(2,2,1) 
 % histogram(delta_t,'Normalization','probability')
 % title('distribution of time interval')
 % for j=1:i-3
