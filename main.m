@@ -108,10 +108,10 @@ param4.p_ee     = 0.15;
 param4.p_ie     = 0.5;
 param4.p_ei     = 0.5;
 param4.p_ii     = 0.4;
-param4.s_ee     = 5*5;
-param4.s_ie     = 2*5;
-param4.s_ei     = 30;
-param4.s_ii     = 30;
+param4.s_ee     = 5*4.5;
+param4.s_ie     = 2*4.5;
+param4.s_ei     = 25;
+param4.s_ii     = 25;
 param4.tau_r    = 2.5;
 param4.M        = 100;
 param4.Mr       = 66;
@@ -145,10 +145,10 @@ param5.p_ee     = 0.15;
 param5.p_ie     = 0.5;
 param5.p_ei     = 0.5;
 param5.p_ii     = 0.4;
-param5.s_ee     = 5*5;
-param5.s_ie     = 2*5;
-param5.s_ei     = 30;
-param5.s_ii     = 30;
+param5.s_ee     = 5*4.5;
+param5.s_ie     = 2*4.5;
+param5.s_ei     = 25;
+param5.s_ii     = 25;
 param5.tau_r    = 2.5;
 param5.M        = 100;
 param5.Mr       = 66;
@@ -157,7 +157,7 @@ param5.lambda_i = 1/7;
 param5.tau_ee   = 2; 
 param5.tau_ie   = 1.2; 
 param5.tau_i    = 4.5;
-duration_time   = 1000;
+duration_time   = 2000;
 
 % random inilialization
 % s = zeros(4,param5.ne+param5.ni);
@@ -171,7 +171,7 @@ run_time5 = etime(end_time5, start_time5);
 
 firing_rate5 = firing_rate(spikes5, param5.ne, param5.ni);
 scatterplot(spikes5, param5.ne, param5.ni,'scatter-n=100-t=1000-reg')
-correlation(spikes5,param5.ne, param5.ni,'correlation-n=100-t=1000-reg')
+%correlation(spikes5,param5.ne, param5.ni,'correlation-n=100-t=1000-reg')
 firing_rate5
 
 %% Full model: synchronized & small-size & random initialization
@@ -182,10 +182,10 @@ param6.p_ee     = 0.15;
 param6.p_ie     = 0.5;
 param6.p_ei     = 0.5;
 param6.p_ii     = 0.4;
-param6.s_ee     = 5*5;
-param6.s_ie     = 2*5;
-param6.s_ei     = 30;
-param6.s_ii     = 30;
+param6.s_ee     = 5*4.5;
+param6.s_ie     = 2*4.5;
+param6.s_ei     = 25;
+param6.s_ii     = 25;
 param6.tau_r    = 2.5;
 param6.M        = 100;
 param6.Mr       = 66;
@@ -194,7 +194,7 @@ param6.lambda_i = 1/7;
 param6.tau_ee   = 1.3; 
 param6.tau_ie   = 0.95; 
 param6.tau_i    = 4.5;
-duration_time   = 1000;
+duration_time   = 2000;
 
 %random inilialization
 s = zeros(4,param6.ne+param6.ni);
@@ -208,5 +208,5 @@ run_time6 = etime(end_time6, start_time6);
 
 firing_rate6 = firing_rate(spikes6, param6.ne, param6.ni);
 scatterplot(spikes6, param6.ne, param6.ni,'scatter-n=100-t=1000-syn')
-correlation(spikes6,param6.ne, param6.ni,'correlation-n=100-t=1000-syn')
+%correlation(spikes6,param6.ne, param6.ni,'correlation-n=100-t=1000-syn')
 firing_rate6
