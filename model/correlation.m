@@ -1,5 +1,6 @@
-function [] = correlation(spike,ne,ni,name)
+function [] = correlation(res,ne,ni,name)
 % A function to compute and show correlation.
+spike = res.spike;
 timewindow_upper=985; %note that timewindow_upper <= duration_time-15
 timewindow_lower=785; %note that timewindow_lower >= 15
 
@@ -92,7 +93,7 @@ bar(x,corr_ii,1,'b');
 ylim([0 0.3]);
 title('I spikes conditioned on I at t=0');
 set(gcf,'Position',[10,10,2000,150]);
-saveas(gcf,['output\',name,'.png']);
+saveas(gcf,['output\correlation-',name,'.png']);
 
 end
 
