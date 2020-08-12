@@ -55,9 +55,9 @@ spike=zeros(2000,param.ne+param.ni);
 t=0;
 i=1;
 
-out=VideoWriter('output\Dynamical-motion.avi');
-out.FrameRate=10;
-open(out);
+% out=VideoWriter('output\Dynamical-motion.avi');
+% out.FrameRate=10;
+% open(out);
 
 while t<= duration_time
     %disp(["iteration: ", step]);
@@ -69,34 +69,38 @@ while t<= duration_time
     %the position of the minimum decides the next operation.
     t=t+a(x,y);
     
-    if floor(t/2)-floor((t-a(x,y))/2)==1
-        subplot(2,2,1);
-        histogram(s(1,1:param.ne),[-param.Mr:5:param.M]);
-        mean=sum(s(1,1:param.ne))/param.ne;
-        hold on
-        histogram(mean*ones(1,2),[-param.Mr:0.1:param.M]);
-        ylim([0 20]);
-        title('Distribution of membrane potential of I neurons');
-        subplot(2,2,2);
-        histogram(s(1,param.ne+1:param.ne+param.ni),[-param.Mr:5:param.M]);
-        mean=sum(s(1,param.ne+1:param.ne+param.ni))/param.ni;
-        hold on
-        histogram(mean*ones(1,2),[-param.Mr:0.1:param.M]);
-        ylim([0 10]);
-        title('Distribution of membrane potential of I neurons');
-        subplot(2,2,3);
-        bar([1,2],[sum(s(2,1:param.ne)),sum(s(2,param.ne+1:param.ne+param.ni))]);
-        ylim([0 250])
-        title('Pending E spikes on E and I neurons');
-        subplot(2,2,4)
-        bar([1,2],[sum(s(3,1:param.ne)),sum(s(3,param.ne+1:param.ne+param.ni))]);
-        ylim([0 400])
-        title('Pending I spikes on E and I neurons');
-        set(gcf,'Position',[10,10,2000,2000]);
-        F=getframe(gcf);
-        writeVideo(out,F);
-        close;
-    end
+%     if floor(t/20)-floor((t-a(x,y))/20)==1
+%         subplot(2,2,1);
+%         histogram(s(1,1:param.ne),[-param.Mr:5:param.M]);
+%         mean=sum(s(1,1:param.ne))/param.ne;
+%         %         hold on
+%         %         histogram(mean*ones(1,20),[-param.Mr:0.1:param.M]);
+%         ylim([0 20]);
+%         title('Distribution of membrane potential of I neurons');
+%         subplot(2,2,2);
+%         histogram(s(1,param.ne+1:param.ne+param.ni),[-param.Mr:5:param.M]);
+%         mean=sum(s(1,param.ne+1:param.ne+param.ni))/param.ni;
+%         %         hold on
+%         %         histogram(mean*ones(1,10),[-param.Mr:0.1:param.M]);
+%         ylim([0 10]);
+%         title('Distribution of membrane potential of I neurons');
+%         subplot(2,2,3);
+%         bar([1,2],[sum(s(2,1:param.ne)),sum(s(2,param.ne+1:param.ne+param.ni))]);
+%         ylim([0 400])
+%         title('Pending E spikes on E and I neurons');
+%         subplot(2,2,4)
+%         bar([1,2],[sum(s(3,1:param.ne)),sum(s(3,param.ne+1:param.ne+param.ni))]);
+%         text(3,900,num2str(sum(s(3,1:param.ne))/sum(s(3,param.ne+1:param.ne+param.ni))));
+%         text(3,800,num2str(sum(s(3,1:param.ne))));
+%         ylim([0 1000])
+%         title('Pending I spikes on E and I neurons');
+%         pause(0.1)
+% 
+%         %         set(gcf,'Position',[10,10,2000,2000]);
+%         %         F=getframe(gcf);
+%         %         writeVideo(out,F);
+%         %         close;
+%     end
     
     
     %delta_t(i)=a(x,y);
