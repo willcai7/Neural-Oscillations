@@ -1,4 +1,4 @@
-function [spike] = model_full(s,duration_time,param,name)
+function [res] = model_full(s,duration_time,param)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
@@ -23,8 +23,16 @@ function [spike] = model_full(s,duration_time,param,name)
 % The input s is the initial status matrix. If s is false, we will set it
 % as a zero matrix.
 
-% The output spike is a matrix where each columns represent the spike times
-% of a neuron.The first row is the total num of its spikes.
+% THe output res is a struct:
+% * res.spikes:
+% *     The output spike is a matrix where each columns represent the spike times
+% *     of a neuron.The first row is the total num of its spikes.
+% * res.delta_t:
+% *     The time intervals between events.
+% * res.H_**:
+% *     Some samples of a kind of pending spikes.
+% * res.V_*:
+% *     Some samples of membrane potentials.
 %==========================================================================
 c                                 = zeros(4,param.ne + param.ni);
 c(1,1:param.ne)                   = param.lambda_e;
@@ -49,11 +57,20 @@ m(1,:)=c(1,:);
 %m is mean matrix of the next random trial. The first row of m is the same as
 %the first row of c, while the other three rows is obtained by c(2:4,:)./s(2:4,:)
 
-spike=zeros(2000,param.ne+param.ni);
+res.spike=zeros(2000,param.ne+param.ni);
 %spike is the spike time train of each neuron. The first row of spike is spike count.
 
 t=0;
 i=1;
+res.V_e = 0;
+res.V_i = 0;
+res.H_ie = 0;
+res.H_ii = 0;
+res.H_ee = 0;
+res.H_ei = 0;
+
+time_check = 10;
+time_delta = 0;
 
 % out=VideoWriter('output\Dynamical-motion.avi');
 % out.FrameRate=10;
@@ -69,41 +86,7 @@ while t<= duration_time
     %the position of the minimum decides the next operation.
     t=t+a(x,y);
     
-%     if floor(t/20)-floor((t-a(x,y))/20)==1
-%         subplot(2,2,1);
-%         histogram(s(1,1:param.ne),[-param.Mr:5:param.M]);
-%         mean=sum(s(1,1:param.ne))/param.ne;
-%         %         hold on
-%         %         histogram(mean*ones(1,20),[-param.Mr:0.1:param.M]);
-%         ylim([0 20]);
-%         title('Distribution of membrane potential of I neurons');
-%         subplot(2,2,2);
-%         histogram(s(1,param.ne+1:param.ne+param.ni),[-param.Mr:5:param.M]);
-%         mean=sum(s(1,param.ne+1:param.ne+param.ni))/param.ni;
-%         %         hold on
-%         %         histogram(mean*ones(1,10),[-param.Mr:0.1:param.M]);
-%         ylim([0 10]);
-%         title('Distribution of membrane potential of I neurons');
-%         subplot(2,2,3);
-%         bar([1,2],[sum(s(2,1:param.ne)),sum(s(2,param.ne+1:param.ne+param.ni))]);
-%         ylim([0 400])
-%         title('Pending E spikes on E and I neurons');
-%         subplot(2,2,4)
-%         bar([1,2],[sum(s(3,1:param.ne)),sum(s(3,param.ne+1:param.ne+param.ni))]);
-%         text(3,900,num2str(sum(s(3,1:param.ne))/sum(s(3,param.ne+1:param.ne+param.ni))));
-%         text(3,800,num2str(sum(s(3,1:param.ne))));
-%         ylim([0 1000])
-%         title('Pending I spikes on E and I neurons');
-%         pause(0.1)
-% 
-%         %         set(gcf,'Position',[10,10,2000,2000]);
-%         %         F=getframe(gcf);
-%         %         writeVideo(out,F);
-%         %         close;
-%     end
-    
-    
-    %delta_t(i)=a(x,y);
+    res.delta_t(i)=a(x,y);
     i=i+1;
     if x==1 %external input operates
         if s(4,y)==0
@@ -158,25 +141,25 @@ while t<= duration_time
             p=sign(abs(p)+p);
             s(3,:)=s(3,:)+p;
         end
-        spike(1,y)=spike(1,y)+1; %write down the spike time
-        spike(spike(1,y)+1,y)=t;
+        res.spike(1,y)=res.spike(1,y)+1; %write down the spike time
+        res.spike(res.spike(1,y)+1,y)=t;
+    end
+    
+    time_delta = time_delta + a(x,y);
+    if time_delta >= time_check
+        res.V_e = [res.V_e s(1,1:param.ne)];
+        res.V_i = [res.V_i s(1,param.ne+1:param.ne+param.ni)];
+        length_e = length(res.V_e);
+        length_i = length(res.V_i);
+        res.V_e(length_e-param.ne+1: length_e) = -100 * s(4,1:param.ne)+res.V_e(length_e-param.ne+1: length_e);
+        res.V_i(length_i-param.ni+1: length_i) = -100 * s(4,param.ne+1:param.ne+param.ni)+res.V_i(length_i-param.ni+1: length_i);
+        res.H_ee = [res.H_ee s(2,1:param.ne)];
+        res.H_ei = [res.H_ie s(3,1:param.ne)];
+        res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)];
+        res.H_ii = [res.H_ii s(3,param.ne+1:param.ne+param.ni)];
+        time_delta = 0;
+    end
     end
 end
-%the following paragraph is used to compute the distribution of delta_t.
-% subplot(2,2,1)
-% histogram(delta_t,'Normalization','probability')
-% title('distribution of time interval')
-% for j=1:i-3
-%     delta_t2(j)=delta_t(j)+delta_t(j+1);
-%     delta_t3(j)=delta_t(j)+delta_t(j+1)+delta_t(j+2);
-% end
-% subplot(2,2,3)
-% histogram(delta_t2,'Normalization','probability');
-% title('distribution of sum of sequential two intervals')
-% subplot(2,2,4)
-% histogram(delta_t3,'Normalization','probability');
-% title('distribution of sum of sequential three intervals')
-% set(gcf,'Position',[10,10,1800,1800]);
-% saveas(gcf,['output\delta_t-',name,'.png']);
-end
+
 
