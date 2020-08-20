@@ -1,4 +1,4 @@
-function [] = model_full(s,duration_time,param,name)
+function [] = model_full_video(s,duration_time,param,name)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
@@ -55,11 +55,20 @@ spike=zeros(2000,param.ne+param.ni);
 t=0;
 i=1;
 
-out=VideoWriter('output\Dynamical-motion.avi');
-out.FrameRate=10;
-open(out);
+% out=VideoWriter('output\Dynamical-motion.avi');
+% out.FrameRate=10;
+% open(out);
 
 while t<= duration_time
+%     ratio1=sum(s(2,1:param.ne))/sum(s(2,:));
+%     ratio2=sum(s(2,param.ne+1:param.ne+param.ni))/sum(s(2,:));
+%     s(2,1:param.ne)=s(2,1:param.ne)*0.55/ratio1;
+%     s(2,param.ne+1:param.ne+param.ni)=s(2,param.ne+1:param.ne+param.ni)*0.45/ratio2;
+%     
+%     ratio1=sum(s(3,1:param.ne))/sum(s(3,:));
+%     ratio2=sum(s(3,param.ne+1:param.ne+param.ni))/sum(s(3,:));
+%     s(3,1:param.ne)=s(3,1:param.ne)*0.79/ratio1;
+%     s(3,param.ne+1:param.ne+param.ni)=s(3,param.ne+1:param.ne+param.ni)*0.21/ratio2;
     %disp(["iteration: ", step]);
     m(2:4,:)=c(2:4,:)./s(2:4,:);
     a=exprnd(m);
@@ -86,6 +95,8 @@ while t<= duration_time
         title('Distribution of membrane potential of I neurons');
         subplot(2,2,3);
         bar([1,2],[sum(s(2,1:param.ne)),sum(s(2,param.ne+1:param.ne+param.ni))]);
+        text(3,400,num2str(sum(s(2,1:param.ne))/sum(s(2,param.ne+1:param.ne+param.ni))));
+        text(3,300,num2str(sum(s(2,1:param.ne))));
         ylim([0 400])
         title('Pending E spikes on E and I neurons');
         subplot(2,2,4)
@@ -94,7 +105,7 @@ while t<= duration_time
         text(3,800,num2str(sum(s(3,1:param.ne))));
         ylim([0 1000])
         title('Pending I spikes on E and I neurons');
-        pause(0.1)
+        pause(0.01)
 
         %         set(gcf,'Position',[10,10,2000,2000]);
         %         F=getframe(gcf);

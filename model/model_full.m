@@ -60,6 +60,9 @@ m(1,:)=c(1,:);
 res.spike=zeros(2000,param.ne+param.ni);
 %spike is the spike time train of each neuron. The first row of spike is spike count.
 
+res.record = zeros(7,1000);
+%record is the real-time recording of (H_e,H_i,N_GE,N_GI,H_ee/H_e,H_ei/H_i,t).
+
 t=0;
 i=1;
 res.V_e = 0;
@@ -69,14 +72,25 @@ res.H_ii = 0;
 res.H_ee = 0;
 res.H_ei = 0;
 
-time_check = 10;
+
+time_check = 5;
 time_delta = 0;
 
-% out=VideoWriter('output\Dynamical-motion.avi');
-% out.FrameRate=10;
-% open(out);
 
-while t<= duration_time
+count=0;
+
+
+while t<= duration_time    
+    ratio1=sum(s(2,1:param.ne))/sum(s(2,:));
+    ratio2=sum(s(2,param.ne+1:param.ne+param.ni))/sum(s(2,:));
+    s(2,1:param.ne)=s(2,1:param.ne)*0.6/ratio1;
+    s(2,param.ne+1:param.ne+param.ni)=s(2,param.ne+1:param.ne+param.ni)*0.4/ratio2;
+    
+    ratio1=sum(s(3,1:param.ne))/sum(s(3,:));
+    ratio2=sum(s(3,param.ne+1:param.ne+param.ni))/sum(s(3,:));
+    s(3,1:param.ne)=s(3,1:param.ne)*0.79/ratio1;
+    s(3,param.ne+1:param.ne+param.ni)=s(3,param.ne+1:param.ne+param.ni)*0.21/ratio2;
+    
     %disp(["iteration: ", step]);
     m(2:4,:)=c(2:4,:)./s(2:4,:);
     a=exprnd(m);
@@ -85,7 +99,24 @@ while t<= duration_time
     [x,y]=find(a==min_a);
     %the position of the minimum decides the next operation.
     t=t+a(x,y);
-    
+    if floor(t)-floor((t-a(x,y)))==1
+        count=count+1;
+        res.record(1,count)=sum(s(2,:));
+        res.record(2,count)=sum(s(3,:));
+        V=s(1,1:param.ne);
+        V=V(V>=param.gate);
+        res.record(3,count)=length(V);
+        V=s(1,param.ne+1:param.ne+param.ni);
+        V=V(V>=param.gate);
+        res.record(4,count)=length(V);
+        if res.record(1,count) ~=0
+        res.record(5,count)=sum(s(2,1:param.ne))/res.record(1,count);
+        end
+        if res.record(2,count) ~=0
+        res.record(6,count)=sum(s(3,1:param.ne))/res.record(2,count);
+        end
+        res.record(7,count)=t-a(x,y);
+    end
     res.delta_t(i)=a(x,y);
     i=i+1;
     if x==1 %external input operates
@@ -147,12 +178,14 @@ while t<= duration_time
     
     time_delta = time_delta + a(x,y);
     if time_delta >= time_check
-        res.V_e = [res.V_e s(1,1:param.ne)];
-        res.V_i = [res.V_i s(1,param.ne+1:param.ne+param.ni)];
+        if sum(s(1,1:param.ne))<0
+        res.V_e = [res.V_e,s(1,1:param.ne)-sum(s(1,1:param.ne))/param.ne];
+        res.V_i = [res.V_i,s(1,param.ne+1:param.ne+param.ni)-sum(s(1,param.ne+1:param.ne+param.ni))/param.ni];
         length_e = length(res.V_e);
         length_i = length(res.V_i);
         res.V_e(length_e-param.ne+1: length_e) = -100 * s(4,1:param.ne)+res.V_e(length_e-param.ne+1: length_e);
         res.V_i(length_i-param.ni+1: length_i) = -100 * s(4,param.ne+1:param.ne+param.ni)+res.V_i(length_i-param.ni+1: length_i);
+        end
         res.H_ee = [res.H_ee s(2,1:param.ne)];
         res.H_ei = [res.H_ie s(3,1:param.ne)];
         res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)];
