@@ -68,9 +68,12 @@ res.H_ie = 0;
 res.H_ii = 0;
 res.H_ee = 0;
 res.H_ei = 0;
-
-time_check = 10;
+res.N_GE = 0;
+res.N_GI = 0;
+time_check = 3;
 time_delta = 0;
+res.V_e_P=0;
+res.V_i_P=0;
 
 % out=VideoWriter('output\Dynamical-motion.avi');
 % out.FrameRate=10;
@@ -153,11 +156,17 @@ while t<= duration_time
         length_i = length(res.V_i);
         res.V_e(length_e-param.ne+1: length_e) = -100 * s(4,1:param.ne)+res.V_e(length_e-param.ne+1: length_e);
         res.V_i(length_i-param.ni+1: length_i) = -100 * s(4,param.ne+1:param.ne+param.ni)+res.V_i(length_i-param.ni+1: length_i);
-        res.H_ee = [res.H_ee s(2,1:param.ne)];
-        res.H_ei = [res.H_ie s(3,1:param.ne)];
-        res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)];
-        res.H_ii = [res.H_ii s(3,param.ne+1:param.ne+param.ni)];
+        V_e_P = s(1,1:param.ne) - mean(s(1,1:param.ne));
+        V_i_P = s(1,param.ne+1:param.ne+param.ni) - mean(s(1,param.ne+1:param.ne+param.ni));
+        res.V_e_P = [res.V_e_P V_e_P];
+        res.V_i_P = [res.V_i_P V_i_P];
+        res.H_ee = [res.H_ee s(2,1:param.ne)*ones(param.ne,1)];
+        res.H_ei = [res.H_ei s(3,1:param.ne)*ones(param.ne,1)];
+        res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)*ones(param.ni,1)];
+        res.H_ii = [res.H_ii s(3,param.ne+1:param.ne+param.ni)*ones(param.ni,1)];
         time_delta = 0;
+        res.N_GE = [res.N_GE (s(1, 1:param.ne)>100-22.5)*ones(param.ne,1)];
+        res.N_GI = [res.N_GI (s(1,param.ne+1:param.ne+param.ni)>100-22.5)*ones(param.ni,1)];
     end
     end
 end
