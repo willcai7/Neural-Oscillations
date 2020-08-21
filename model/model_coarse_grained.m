@@ -32,7 +32,7 @@ a_ii=param.a_ii;
 t=0;
 
 res.spike = zeros(2,2000);
-res.rec   = zeros(5,1000);
+res.rec   = zeros(5,900);
 
 count=0;
 
