@@ -1,4 +1,4 @@
-function [] = line_graph(res,time_delta,ne, ni, name)
+function [] = line_graph(res,time_delta,ne, ni, type,name,save)
 num = length(res.H_ee);
 time = linspace(1,num* time_delta, num);
 subplot(3,1,1);
@@ -23,7 +23,9 @@ plot(time, res.N_GI/ ni,'b');
 xlim([0,num*time_delta+100]);
 legend('N_{GE}/N_{E}','N_{GI}/N_I');
 xlabel('t/ms');
+if save==true
 set(gcf,'Position',[10,10,1000,600]);
-saveas(gcf,['output\graphline-',name,'.png']);
+saveas(gcf,['output\',type,'\graphline-',name,'.png']);
+end
 end
 

@@ -1,20 +1,20 @@
-function [res] = model_coarse_grained(s,duration_time, param, P)
+function [res] = model_coarse_grained(s,duration_time, param)
 
 ne=param.ne;
 ni=param.ni;
 max_pe=param.pending_e_maximum;
 max_pi=param.pending_i_maximum;
 
-P_BE_Ex=P.P_BE_Ex;
-P_BI_Ex=P.P_BI_Ex;
-P_GE_Ex=P.P_GE_Ex;
-P_GI_Ex=P.P_GI_Ex;
-P_BE_E=P.P_BE_E;
-P_BI_E=P.P_BI_E;
-P_GE_E=P.P_BE_E;
-P_GI_E=P.P_GI_E;
-P_GE_I=P.P_GE_I;
-P_GI_I=P.P_GI_I;
+P_BE_Ex=param.P_BE_Ex;
+P_BI_Ex=param.P_BI_Ex;
+P_GE_Ex=param.P_GE_Ex;
+P_GI_Ex=param.P_GI_Ex;
+P_BE_E=param.P_BE_E;
+P_BI_E=param.P_BI_E;
+P_GE_E=param.P_BE_E;
+P_GI_E=param.P_GI_E;
+P_GE_I=param.P_GE_I;
+P_GI_I=param.P_GI_I;
 
 P_e=param.S_e;
 P_i=param.S_i;
@@ -115,19 +115,7 @@ while t<= duration_time
         s(4)=s(4)-1;
     end
 end
- r=100;
-scatter(res.spike(1,2:res.spike(1,1)+1), 1*ones(1,res.spike(1,1)),'.','r');
-hold on
-scatter(res.spike(2,2:res.spike(2,1)+1), 2*ones(1,res.spike(2,1)),'.','b');
-hold on
-plot(res.rec(5,:),res.rec(1,:)/75+1.2);
-hold on
-plot(res.rec(5,:),res.rec(2,:)/25+1.2);
-hold on
-plot(res.rec(5,:),res.rec(3,:)/(r*4000));
-hold on
-plot(res.rec(5,:),res.rec(4,:)/(r*4000));
-legend('spikes of E','spikes of I','N_{ge}/75','N_{gi}/25','H_e/20000','H_i/20000');
+
 end
 
 

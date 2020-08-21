@@ -119,19 +119,19 @@ while t<= duration_time
 end
 
 end
-
-scatter(spike(1,2:spike(1,1)+1), 1*ones(1,spike(1,1)),'.','r');
-hold on
-scatter(spike(2,2:spike(2,1)+1), 2*ones(1,spike(2,1)),'.','b');
-hold on
-plot(rec(5,:),rec(1,:)/75+1.2);
-hold on
-plot(rec(5,:),rec(2,:)/25+1.2);
-hold on
-plot(rec(5,:),rec(3,:)/(r*4000));
-hold on
-plot(rec(5,:),rec(4,:)/(r*4000));
-legend('spikes of E','spikes of I','N_{ge}/75','N_{gi}/25','H_e/20000','H_i/20000');
+% 
+% scatter(spike(1,2:spike(1,1)+1), 1*ones(1,spike(1,1)),'.','r');
+% hold on
+% scatter(spike(2,2:spike(2,1)+1), 2*ones(1,spike(2,1)),'.','b');
+% hold on
+% plot(rec(5,:),rec(1,:)/75+1.2);
+% hold on
+% plot(rec(5,:),rec(2,:)/25+1.2);
+% hold on
+% plot(rec(5,:),rec(3,:)/(r*4000));
+% hold on
+% plot(rec(5,:),rec(4,:)/(r*4000));
+% legend('spikes of E','spikes of I','N_{ge}/75','N_{gi}/25','H_e/20000','H_i/20000');
 
 % hold on
 % scatter(spike(2,2:spike(2,1)+1), 2*ones(1,spike(2,1)),'.','b');
