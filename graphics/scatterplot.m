@@ -1,4 +1,4 @@
-function [] = scatterplot(res,ne,ni,name)
+function [] = scatterplot(res,ne,ni,type,name,save)
 % A function to show scatterplots and save them in folder output
 for i=1:ne
 maxrow = res.spike(1,i);
@@ -10,8 +10,12 @@ maxrow = res.spike(1,i);
 scatter(res.spike(2:maxrow+1,i), i*ones(1,maxrow),'.','b');
 hold on
 end
-set(gcf,'Position',[10,10,2000,400]);
 title(name);
-saveas(gcf,['output\scatter-',name,'.png']);
+
+if save==true
+set(gcf,'Position',[10,10,2000,400]);
+saveas(gcf,['output\',type,'\scatter-',name,'.png']);
+end
+
 end
 
