@@ -239,9 +239,22 @@ hist_t(res6,type,name6,save)
 
 %% Coarse grained fixed probabiliy model:
 
-c=0.3;
+c=0.2;
 param7.ne=75;
 param7.ni=25;
+
+param7.P_BE_Ex=0.0067*ones(1,76)*c;
+param7.P_BI_Ex=0.0104*ones(1,26)*c;
+param7.P_GE_Ex=0.02*ones(1,76)*c;
+param7.P_GI_Ex=0.00247*ones(1,26)*c;
+param7.P_BE_E=0.029*ones(1,76)*c;
+param7.P_BI_E=0.07*ones(1,26)*c;
+param7.P_BE_E=ones(1,76)*c;
+param7.P_GI_E=ones(1,26)*c;
+param7.P_GE_I=ones(1,76)*c;
+param7.P_GI_I=ones(1,26)*c;
+
+
 
 
 param7.lambda_e = 1/7;
@@ -261,12 +274,12 @@ duration_time   = 1000;
 
 %random initialization
 s=ones(1,4);
-res7=model_coarse_grained(s,duration_time,param7,P1,0.3);
+res7=model_coarse_grained(s,duration_time,param7);
 
-% save=false;
-% type='syn';
-% name7='t=1000';
-% coarse_grained_plot(param7,res7,type,name7,save);
+save=false;
+type='reg';
+name7='t=1000';
+coarse_grained_plot(param7,res7,duration_time,type,name7,save);
 
 % line_graph(res7,time_delta,ne, ni, name)
 
