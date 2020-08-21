@@ -21,7 +21,7 @@ param1.lambda_i = 1/7;
 param1.tau_ee   = 4; 
 param1.tau_ie   = 1.2; 
 param1.tau_i    = 4.5;
-
+param1.gate      = 70;
 duration_time   = 1000;
 %About 300 ms
 s               = false;
@@ -54,7 +54,7 @@ param2.lambda_i = 1/7;
 param2.tau_ee   = 2; 
 param2.tau_ie   = 1.2; 
 param2.tau_i    = 4.5;
-
+param2.gate      = 70;
 duration_time   = 1000;
 s               = false;
 
@@ -86,7 +86,7 @@ param3.lambda_i = 1/7;
 param3.tau_ee   = 1.3; 
 param3.tau_ie   = 0.95; 
 param3.tau_i    = 4.5;
-
+param3.gate      = 70;
 duration_time   = 1000;
 s               = false;
 
@@ -108,8 +108,8 @@ param4.p_ee     = 0.15;
 param4.p_ie     = 0.5;
 param4.p_ei     = 0.5;
 param4.p_ii     = 0.4;
-param4.s_ee     = 5*5;
-param4.s_ie     = 15;
+param4.s_ee     = 5*4.5;
+param4.s_ie     = 2*4.5;
 param4.s_ei     = 25;
 param4.s_ii     = 25;
 param4.tau_r    = 0;
@@ -120,6 +120,7 @@ param4.lambda_i = 1/7;
 param4.tau_ee   = 4; 
 param4.tau_ie   = 1.2; 
 param4.tau_i    = 4.5;
+param4.gate      = 70;
 duration_time   = 1000;
 name4 = 'scatter-n=100-t=1000-hom';
 % random inilialization
@@ -128,14 +129,15 @@ s(2:3,:) = double(rand(2,param4.ne+param4.ni)>0.8);
 s(1,:) = unidrnd(param4.M+param4.Mr+1,[1,param4.ne+param4.ni])- param4.Mr-1;
 
 start_time4 = clock;
-res4 = model_full(s, duration_time, param4);
+%  model_full_video(s, duration_time, param4);
+ res4 = model_full(s, duration_time, param4);
 end_time4 = clock;
 run_time4 = etime(end_time4, start_time4);
 
 
 firing_rate4 = firing_rate(res4.spike, param4.ne, param4.ni);
-scatterplot(res4, param5.ne, param4.ni, name4)
-correlation(res4, param5.ne, param4.ni, name4)
+scatterplot(res4, param4.ne, param4.ni, name4)
+correlation(res4, param4.ne, param4.ni, name4)
 hist_h(res4, name4)
 hist_v(res4, name4)
 hist_t(res4, name4)
@@ -149,8 +151,8 @@ param5.p_ee     = 0.15;
 param5.p_ie     = 0.5;
 param5.p_ei     = 0.5;
 param5.p_ii     = 0.4;
-param5.s_ee     = 5*5;
-param5.s_ie     = 15;
+param5.s_ee     = 2*4.5;
+param5.s_ie     = 5*4.5;
 param5.s_ei     = 25;
 param5.s_ii     = 25;
 param5.tau_r    = 2.5;
@@ -161,6 +163,7 @@ param5.lambda_i = 1/7;
 param5.tau_ee   = 2; 
 param5.tau_ie   = 1.2; 
 param5.tau_i    = 4.5;
+param5.gate      = 70;
 duration_time   = 1000;
 name5 = 'n=100-t=1000-reg';
 % random inilialization
@@ -170,6 +173,7 @@ s(1,:) = unidrnd(param5.M+param5.Mr+1,[1,param5.ne+param5.ni])- param5.Mr-1;
 
 
 start_time5 = clock;
+%  model_full_video(s, duration_time, param5);
 res5 = model_full(s, duration_time, param5);
 end_time5 = clock;
 run_time5 = etime(end_time5, start_time5);
@@ -191,8 +195,8 @@ param6.p_ee     = 0.15;
 param6.p_ie     = 0.5;
 param6.p_ei     = 0.5;
 param6.p_ii     = 0.4;
-param6.s_ee     = 5*5;
-param6.s_ie     = 15;
+param6.s_ee     = 2*4.5;
+param6.s_ie     = 5*4.5;
 param6.s_ei     = 25;
 param6.s_ii     = 25;
 param6.tau_r    = 0;
@@ -203,6 +207,7 @@ param6.lambda_i = 1/7;
 param6.tau_ee   = 1.3; 
 param6.tau_ie   = 0.95; 
 param6.tau_i    = 4.5;
+param6.gate      = 70;
 duration_time   = 1000;
 
 name6 = 'n=100-t=1000-syn';
@@ -214,121 +219,19 @@ s(1,:) = unidrnd(param6.M+param6.Mr+1,[1,param6.ne+param6.ni])- param6.Mr-1;
 
 
 start_time6 = clock;
+% model_full_video(s, duration_time, param6);
 res6 = model_full(s, duration_time, param6);
 end_time6 = clock;
 run_time6 = etime(end_time6, start_time6);  
 
 
 %firing_rate6 = firing_rate(res6.spikes, param6.ne, param6.ni);
-scatterplot(res6, param6.ne, param6.ni,name6)
+scatterplot(res6,param6.ne, param6.ni,name6)
 correlation(res6,param6.ne, param6.ni,name6)
 hist_h(res6, name6)
 hist_v(res6, name6)
 hist_t(res6, name6)
-line_graph(res6,3, param6.ne, param6.ni, name6);
 %firing_rate6
-
-%% Reduced Network: Synchronized
-
-
-param7.ne       = 75;
-param7.ni       = 25;
-param7.p_ee     = 0.15;
-param7.p_ie     = 0.5;
-param7.p_ei     = 0.5;
-param7.p_ii     = 0.4;
-param7.M        = 100;
-param7.Mr       = 66;
-param7.lambda_e = 1/7;
-param7.lambda_i = 1/7; 
-param7.tau_ee   = 1.3; 
-param7.tau_ie   = 0.95; 
-param7.tau_i    = 4.5;
-
-c=0.8;
-param7.P_BE_Ex  = 0.0035*c;
-param7.P_GE_Ex  = 0.0319*c;
-param7.P_BI_Ex  = 0.0022*c;
-param7.P_GI_Ex  = 0.0140*c;
-param7.P_BE_E   = 0.1434*c;
-param7.P_GE_E   = 1;
-param7.P_BI_E   = 0.0228*c;
-param7.P_GI_E   = 0.1562*c;
-param7.P_GE_I   = 1;
-param7.P_GI_I   = 1;
-
-duration_time   = 1000;
-
-s=false;
-name7 = 'n=100-t=1000-reduced-syn';
-start_time7 = clock;
-res7 = model_reduced_network(s,duration_time, param7);
-end_time7 = clock;
-run_time7 = etime(end_time7, start_time7);
-scatterplot(res7, param7.ne, param7.ni,name7)
-line_graph(res7,3, param7.ne, param7.ni, name7);
-
-%% Full model without ref: synchronized
-
-param8.ne       = 75;
-param8.ni       = 25;
-param8.p_ee     = 0.15;
-param8.p_ie     = 0.5;
-param8.p_ei     = 0.5;
-param8.p_ii     = 0.4;
-param8.s_ee     = 5*5;
-param8.s_ie     = 2*5;
-param8.s_ei     = 25;
-param8.s_ii     = 25;
-param8.tau_r    = 2.5;
-param8.M        = 100;
-param8.Mr       = 66;
-param8.lambda_e = 1/7;
-param8.lambda_i = 1/7; 
-param8.tau_ee   = 1.3; 
-param8.tau_ie   = 0.95; 
-param8.tau_i    = 4.5;
-duration_time   = 1000;
-
-name8 = 'n=100-t=1000-syn-noref';
-
-
-
-start_time8 = clock;
-res8 = model_full_noref(s, duration_time, param8);
-end_time8 = clock;
-run_time8 = etime(end_time8, start_time8);  
-
-
-%firing_rate6 = firing_rate(res6.spikes, param6.ne, param6.ni);
-line_graph(res8,3, param8.ne, param8.ni, name8);
-scatterplot(res8, param8.ne, param8.ni,name8);
-
-%% Reduced Network with Nonfixed P: Synchronized
-param9.ne       = 75;
-param9.ni       = 25;
-param9.p_ee     = 0.15;
-param9.p_ie     = 0.5;
-param9.p_ei     = 0.5;
-param9.p_ii     = 0.4;
-param9.lambda_e = 1/7;
-param9.lambda_i = 1/7; 
-param9.tau_ee   = 1.3; 
-param9.tau_ie   = 0.95; 
-param9.tau_i    = 4.5;
-
-duration_time   = 500;
-
-s=false;
-name9 = 'n=100-t=1000-reduced-nonfixedP-syn';
-start_time9 = clock;
-P1 = P_generation_histogram(param8, res8);
-res9 = model_reduced_network_P(s,duration_time, param9, P1);
-end_time9 = clock;
-run_time9 = etime(end_time9, start_time9);
-scatterplot(res9, param9.ne, param9.ni,name9);
-%line_graph(res9,3, param9.ne, param9.ni, name9);
-
 
 %% Coarse grained fixed probabiliy model:
 
@@ -336,16 +239,16 @@ c=0.6;
 param7.ne=75;
 param7.ni=25;
 
-param7.P_BE_Ex=0.0067*c;%p_ex^be
-param7.P_BI_Ex=0.0104*c;%p_ex^bi
-param7.P_GE_Ex=0.02*c;%p_ex^ge
-param7.P_GI_Ex=0.0247*c;%p_ex^gi
-param7.P_BE_E=0.29*c;%p_e^be
-param7.P_BI_E=0.07*c;%p_e^bi
-param7.P_GE_E=1;%p_e^ge
-param7.P_GI_E=1;%p_e^gi
-param7.P_GE_I=1;%p_i^ge
-param7.P_GI_I=1;%p_i^gi
+param7.p1=0.0067*c;%p_ex^be
+param7.p2=0.0104*c;%p_ex^bi
+param7.p3=0.02*c;%p_ex^ge
+param7.p4=0.0247*c;%p_ex^gi
+param7.p5=0.29*c;%p_e^be
+param7.p6=0.07*c;%p_e^bi
+param7.p7=1;%p_e^ge
+param7.p8=1;%p_e^gi
+param7.p9=1;%p_i^ge
+param7.p10=1;%p_i^gi
 
 param7.lambda_e = 1/7;
 param7.lambda_i = 1/7; 
@@ -364,6 +267,8 @@ duration_time   = 1000;
 
 %random initialization
 s=ones(1,4);
-res7=model_coarse_grained(s,duration_time,param7,P3);
+res7=coarse_grained(s,duration_time,param);
 
 line_graph(res7,time_delta,ne, ni, name)
+
+
