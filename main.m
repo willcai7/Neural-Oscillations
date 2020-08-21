@@ -108,8 +108,8 @@ param4.p_ee     = 0.15;
 param4.p_ie     = 0.5;
 param4.p_ei     = 0.5;
 param4.p_ii     = 0.4;
-param4.s_ee     = 5*4.5;
-param4.s_ie     = 2*4.5;
+param4.s_ee     = 25;
+param4.s_ie     = 15;
 param4.s_ei     = 25;
 param4.s_ii     = 25;
 param4.tau_r    = 0;
@@ -151,8 +151,8 @@ param5.p_ee     = 0.15;
 param5.p_ie     = 0.5;
 param5.p_ei     = 0.5;
 param5.p_ii     = 0.4;
-param5.s_ee     = 2*4.5;
-param5.s_ie     = 5*4.5;
+param5.s_ee     = 25;
+param5.s_ie     = 15;
 param5.s_ei     = 25;
 param5.s_ii     = 25;
 param5.tau_r    = 2.5;
@@ -195,8 +195,8 @@ param6.p_ee     = 0.15;
 param6.p_ie     = 0.5;
 param6.p_ei     = 0.5;
 param6.p_ii     = 0.4;
-param6.s_ee     = 2*4.5;
-param6.s_ie     = 5*4.5;
+param6.s_ee     = 25;
+param6.s_ie     = 15;
 param6.s_ei     = 25;
 param6.s_ii     = 25;
 param6.tau_r    = 0;
@@ -233,22 +233,16 @@ hist_v(res6, name6)
 hist_t(res6, name6)
 %firing_rate6
 
-%% Coarse grained fixed probabiliy model:
+%% Coarse grained fixed probabiliy model: synchronized
 
-c=0.6;
+% Load P
+res = load('res7');
+res = res.res6;
+P1 = P_generation_histogram(param6, res);
 param7.ne=75;
 param7.ni=25;
 
-param7.p1=0.0067*c;%p_ex^be
-param7.p2=0.0104*c;%p_ex^bi
-param7.p3=0.02*c;%p_ex^ge
-param7.p4=0.0247*c;%p_ex^gi
-param7.p5=0.29*c;%p_e^be
-param7.p6=0.07*c;%p_e^bi
-param7.p7=1;%p_e^ge
-param7.p8=1;%p_e^gi
-param7.p9=1;%p_i^ge
-param7.p10=1;%p_i^gi
+
 
 param7.lambda_e = 1/7;
 param7.lambda_i = 1/7; 
@@ -267,7 +261,7 @@ duration_time   = 1000;
 
 %random initialization
 s=ones(1,4);
-res7=coarse_grained(s,duration_time,param);
+res7=model_coarse_grained(s,duration_time,param7, P1,0.3);
 
 line_graph(res7,time_delta,ne, ni, name)
 

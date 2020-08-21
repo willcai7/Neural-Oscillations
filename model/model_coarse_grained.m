@@ -1,16 +1,16 @@
-function [res] = model_coarse_grained(s,duration_time, param, P)
+function [res] = model_coarse_grained(s,duration_time, param, P,q)
 
 ne=param.ne;
 ni=param.ni;
 max_pe=param.pending_e_maximum;
 max_pi=param.pending_i_maximum;
 
-P_BE_Ex=P.P_BE_Ex;
-P_BI_Ex=P.P_BI_Ex;
+P_BE_Ex=P.P_BE_Ex*q;
+P_BI_Ex=P.P_BI_Ex*q;
 P_GE_Ex=P.P_GE_Ex;
 P_GI_Ex=P.P_GI_Ex;
-P_BE_E=P.P_BE_E;
-P_BI_E=P.P_BI_E;
+P_BE_E=P.P_BE_E*q;
+P_BI_E=P.P_BI_E*q;
 P_GE_E=P.P_BE_E;
 P_GI_E=P.P_GI_E;
 P_GE_I=P.P_GE_I;

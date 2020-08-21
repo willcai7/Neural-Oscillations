@@ -19,8 +19,8 @@ function [P] = P_generation_histogram(param, res)
 % *   P.P_BE_I: The effect of pending I-spike on a Base E-neuron.
 % *   P.P_BI_I: The effect of pending I-spike on a Base I-neuron.
 %==========================================================================
-V_e = res.V_e_P;
-V_i = res.V_i_P;
+V_e = res.V_e;
+V_i = res.V_i;
 ne = param.ne;
 ni = param.ni;
 Mr = param.Mr;
@@ -68,7 +68,7 @@ end
 
 for i=1:ni
     j=Mr + M;
-    probablity=0;
+    probablity=0;B
     if i==1 
         lim=0.5/ni; 
     else

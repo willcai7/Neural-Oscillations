@@ -1,55 +1,125 @@
-function [res] = coarse_grained(s,duration_time,param)
 
-% s=ones(1,4); %representing (N_ge,N_gi,H_e,H_i)
+res=load('res7');
+res=res.res6;
+PDF_e=histogram(res.V_e,[-69:1:100],'normalization','probability');
+PDF_e=PDF_e.Values;
+close;
+PDF_i=histogram(res.V_i,[-69:1:100],'normalization','probability');
+PDF_i=PDF_i.Values;
+close;
+% 
+% PDF_e=gaussian_vector(10.5402,-1.7394);
+% PDF_i=gaussian_vector(13.3019,-2.0295);
 
-ne=param.ne;
-ni=param.ni;
-max_pe=param.pending_e_maximum;
-max_pi=param.pending_i_maximum;
 
-p1=param.p1;
-p2=param.p2;
-p3=param.p3;
-p4=param.p4;
-p5=param.p5;
-p6=param.p6;
-p7=param.p7;
-p8=param.p8;
-p9=param.p9;
-p10=param.p10;
+p1=zeros(1,76);
+p2=zeros(1,26);
+p3=zeros(1,76);
+p4=zeros(1,26);
+p5=zeros(1,76);
+p6=zeros(1,26);
+p7=ones(1,76);
+p8=zeros(1,26);
+p9=ones(1,76);
+p10=ones(1,26);
 
-P_e=param.S_e;
-P_i=param.S_i;
+for i=1:76
+    j=169;
+    count=0;
+    if i==1
+        lim=0.5/75;
+    else
+        lim=(i-1)/75;
+    end
+    while count<lim && j>1
+        count=count+PDF_e(j);
+        j=j-1;
+    end
+    p1(i)=PDF_e(j)/(1-count);
+    p3(i)=sum(PDF_e(min(j+25,169):169))/count;
+    p5(i)=sum(PDF_e(max(j-25,1):j))/(1-count);
+end
 
-lambda_e=param.lambda_e;
-lambda_i=param.lambda_i;
-tau_ee=param.tau_ee;
-tau_ee=param.tau_ie;
-tau_i=param.tau_i;
-a_ee=param.a_ee;
-a_ie=param.a_ie;
-a_ei=param.a_ei;
-a_ii=param.a_ii;
+for i=1:26
+    j=169;
+    count=0;
+    if i==1
+        lim=0.5/25;
+    else
+        lim=(i-1)/25;
+    end
+    while count<lim && j>1
+        count=count+PDF_i(j);
+        j=j-1;
+    end
+    p2(i)=PDF_i(j)/(1-count);
+    p4(i)=sum(PDF_i(min(j+25,169):169))/count;
+    p6(i)=sum(PDF_i(max(j-15,1):j))/(1-count);
+    p8(i)=sum(PDF_i(min(j+10,169):169))/count;
+end
+    
+
+    
+
+
+
+
+
+
+
+
+
+s=ones(1,4); %representing (N_ge,N_gi,H_e,H_i)
+
+ c=0.3;
+ r=100;
+ p1=p1*c;%p^ext_bge
+ p2=p2*c;%p^ext_bgi
+ p3=p3;%p^ext_gsbe
+ p4=p4;%p^ext_gsbi
+ p5=p5*c;%p^pe_bge
+ p6=p6*c;%p^pe_bgi
+
+
+
+P_e=24;
+P_i=48;
+
+lambda_e=1/7;
+lambda_i=1/7;
+tau_ee=2;
+tau_ie=1.2;
+tau_i=4.5;
+a_ee=0.6;
+a_ie=0.4;
+a_ei=0.79;
+a_ii=0.21;
+
+
+
+
 
 t=0;
+duration_time=1000;
+spike=zeros(2,2000);
 
-res.spike=zeros(2,2000);
-res.rec=zeros(5,1000);
 
+rec=zeros(5,1000);
 count=0;
 
 while t<= duration_time
     c=[p1(s(1)+1)/lambda_e,p2(s(2)+1)/lambda_i,p3(s(1)+1)/lambda_e,p4(s(2)+1)/lambda_i,...
         p5(s(1)+1)*a_ee/tau_ee,p6(s(2)+1)*a_ie/tau_ie,p7(s(1)+1)*a_ee/tau_ee,p8(s(2)+1)*a_ie/tau_ie,0,...
         p9(s(1)+1)*a_ei/tau_i,p10(s(2)+1)*a_ii/tau_i,0];
-    q=[ne-s(1),ni-s(2),s(1),s(2),(1-s(1)/ne)*s(3),(1-s(2)/ni)*s(3),s(1)*s(3)/ne,...
-        s(2)*s(3)/ni,0,s(1)*s(4)/ne,s(2)*s(4)/ni,0];
+    q=[75-s(1),25-s(2),s(1),s(2),(1-s(1)/75)*s(3),(1-s(2)/25)*s(3),s(1)*s(3)/75,...
+        s(2)*s(3)/25,0,s(1)*s(4)/75,s(2)*s(4)/25,0];
     q=q.*c;
     q(9)=q(5)*(1-p5(s(1)+1))/p5(s(1)+1)+q(6)*(1-p6(s(2)+1))/p6(s(2)+1)...
         +q(7)*(1-p7(s(1)+1))/p7(s(1)+1)+q(8)*(1-p8(s(2)+1))/p8(s(2)+1);
     q(12)=s(4)/tau_i-q(10)-q(11);
     dt=exprnd(1/sum(q));
     t=t+dt;
+    t
     if floor(t)-floor((t-dt))==1
         count=count+1;
         rec(:,count)=[s,t-dt]';
@@ -71,16 +141,16 @@ while t<= duration_time
         s(3)=s(3)+P_e;
         spike(1,1)=spike(1,1)+1;
         spike(1,spike(1,1)+1)=t;
-        if s(3)>max_pe
-            s(3)=max_pe;
+        if s(3)>r*2000
+            s(3)=r*2000;
         end
     elseif i==4
         s(2)=s(2)-1;
         s(4)=s(4)+P_i;
         spike(2,1)=spike(2,1)+1;
         spike(2,spike(2,1)+1)=t;
-        if s(4)>max_pi
-            s(4)=max_pi;
+        if s(4)>r*4000
+            s(4)=r*4000;
         end
     elseif i==5
         s(1)=s(1)+1;
@@ -93,8 +163,8 @@ while t<= duration_time
         s(3)=s(3)-1+P_e;
         spike(1,1)=spike(1,1)+1;
         spike(1,spike(1,1)+1)=t;
-        if s(3)>max_pe
-            s(3)=max_pe;
+        if s(3)>r*2000
+            s(3)=r*2000;
         end
     elseif i==8
         s(2)=s(2)-1;
@@ -102,8 +172,8 @@ while t<= duration_time
         s(4)=s(4)+P_i;
         spike(2,1)=spike(2,1)+1;
         spike(2,spike(2,1)+1)=t;
-        if s(4)>max_pi
-            s(4)=max_pi;
+        if s(4)>r*4000
+            s(4)=r*4000;
         end
     elseif i==9
         s(3)=s(3)-1;
@@ -116,8 +186,9 @@ while t<= duration_time
     elseif i==12
         s(4)=s(4)-1;
     end
+    
+    
 end
-
 
 scatter(spike(1,2:spike(1,1)+1), 1*ones(1,spike(1,1)),'.','r');
 hold on
@@ -130,8 +201,9 @@ hold on
 plot(rec(5,:),rec(3,:)/(r*4000));
 hold on
 plot(rec(5,:),rec(4,:)/(r*4000));
+
 legend('spikes of E','spikes of I','N_{ge}/75','N_{gi}/25','H_e/20000','H_i/20000');
-end
+
 % hold on
 % scatter(spike(2,2:spike(2,1)+1), 2*ones(1,spike(2,1)),'.','b');
 
