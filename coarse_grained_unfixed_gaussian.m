@@ -22,6 +22,16 @@ p8=zeros(1,26);
 p9=ones(1,76);
 p10=ones(1,26);
 
+P1.P_BE_Ex = p1;
+P1.P_BI_Ex = p2;
+P1.P_GE_Ex = p3;
+P1.P_GI_Ex = p4;
+P1.P_BE_E = p5;
+P1.P_BI_E = p6;
+P1.P_GE_E = p7;
+P1.P_GI_E = p8;
+P1.P_GE_I = p9;
+P1.P_GI_I = p10;
 
 for i=1:76
     j=169;
@@ -36,8 +46,8 @@ for i=1:76
         j=j-1;
     end
     p1(i)=PDF_e(j)/(1-count);
-    p3(i)=sum(PDF_e(min(j+23,169):169))/count;
-    p5(i)=sum(PDF_e(max(j-23,1):j))/(1-count);
+    p3(i)=sum(PDF_e(min(j+25,169):169))/count;
+    p5(i)=sum(PDF_e(max(j-25,1):j))/(1-count);
 end
 
 for i=1:26
@@ -53,9 +63,9 @@ for i=1:26
         j=j-1;
     end
     p2(i)=PDF_i(j)/(1-count);
-    p4(i)=sum(PDF_i(min(j+23,169):169))/count;
-    p6(i)=sum(PDF_i(max(j-11,1):j))/(1-count);
-    p8(i)=sum(PDF_i(min(j+12,169):169))/count;
+    p4(i)=sum(PDF_i(min(j+25,169):169))/count;
+    p6(i)=sum(PDF_i(max(j-15,1):j))/(1-count);
+    p8(i)=sum(PDF_i(min(j+10,169):169))/count;
 end
     
 
@@ -87,11 +97,11 @@ P_i=48;
 
 lambda_e=1/7;
 lambda_i=1/7;
-tau_ee=2;
-tau_ie=1.2;
+tau_ee=1.3;
+tau_ie=0.95;
 tau_i=4.5;
-a_ee=0.6;
-a_ie=0.4;
+a_ee=0.55;
+a_ie=0.45;
 a_ei=0.79;
 a_ii=0.21;
 
@@ -119,6 +129,7 @@ while t<= duration_time
     q(12)=s(4)/tau_i-q(10)-q(11);
     dt=exprnd(1/sum(q));
     t=t+dt;
+    t
     if floor(t)-floor((t-dt))==1
         count=count+1;
         rec(:,count)=[s,t-dt]';
@@ -189,9 +200,8 @@ end
 
 
 
-% hold on
-% scatter(spike(2,2:spike(2,1)+1), 2*ones(1,spike(2,1)),'.','b');
-
+hold on
+scatter(spike(2,2:spike(2,1)+1), 2*ones(1,spike(2,1)),'.','b');
 
     
                                     
