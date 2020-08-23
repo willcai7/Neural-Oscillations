@@ -1,5 +1,8 @@
-function [] = correlation(res,ne,ni,type,name,save)
+function [] = correlation(res,param,name,save)
 % A function to compute and show correlation.
+ne = param.ne;
+ni = param.ni;
+type = param.type;
 spike = res.spike;
 timewindow_upper=985; %note that timewindow_upper <= duration_time-15
 timewindow_lower=785; %note that timewindow_lower >= 15

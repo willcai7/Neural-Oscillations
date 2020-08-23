@@ -1,4 +1,5 @@
-function [] = hist_v(res,type,name,save)
+function [] = hist_v(res,param,name,save)
+type = param.type;
 subplot(2,1,1);
 nbin=50;
 histogram(res.V_e, nbin);

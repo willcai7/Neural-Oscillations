@@ -1,6 +1,8 @@
-function []=coarse_grained_plot(param,res,duration_time,type,name,save)
+function []=coarse_grained_plot(res,param,name,save)
 ne = param.ne;
 ni = param.ni;
+type = param.type;
+duration_time = max(res.t);
 subplot(3,1,1);
 scatter(res.spike(1,2:res.spike(1,1)+1), 1*ones(1,res.spike(1,1)),'.','r');
 hold on
@@ -24,7 +26,7 @@ plot(res.rec(5,:),res.rec(4,:));
 ylim([0 param.pending_i_maximum]);
 legend('H_e','H_i');
 title('number of pending spikes');
- set(gcf,'Position',[10,10,2000,1500]);
+set(gcf,'Position',[10,10,2000,1500]);
 if save==true
     saveas(gcf,['output\',type,'\',name,'.png']);
 end

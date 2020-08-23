@@ -1,4 +1,5 @@
-function [] = hist_h(res,type,name,save)
+function [] = hist_h(res,param,name,save)
+type = param.type;
 subplot(4,1,1);
 histogram(res.H_ee);
 title("H_{ee}");

@@ -80,16 +80,15 @@ time_delta = 0;
 
 
 while t<= duration_time    
-    ratio1=sum(s(2,1:param.ne))/sum(s(2,:));
-    ratio2=sum(s(2,param.ne+1:param.ne+param.ni))/sum(s(2,:));
-    s(2,1:param.ne)=s(2,1:param.ne)*0.6/ratio1;
-    s(2,param.ne+1:param.ne+param.ni)=s(2,param.ne+1:param.ne+param.ni)*0.4/ratio2;
-    
-    ratio1=sum(s(3,1:param.ne))/sum(s(3,:));
-    ratio2=sum(s(3,param.ne+1:param.ne+param.ni))/sum(s(3,:));
-    s(3,1:param.ne)=s(3,1:param.ne)*0.79/ratio1;
-    s(3,param.ne+1:param.ne+param.ni)=s(3,param.ne+1:param.ne+param.ni)*0.21/ratio2;
-    
+%     ratio1=sum(s(2,1:param.ne))/sum(s(2,:));
+%     ratio2=sum(s(2,param.ne+1:param.ne+param.ni))/sum(s(2,:));
+%     s(2,1:param.ne)=s(2,1:param.ne)*0.6/ratio1;
+%     s(2,param.ne+1:param.ne+param.ni)=s(2,param.ne+1:param.ne+param.ni)*0.4/ratio2;
+%     
+%     ratio1=sum(s(3,1:param.ne))/sum(s(3,:));
+%     ratio2=sum(s(3,param.ne+1:param.ne+param.ni))/sum(s(3,:));
+%     s(3,1:param.ne)=s(3,1:param.ne)*0.79/ratio1;
+%     s(3,param.ne+1:param.ne+param.ni)=s(3,param.ne+1:param.ne+param.ni)*0.21/ratio2;
     %disp(["iteration: ", step]);
     m(2:4,:)=c(2:4,:)./s(2:4,:);
     a=exprnd(m);
