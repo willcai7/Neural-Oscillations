@@ -21,8 +21,8 @@ function [P] = P_generation_gaussian(param, res)
 % *   P.P_BE_I: The effect of pending I-spike on a Base E-neuron.
 % *   P.P_BI_I: The effect of pending I-spike on a Base I-neuron.
 %==========================================================================
-V_e = res.V_e_P;
-V_i = res.V_i_P;
+V_e = res.V_e;
+V_i = res.V_i;
 ne = param.ne;
 ni = param.ni;
 Mr = param.Mr;

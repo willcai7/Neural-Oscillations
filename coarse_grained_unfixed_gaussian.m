@@ -22,16 +22,6 @@ p8=zeros(1,26);
 p9=ones(1,76);
 p10=ones(1,26);
 
-P1.P_BE_Ex = p1;
-P1.P_BI_Ex = p2;
-P1.P_GE_Ex = p3;
-P1.P_GI_Ex = p4;
-P1.P_BE_E = p5;
-P1.P_BI_E = p6;
-P1.P_GE_E = p7;
-P1.P_GI_E = p8;
-P1.P_GE_I = p9;
-P1.P_GI_I = p10;
 
 for i=1:76
     j=169;
@@ -72,11 +62,20 @@ end
     
 
 
+P1.P_BE_Ex = p1;
+P1.P_BI_Ex = p2;
+P1.P_GE_Ex = p3;
+P1.P_GI_Ex = p4;
+P1.P_BE_E = p5;
+P1.P_BI_E = p6;
+P1.P_GE_E = p7;
+P1.P_GI_E = p8;
+P1.P_GE_I = p9;
+P1.P_GI_I = p10;
 
 
 
-
-
+%%
 
 
 s=ones(1,4); %representing (N_ge,N_gi,H_e,H_i)

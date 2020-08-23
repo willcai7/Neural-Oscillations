@@ -23,8 +23,8 @@ plot(time, res.N_GI/ ni,'b');
 xlim([0,num*time_delta+100]);
 legend('N_{GE}/N_{E}','N_{GI}/N_I');
 xlabel('t/ms');
-if save==true
 set(gcf,'Position',[10,10,1000,600]);
+if save==true
 saveas(gcf,['output\',type,'\graphline-',name,'.png']);
 end
 end

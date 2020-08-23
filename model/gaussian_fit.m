@@ -14,4 +14,3 @@ bar([-68.5:1:99.5],a);
 hold on
 plot([-68.5:1:99.5],gaussian_vector(sigma,p));
 end
-

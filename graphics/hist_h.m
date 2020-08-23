@@ -11,8 +11,8 @@ title("H_{ei}");
 subplot(4,1,4);
 histogram(res.H_ii);
 title("H_{ii}");
-if save==true
 set(gcf,'Position',[10,10,500,500]);
+if save==true
 saveas(gcf,['output\',type,'\pending_spike-',name,'.png']);
 end
 

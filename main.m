@@ -26,10 +26,10 @@ duration_time   = 1000;
 %About 300 ms
 s               = false;
 
-start_time1 = clock;
+t = cputime;
 res1 = model_full(s, duration_time, param1);
-end_time1 = clock;
-run_time1 = etime(end_time1, start_time1);
+runtime1 = cputime - t;
+
 firing_rate1 = firing_rate(res1.spikes, param1.ne, param1.ni);
 scatterplot(res1.spikes, param1.ne, param1.ni,'scatter-n=400-t=1000-hom')
 correlation(res1.spikes, param1.ne, param1.ni,'correlation-n=400-t=1000-hom')
@@ -154,8 +154,8 @@ param5.p_ee     = 0.15;
 param5.p_ie     = 0.5;
 param5.p_ei     = 0.5;
 param5.p_ii     = 0.4;
-param5.s_ee     = 2*4.5;
-param5.s_ie     = 5*4.5;
+param5.s_ee     = 5*4.5;
+param5.s_ie     = 2*4.5;
 param5.s_ei     = 25;
 param5.s_ii     = 25;
 param5.tau_r    = 2.5;
@@ -199,8 +199,8 @@ param6.p_ee     = 0.15;
 param6.p_ie     = 0.5;
 param6.p_ei     = 0.5;
 param6.p_ii     = 0.4;
-param6.s_ee     = 2*4.5;
-param6.s_ie     = 5*4.5;
+param6.s_ee     = 5*5;
+param6.s_ie     = 2*5;
 param6.s_ei     = 25;
 param6.s_ii     = 25;
 param6.tau_r    = 0;
@@ -226,15 +226,16 @@ s(1,:) = unidrnd(param6.M+param6.Mr+1,[1,param6.ne+param6.ni])- param6.Mr-1;
 
 
 % model_full_video(s, duration_time, param6);
-res6 = model_full(s, duration_time, param6);
-
+t = cputime;
+res6 = model_full_noref(s, duration_time, param6);
+runtime6 = cputime -t;
 
 %firing_rate6 = firing_rate(res6.spikes, param6.ne, param6.ni);
-scatterplot(res6,param6.ne,type,param6.ni,name6,save)
-correlation(res6,param6.ne,type, param6.ni,name6,save)
-hist_h(res6,type,name6,save)
-hist_v(res6,type,name6,save)
-hist_t(res6,type,name6,save)
+%scatterplot(res6,param6.ne,type,param6.ni,name6,save)
+%correlation(res6,param6.ne,type, param6.ni,name6,save)
+%hist_h(res6,type,name6,save)
+%hist_v(res6,type,name6,save)
+%hist_t(res6,type,name6,save)
 %firing_rate6
 
 %% Coarse grained fixed probabiliy model:
@@ -264,8 +265,8 @@ param7.tau_ie   = 0.95;
 param7.tau_i    = 4.5;
 param7.S_e = 24;
 param7.S_i = 48;
-param7.a_ee=0.5;
-param7.a_ie=0.5;
+param7.a_ee=0.55;
+param7.a_ie=0.45;
 param7.a_ei=0.79;
 param7.a_ii=0.21;
 param7.pending_i_maximum=2000000;
@@ -274,13 +275,9 @@ duration_time   = 1000;
 
 %random initialization
 s=ones(1,4);
-res7=model_coarse_grained(s,duration_time,param7);
-
-save=false;
-type='reg';
-name7='t=1000';
-coarse_grained_plot(param7,res7,duration_time,type,name7,save);
-
+res7=model_coarse_grained(s,duration_time,param7,P1, 0.2,0.15);
+coarse_grained_plot(param7, res7, duration_time,'syn','111',false)
 % line_graph(res7,time_delta,ne, ni, name)
 
+%% 
 

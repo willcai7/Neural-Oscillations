@@ -1,15 +1,15 @@
-% 
-% res=load('res7');
-% res=res.res6;
-% PDF_e=histogram(res.V_e,[-69:1:100],'normalization','probability');
-% PDF_e=PDF_e.Values;
-% close;
-% PDF_i=histogram(res.V_i,[-69:1:100],'normalization','probability');
-% PDF_i=PDF_i.Values;
-% close;
+%%
+res=load('res7');
+res=res.res6;
+PDF_e=histogram(res.V_e,[-69:1:100],'normalization','probability');
+PDF_e=PDF_e.Values;
+close;
+PDF_i=histogram(res.V_i,[-69:1:100],'normalization','probability');
+PDF_i=PDF_i.Values;
+close;
 % % 
-PDF_e=gaussian_vector(10.5402,-1.7394);
-PDF_i=gaussian_vector(13.3019,-2.0295);
+% PDF_e=gaussian_vector(10.5402,-1.7394);
+% PDF_i=gaussian_vector(13.3019,-2.0295);
 
 
 p1=zeros(1,76);
@@ -32,12 +32,17 @@ for i=1:76
         lim=(i-1)/75;
     end
     while count<lim && j>1
-        count=count+PDF_e(j);
+        count=sum(PDF_e(j: min(j+25,169)));
         j=j-1;
     end
     p1(i)=PDF_e(j)/(1-count);
-    p3(i)=sum(PDF_e(min(j+25,169):169))/count;
-    p5(i)=sum(PDF_e(max(j-25,1):j))/(1-count);
+    if j+25>169
+        p3(i)=0;
+    else
+        p3(i)=PDF_e(j+25)/count;
+    end
+%     p3(i)=PDF_e(min(j+25,169))/count;
+    p5(i)=sum(PDF_e(max(j-25,1):min(j,169)))/(1-count);
 end
 
 for i=1:26
@@ -49,29 +54,48 @@ for i=1:26
         lim=(i-1)/25;
     end
     while count<lim && j>1
-        count=count+PDF_i(j);
+        count=sum(PDF_e(j: min(j+25,169)));
         j=j-1;
     end
     p2(i)=PDF_i(j)/(1-count);
-    p4(i)=sum(PDF_i(min(j+25,169):169))/count;
-    p6(i)=sum(PDF_i(max(j-15,1):j))/(1-count);
-    p8(i)=sum(PDF_i(min(j+10,169):169))/count;
+    if j+25>169
+        p4(i)=0;
+    else
+        p4(i)=PDF_i(j+25)/count;
+    end
+%     p4(i)=PDF_i(min(j+25,169))/count;
+    p6(i)=sum(PDF_i(max(j-10,1):j))/(1-count);
+    if j+15 >169
+        p8(i)=0;
+    else
+        p8(i)=sum(PDF_i(j+15:min(j+25,169)))/count;
+    end
+%     p8(i)=sum(PDF_i(min(j+10,169):min(j+25,169)))/count;
 end
     
 
     
 
+P1.P_BE_Ex = p1;
+P1.P_BI_Ex = p2;
+P1.P_GE_Ex = p3;
+P1.P_GI_Ex = p4;
+P1.P_BE_E = p5;
+P1.P_BI_E = p6;
+P1.P_GE_E = p7;
+P1.P_GI_E = p8;
+P1.P_GE_I = p9;
+P1.P_GI_I = p10;
 
 
 
 
 
-
-
+%%
 
 s=ones(1,4); %representing (N_ge,N_gi,H_e,H_i)
 
- c=0.;
+ c=0.3;
  r=50;
  p1=p1*c;%p^ext_bge
  p2=p2*c;%p^ext_bgi
@@ -90,7 +114,7 @@ lambda_i=1/7;
 tau_ee=1.3;
 tau_ie=0.95;
 tau_i=4.5;
-a_ee=0.6;
+a_ee=0.55;
 a_ie=0.4;
 a_ei=0.79;
 a_ii=0.21;

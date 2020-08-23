@@ -11,9 +11,8 @@ scatter(res.spike(2:maxrow+1,i), i*ones(1,maxrow),'.','b');
 hold on
 end
 title(name);
-
-if save==true
 set(gcf,'Position',[10,10,2000,400]);
+if save==true
 saveas(gcf,['output\',type,'\scatter-',name,'.png']);
 end
 

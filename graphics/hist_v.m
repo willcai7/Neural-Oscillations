@@ -6,8 +6,8 @@ title("V_e");
 subplot(2,1,2);
 histogram(res.V_i, nbin);
 title("V_i");
-if save==true
 set(gcf,'Position',[10,10,500,500]);
+if save==true
 saveas(gcf,['output\',type,'\membrane_potential-',name,'.png']);
 end
 end

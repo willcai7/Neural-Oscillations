@@ -95,16 +95,18 @@ param9.tau_ie   = 0.95;
 param9.tau_i    = 4.5;
 
 duration_time   = 1000;
+type9='syn';
+save9=true;
 
 s=false;
 name9 = 'n=100-t=1000-reduced-nonfixedP-syn';
 start_time9 = clock;
-P1 = P_generation_histogram(param8, res8);
+%P1 = P_generation_histogram(param8, res8);
 %P2 = P_generation_histogram(param6, res6);
-res9 = model_reduced_network_P(s,duration_time, param9, P1,0.7);
+res9 = model_reduced_network_P(s,duration_time, param9, P2,0.25,1.2);
 end_time9 = clock;
 run_time9 = etime(end_time9, start_time9);
-scatterplot(res9, param9.ne, param9.ni,name9);
+scatterplot(res9, param9.ne, param9.ni,type9, name9, save9);
 %line_graph(res9,3, param9.ne, param9.ni, name9);
 
 %%
@@ -180,3 +182,33 @@ P3.P_GE_E   = p7;
 P3.P_GI_E   = p8;
 P3.P_GE_I   = p9;
 P3.P_GI_I   = ones(1,26);
+
+%%
+V_e = res.V_e;
+V_e1 = V_e(V_e<0);
+V_e2 = V_e(V_e>=0);
+V_e3 = V_e(V_e>-20);
+V_e3 = V_e(V_e<20);
+me = mean(V_e3);
+va = var(V_e3);
+var(V_e1)
+var(V_e2)
+x1 = [-68.5:1:0];
+x2 = [0:1:99.5];
+y1 = mvnpdf(x1', me, va);
+y2 = mvnpdf(x2',me,va);
+histogram(V_e,[-69:1:100],'normalization','probability');
+hold on
+plot(x1,y1)
+hold on 
+plot(x2,y2)
+
+V_e1 = V_e + 90;
+V_e1 = log(V_e1);
+me = mean(V_e1);
+va = var(V_e1);
+x = [-69:1:100];
+y = mvnpdf((log(x+90))', me ,va)'./(x+90);
+hold on
+plot(x,y)
+
