@@ -28,7 +28,7 @@ s               = false;
 param1.type     = 'hom';
 save     = true;
 name1    ='n=400-t=1000-hom';
-
+param1.time_delta = 1;
 t = clock;
 res1 = model_full(s, duration_time, param1);
 runtime1 = etime(clock, t);
@@ -63,7 +63,7 @@ param.type      = 'reg';
 name2           ='n=400-t=1000-reg';
 s               = false;
 save            = true;
-
+param2.time_delta = 1;
 t = clock;
 res2 = model_full(s, duration_time, param2);
 run_time2 = etime(clock, t);
@@ -98,7 +98,7 @@ param3.type     = 'syn';
 name3           ='n=400-t=1000-syn';
 s               = false;
 save            = true;
-
+param3.time_delta = 1;
 t=clock;
 res3 = model_full(s, duration_time, param3);
 run_time3 = etime(clock, t);
@@ -130,7 +130,8 @@ param4.tau_ie   = 1.2;
 param4.tau_i    = 4.5;
 param4.gate      = 70;
 duration_time   = 1000;
-param.type      ='sync';
+param.type      ='hom';
+param4.time_delta = 1;
 
 name4 = 'n=100-t=1000-hom';
 save=false;
@@ -179,8 +180,9 @@ param5.tau_i    = 4.5;
 param5.gate      = 70;
 duration_time   = 1000;
 name5 = 'n=100-t=1000-reg';
+param5.time_delta = 1;
 save=false;
-param5.type    ='sync';
+param5.type    ='reg';
 % random inilialization
 s = zeros(4,param5.ne+param5.ni);
 s(2:3,:) = double(rand(2,param5.ne+param5.ni)>0.8);
@@ -224,6 +226,7 @@ param6.tau_ie   = 0.95;
 param6.tau_i    = 4.5;
 param6.gate      = 70;
 duration_time   = 1000;
+param6.time_delta = 1;
 
 name6 = 'n=100-t=1000-syn';
 save=false;
@@ -271,8 +274,8 @@ param7.tau_ie   = 1.2;
 param7.tau_i    = 4.5;
 param7.gate      = 70;
 duration_time   = 1000;
-param.type      ='sync';
-
+param.type      ='hom';
+param7.time_delta = 1;
 name7 = 'n=100-t=1000-hom-noref';
 save=false;
 
@@ -316,10 +319,11 @@ param8.tau_ee   = 2;
 param8.tau_ie   = 1.2;
 param8.tau_i    = 4.5;
 param8.gate      = 70;
+param8.time_delta = 1;
 duration_time   = 1000;
 name8 = 'n=100-t=1000-reg-noref';
 save=false;
-param8.type    ='sync';
+param8.type    ='reg';
 % random inilialization
 s = zeros(4,param8.ne+param8.ni);
 s(2:3,:) = double(rand(2,param8.ne+param8.ni)>0.8);
@@ -361,11 +365,12 @@ param9.tau_ee   = 1.3;
 param9.tau_ie   = 0.95;
 param9.tau_i    = 4.5;
 param9.gate      = 70;
+param9.time_delta = 1;
 duration_time   = 1000;
 
 name9 = 'n=100-t=1000-syn-noref';
 save=false;
-param9.type       ='sync';
+param9.type       ='syn';
 
 %random inilialization
 s = zeros(4,param9.ne+param9.ni);
@@ -428,5 +433,4 @@ res7=model_coarse_grained(s,duration_time,param7,P1, 0.2,0.15);
 coarse_grained_plot(param7, res7, duration_time,'syn','111',false)
 % line_graph(res7,time_delta,ne, ni, name)
 
-%% 
 

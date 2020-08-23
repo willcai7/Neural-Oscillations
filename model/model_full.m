@@ -75,7 +75,7 @@ res.V_i_P = [];
 res.t = [];
 
 
-time_check = 5;
+time_check = param.time_delta;
 time_delta = 0;
 
 
@@ -158,12 +158,10 @@ while t<= duration_time
     
     time_delta = time_delta + a(x,y);
     if time_delta >= time_check
-        if sum(s(1,1:param.ne))<0
         res.V_e = [res.V_e,s(1,1:param.ne)];
         res.V_i = [res.V_i,s(1,param.ne+1:param.ne+param.ni)];
         res.N_GE = [res.N_GE sum(s(1,1:param.ne)>75)];
         res.N_GI = [res.N_GI sum(s(1,param.ne+1:param.ne+param.ni)>75)];
-        end
         res.H_ee = [res.H_ee s(2,1:param.ne)];
         res.H_ei = [res.H_ie s(3,1:param.ne)];
         res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)];
