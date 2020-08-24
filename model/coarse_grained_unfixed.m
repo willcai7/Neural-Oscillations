@@ -6,7 +6,7 @@ close;
 PDF_i=histogram(res.V_i,[-69:1:100],'normalization','probability');
 PDF_i=PDF_i.Values;
 close;
-% 
+
 % PDF_e=gaussian_vector(10.5402,-1.7394);
 % PDF_i=gaussian_vector(13.3019,-2.0295);
 
@@ -71,14 +71,14 @@ end
 
 s=ones(1,4); %representing (N_ge,N_gi,H_e,H_i)
 
- c=0.36;
+ c=0.65;
  r=100;
  p1=p1*c;%p^ext_bge
- p2=p2*c;%p^ext_bgi
- p3=p3;%p^ext_gsbe
+ p2=p2;%p^ext_bgi
+ p3=p3*c;%p^ext_gsbe
  p4=p4;%p^ext_gsbi
  p5=p5*c;%p^pe_bge
- p6=p6*c;%p^pe_bgi
+ p6=p6;%p^pe_bgi
 
 
 
@@ -118,6 +118,7 @@ while t<= duration_time
         +q(7)*(1-p7(s(1)+1))/p7(s(1)+1)+q(8)*(1-p8(s(2)+1))/p8(s(2)+1);
     q(12)=s(4)/tau_i-q(10)-q(11);
     dt=exprnd(1/sum(q));
+    a=sum(q);
     t=t+dt;
     if floor(t)-floor((t-dt))==1
         count=count+1;
