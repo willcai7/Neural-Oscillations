@@ -1,3 +1,5 @@
+%% Setting paths
+addpath(genpath(pwd));
 %% Full model: syn, small-size, noref
 addpath(genpath(pwd));
 param9.ne       = 75;
@@ -19,7 +21,7 @@ param9.tau_ee   = 1.3;
 param9.tau_ie   = 0.95;
 param9.tau_i    = 4.5;
 param9.gate     = 70;
-duration_time   = 20000;
+duration_time   = 60000;
 param9.time_delta = 1;
 name9 = 'n=100-t=1000-syn-noref';
 save=false;
@@ -64,7 +66,7 @@ V_i = reshape(V_i, 25 ,check_times);
 
 for i =1:max_N_GE+1
 V_e_temp = V_e(:, N_GE==(i-1));
-V_e_temp = reshape(V_e_temp, 1, 75*sum(N_GE==(i-1)));
+% V_e_temp = reshape(V_e_temp, 1, 75*sum(N_GE==(i-1)));
 PDF_e_temp = histogram(V_e_temp,[-66:1:101],'normalization','probability');
 PDF_e_temp = PDF_e_temp.Values;
 close;
@@ -75,15 +77,15 @@ end
 
 for i =1:max_N_GI+1
 V_i_temp = V_i(:, N_GI==(i-1));
-V_i_temp = reshape(V_i_temp, 1, 25*sum(N_GI==(i-1)));
+% V_i_temp = reshape(V_i_temp, 1, 25*sum(N_GI==(i-1)));
 PDF_i_temp = histogram(V_i_temp,[-66:1:101],'normalization','probability');
 PDF_i_temp = PDF_i_temp.Values;
 close;
 
 P1.P_BI_Ex(i) = PDF_i_temp(76+66)/sum(PDF_i_temp(1: (76+66)));
 P1.P_GI_Ex(i) = PDF_i_temp(166)/sum(PDF_i_temp(143: 167));
-P1.P_BI_E(i) = sum(PDF_i_temp((142-9):142))/sum(PDF_i_temp(1:142));
-P1.P_GI_E(i) = sum(PDF_i_temp((167-9):167))/sum(PDF_i_temp(143:167));
+P1.P_BI_E(i) = sum(PDF_i_temp((142-15):142))/sum(PDF_i_temp(1:142));
+P1.P_GI_E(i) = sum(PDF_i_temp((167-15):167))/sum(PDF_i_temp(143:167));
 
 end
 
