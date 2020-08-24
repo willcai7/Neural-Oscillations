@@ -1,5 +1,8 @@
-function [firing_rate] = firing_rate(spikes,ne,ni)
+function [firing_rate] = firing_rate(res,param)
 % A function to calculate average firing rate
+ne = param.ne;
+ni = param.ni;
+spikes = res.spike;
 num_row = size(spikes);
 num_row = num_row(1);
 total_time = max(max(spikes(2:num_row,:)));

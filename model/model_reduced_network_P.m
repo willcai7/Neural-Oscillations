@@ -1,4 +1,4 @@
-function [res] = model_reduced_network_P(s,duration_time,param, P,q)
+function [res] = model_reduced_network_P(s,duration_time,param, P,q1,q2)
 c                                 = zeros(4,param.ne + param.ni);
 c(1,1:param.ne)                   = param.lambda_e;
 c(1,param.ne+1:param.ne+param.ni) = param.lambda_i;
@@ -33,14 +33,14 @@ time_delta = 0;
 while t<= duration_time
     N_GE                              = sum(s(1,1:param.ne));
     N_GI                              = sum(s(1, param.ne+1:param.ne+param.ni));
-    P_BE_Ex                           = P.P_BE_Ex(N_GE+1)*q;
+    P_BE_Ex                           = P.P_BE_Ex(N_GE+1)*q1;
     P_GE_Ex                           = P.P_GE_Ex(N_GE+1);
-    P_BI_Ex                           = P.P_BI_Ex(N_GI+1)*q;
-    P_GI_Ex                           = P.P_GI_Ex(N_GI+1);
+    P_BI_Ex                           = P.P_BI_Ex(N_GI+1)*q1;
+    P_GI_Ex                           = P.P_GI_Ex(N_GI+1)*q2;
     P_GE_E                            = P.P_GE_E(N_GE+1);
-    P_GI_E                            = P.P_GI_E(N_GI+1);
-    P_BE_E                            = P.P_BE_E(N_GE+1)*q;
-    P_BI_E                            = P.P_BI_E(N_GI+1)*q;
+    P_GI_E                            = P.P_GI_E(N_GI+1)*q2;
+    P_BE_E                            = P.P_BE_E(N_GE+1)*q1;
+    P_BI_E                            = P.P_BI_E(N_GI+1)*q1;
     P_GE_I                            = P.P_GE_I(N_GE+1);
     P_GI_I                            = P.P_GI_I(N_GI+1);
     is_spike = 0;
@@ -52,6 +52,7 @@ while t<= duration_time
     [x,y]=find(a==min_a);
     %the position of the minimum decides the next operation.
     t = t+a(x,y);
+    t
     res.delta_t(i) = a(x,y);
     i = i+1;
     if x == 1 %external input operates

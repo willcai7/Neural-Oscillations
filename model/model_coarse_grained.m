@@ -1,20 +1,20 @@
-function [res] = model_coarse_grained(s,duration_time, param)
+function [res] = model_coarse_grained(s,duration_time, param,P, q1,q2)
 
 ne=param.ne;
 ni=param.ni;
 max_pe=param.pending_e_maximum;
 max_pi=param.pending_i_maximum;
 
-P_BE_Ex=param.P_BE_Ex;
-P_BI_Ex=param.P_BI_Ex;
-P_GE_Ex=param.P_GE_Ex;
-P_GI_Ex=param.P_GI_Ex;
-P_BE_E=param.P_BE_E;
-P_BI_E=param.P_BI_E;
-P_GE_E=param.P_BE_E;
-P_GI_E=param.P_GI_E;
-P_GE_I=param.P_GE_I;
-P_GI_I=param.P_GI_I;
+P_BE_Ex=P.P_BE_Ex*q1;
+P_BI_Ex=P.P_BI_Ex*q2;
+P_GE_Ex=P.P_GE_Ex;
+P_GI_Ex=P.P_GI_Ex;
+P_BE_E=P.P_BE_E*q1;
+P_BI_E=P.P_BI_E*q2;
+P_GE_E=P.P_BE_E;
+P_GI_E=P.P_GI_E;
+P_GE_I=P.P_GE_I;
+P_GI_I=P.P_GI_I;
 
 P_e=param.S_e;
 P_i=param.S_i;
@@ -40,14 +40,17 @@ while t<= duration_time
     c=[P_BE_Ex(s(1)+1)/lambda_e,P_BI_Ex(s(2)+1)/lambda_i,P_GE_Ex(s(1)+1)/lambda_e,P_GI_Ex(s(2)+1)/lambda_i,...
         P_BE_E(s(1)+1)*a_ee/tau_ee,P_BI_E(s(2)+1)*a_ie/tau_ie,P_GE_E(s(1)+1)*a_ee/tau_ee,P_GI_E(s(2)+1)*a_ie/tau_ie,0,...
         P_GE_I(s(1)+1)*a_ei/tau_i,P_GI_I(s(2)+1)*a_ii/tau_i,0];
+    
     q=[ne-s(1),ni-s(2),s(1),s(2),(1-s(1)/ne)*s(3),(1-s(2)/ni)*s(3),s(1)*s(3)/ne,...
         s(2)*s(3)/ni,0,s(1)*s(4)/ne,s(2)*s(4)/ni,0];
     q=q.*c;
     q(9)=q(5)*(1-P_BE_E(s(1)+1))/P_BE_E(s(1)+1)+q(6)*(1-P_BI_E(s(2)+1))/P_BI_E(s(2)+1)...
         +q(7)*(1-P_GE_E(s(1)+1))/P_GE_E(s(1)+1)+q(8)*(1-P_GI_E(s(2)+1))/P_GI_E(s(2)+1);
     q(12)=s(4)/tau_i-q(10)-q(11);
+    
     dt=exprnd(1/sum(q));
     t=t+dt;
+    t
     if floor(t)-floor((t-dt))==1
         count=count+1;
         res.rec(:,count)=[s,t-dt]';
