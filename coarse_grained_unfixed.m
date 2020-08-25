@@ -98,13 +98,13 @@ s=ones(1,4); %representing (N_ge,N_gi,H_e,H_i)
 
 %  c=0.3;
  r=100;
- p1=p1*0.5;%p^ext_bge
+ p1=p1*1.0;%p^ext_bge
  p2=p2*0.5;%p^ext_bgi
  p3=p3*1;  %p^ext_gsbe
  p4=p4*1;  %p^ext_gsbi
  p5=p5*0.42;%p^pe_bge
  p6=p6*0.7;%p^pe_bgi
- p8=p8*2;
+ p8=p8*1.3;
 
 
 P_e=24;

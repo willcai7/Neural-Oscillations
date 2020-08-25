@@ -145,7 +145,7 @@ for i=1:26
         lim=(i-1)/25;
     end
     while count<lim && j>1
-        count=sum(PDF_e(j: min(j+25,169)));
+        count=sum(PDF_i(j: min(j+25,169)));
         j=j-1;
     end
     p2(i)=PDF_i(j)/(1-count);
