@@ -26,6 +26,7 @@ duration_time   = 1000;
 %About 300 ms
 s               = false;
 param1.type     = 'hom';
+param1.fix = false;% to decide whether the pending spike ratio is fixed.
 save     = true;
 name1    ='n=400-t=1000-hom';
 param1.time_delta = 1;
@@ -59,7 +60,8 @@ param2.tau_ie   = 1.2;
 param2.tau_i    = 4.5;
 param2.gate      = 70;
 duration_time   = 1000;
-param.type      = 'reg';
+param2.type      = 'reg';
+param2.fix = false;
 name2           ='n=400-t=1000-reg';
 s               = false;
 save            = true;
@@ -95,6 +97,7 @@ param3.tau_i    = 4.5;
 param3.gate     = 70;
 duration_time   = 1000;
 param3.type     = 'syn';
+param3.fix = false;
 name3           ='n=400-t=1000-syn';
 s               = false;
 save            = true;
@@ -130,7 +133,8 @@ param4.tau_ie   = 1.2;
 param4.tau_i    = 4.5;
 param4.gate      = 70;
 duration_time   = 1000;
-param.type      ='hom';
+param4.type      ='hom';
+param4.fix = true; 
 param4.time_delta = 1;
 
 name4 = 'n=100-t=1000-hom';
@@ -183,6 +187,7 @@ name5 = 'n=100-t=1000-reg';
 param5.time_delta = 1;
 save=false;
 param5.type    ='reg';
+param5.fix = false;
 % random inilialization
 s = zeros(4,param5.ne+param5.ni);
 s(2:3,:) = double(rand(2,param5.ne+param5.ni)>0.8);
@@ -230,7 +235,8 @@ param6.time_delta = 1;
 
 name6 = 'n=100-t=1000-syn';
 save=false;
-param6.type       ='sync';
+param6.type       ='syn';
+param6.fix = false;
 
 %random inilialization
 s = zeros(4,param6.ne+param6.ni);
@@ -274,7 +280,8 @@ param7.tau_ie   = 1.2;
 param7.tau_i    = 4.5;
 param7.gate      = 70;
 duration_time   = 1000;
-param.type      ='hom';
+param7.type      ='hom';
+param7.fix = false;
 param7.time_delta = 1;
 name7 = 'n=100-t=1000-hom-noref';
 save=false;
@@ -324,6 +331,7 @@ duration_time   = 1000;
 name8 = 'n=100-t=1000-reg-noref';
 save=false;
 param8.type    ='reg';
+param8.fix = false;
 % random inilialization
 s = zeros(4,param8.ne+param8.ni);
 s(2:3,:) = double(rand(2,param8.ne+param8.ni)>0.8);
@@ -371,6 +379,7 @@ duration_time   = 1000;
 name9 = 'n=100-t=1000-syn-noref';
 save=false;
 param9.type       ='syn';
+param9.fix = false;
 
 %random inilialization
 s = zeros(4,param9.ne+param9.ni);
@@ -395,42 +404,78 @@ runtime9 = etime(clock,t);
 %% Coarse grained fixed probabiliy model:
 
 c=0.2;
-param7.ne=75;
-param7.ni=25;
+param10.ne=75;
+param10.ni=25;
 
-param7.P_BE_Ex=0.0067*ones(1,76)*c;
-param7.P_BI_Ex=0.0104*ones(1,26)*c;
-param7.P_GE_Ex=0.02*ones(1,76)*c;
-param7.P_GI_Ex=0.00247*ones(1,26)*c;
-param7.P_BE_E=0.029*ones(1,76)*c;
-param7.P_BI_E=0.07*ones(1,26)*c;
-param7.P_BE_E=ones(1,76)*c;
-param7.P_GI_E=ones(1,26)*c;
-param7.P_GE_I=ones(1,76)*c;
-param7.P_GI_I=ones(1,26)*c;
-
-
+param10.P_BE_Ex=0.0067*ones(1,76)*c;
+param10.P_BI_Ex=0.0104*ones(1,26)*c;
+param10.P_GE_Ex=0.02*ones(1,76)*c;
+param10.P_GI_Ex=0.00247*ones(1,26)*c;
+param10.P_BE_E=0.029*ones(1,76)*c;
+param10.P_BI_E=0.07*ones(1,26)*c;
+param10.P_BE_E=ones(1,76)*c;
+param10.P_GI_E=ones(1,26)*c;
+param10.P_GE_I=ones(1,76)*c;
+param10.P_GI_I=ones(1,26)*c;
 
 
-param7.lambda_e = 1/7;
-param7.lambda_i = 1/7;
-param7.tau_ee   = 1.3;
-param7.tau_ie   = 0.95;
-param7.tau_i    = 4.5;
-param7.S_e = 24;
-param7.S_i = 48;
-param7.a_ee=0.55;
-param7.a_ie=0.45;
-param7.a_ei=0.79;
-param7.a_ii=0.21;
-param7.pending_i_maximum=2000000;
-param7.pending_e_maximum=1000000;
+
+
+param10.lambda_e = 1/7;
+param10.lambda_i = 1/7;
+param10.tau_ee   = 1.3;
+param10.tau_ie   = 0.95;
+param10.tau_i    = 4.5;
+param10.S_e = 24;
+param10.S_i = 48;
+param10.a_ee=0.55;
+param10.a_ie=0.45;
+param10.a_ei=0.79;
+param10.a_ii=0.21;
+param10.pending_i_maximum=2000000;
+param10.pending_e_maximum=1000000;
 duration_time   = 1000;
 
 %random initialization
 s=ones(1,4);
-res7=model_coarse_grained(s,duration_time,param7,P1, 0.2,0.15);
-coarse_grained_plot(param7, res7, duration_time,'syn','111',false)
+res10=model_coarse_grained(s,duration_time,param10,P1, 0.2,0.15);
+coarse_grained_plot(param10, res7, duration_time,'syn','111',false)
 % line_graph(res7,time_delta,ne, ni, name)
+
+%% Reduced network:
+
+param11.ne       = 75;
+param11.ni       = 25;
+param11.p_ee     = 0.15;
+param11.p_ie     = 0.5;
+param11.p_ei     = 0.5;
+param11.p_ii     = 0.4;
+param11.s_ee     = 25;
+param11.s_ie     = 10;
+param11.M        = 100;
+param11.Mr       = 66;
+param11.lambda_e = 1/7;
+param11.lambda_i = 1/7;
+param11.tau_ee   = 1.3;
+param11.tau_ie   = 0.95;
+param11.tau_i    = 4.5;
+param11.method     ='truncate' % or 'extend' 
+
+res=res6;
+q=[1,0.5,1.0,1,0.42,0.7,1.3];
+
+name11 = 'n=100-t=1000-syn-noref';
+save=false;
+param11.type       ='syn';
+
+s=false;
+
+duration_time=1000;
+
+P = P_generation_histogram(param11, res);
+res11 = model_reduced_network_P(s,duration_time,param11, P,q);
+scatterplot(res11,param11,name11,save);
+
+
 
 

@@ -1,6 +1,6 @@
 function [P] = P_generation_histogram(param, res)
 %==========================================================================
-% A function to generate $P$ as a functions of $N_E, N_I$. 
+% A function to generate $P$ as a functions of $N_E, N_I$.
 % Inputs:
 % * param: The parameters of a full model.
 % * res: The results of a full model.
@@ -52,8 +52,8 @@ P.P_GI_I            = ones(1,ni+1);
 for i=1:ne+1
     j=Mr + M;
     probablity=0;
-    if i==1 
-        lim=0.5/ne; 
+    if i==1
+        lim=0.5/ne;
     else
         lim=(i-1)/ne;
     end
@@ -62,15 +62,23 @@ for i=1:ne+1
         j=j-1;
     end
     P.P_BE_Ex(i) = PDF_e(j)/(1-probablity);
-    P.P_GE_Ex(i) = sum(PDF_e(min(j+ param.s_ee, Mr+M):(M+Mr)))/probablity;
+    if param.method=='truncate'
+        if j+ param.s_ee>Mr+M
+            P.P_GE_Ex(i) = 0;
+        else
+            P.P_GE_Ex(i) = PDF_e(j+param.s_ee)/probablity;
+        end
+    elseif param.method=='extend'
+        P.P_GE_Ex(i) = sum(PDF_e(min(j+ param.s_ee, Mr+M):(M+Mr)))/probablity;
+    end
     P.P_BE_E(i) = sum(PDF_e(max(j- param.s_ee,1):j))/(1-probablity);
 end
 
 for i=1:ni
     j=Mr + M;
-    probablity=0;B
-    if i==1 
-        lim=0.5/ni; 
+    probablity=0;
+    if i==1
+        lim=0.5/ni;
     else
         lim=(i-1)/ni;
     end
@@ -79,9 +87,32 @@ for i=1:ni
         j=j-1;
     end
     P.P_BI_Ex(i) = PDF_i(j)/(1-probablity);
-    P.P_GI_Ex(i) = sum(PDF_i(min(j+ param.s_ee, Mr+M):(M+Mr)))/probablity;
+    
+    if param.method=='truncate'
+        if j+ param.s_ee>Mr+M
+            P.P_GI_Ex(i) = 0;
+        else
+            P.P_GI_Ex(i) = PDF_i(j+param.s_ee)/probablity;
+        end
+    elseif param.method=='extend'
+        P.P_GI_Ex(i) = sum(PDF_i(min(j+ param.s_ee, Mr+M):(M+Mr)))/probablity;
+    end
+    
     P.P_BI_E(i) = sum(PDF_i(max(j- param.s_ie,1):j))/(1-probablity);
-    P.P_GI_E(i) = sum(PDF_i(min(j+ param.s_ee-param.s_ie, Mr+M):(M+Mr)))/probablity;
+    
+    if param.method=='truncate'
+        if j+param.s_ee-param.s_ie>Mr+M
+            P.P_GI_E(i) = 0;
+        else
+            P.P_GI_E(i) = sum(PDF_i(j+param.s_ee-param.s_ie:min(j+param.s_ee,M+Mr)))/probablity;
+        end
+    elseif param.method=='extend'
+        if j+param.s_ee-param.s_ie>Mr+M
+            P.P_GI_E(i) = 0;
+        else
+            P.P_GI_E(i) = sum(PDF_i(j+param.s_ee-param.s_ie:M+Mr))/probablity;
+        end
+    end
 end
 
 end
