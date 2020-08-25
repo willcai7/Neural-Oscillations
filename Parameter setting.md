@@ -22,9 +22,9 @@ A few words to say at the first:
 
 Parameters practiced:
 
-+ coarse grained unfixed (non-gaussian)
++ 1. coarse grained unfixed (non-gaussian)
 
-  + $c=(0.5,0.5,1,1,0.42,0.7,2)$, **syn**
+  + 1. $c=(0.5,0.5,1,1,0.42,0.7,2)$, **syn**
 
     + I compare the figure of get_thetrueP result with res7 unfixed result and choose a ratio to make the res7 probability close to that of get_thetrueP. Note that the effect of E pending spikes on I neuron is set to be **10** in get_thetrueP.  
 
@@ -32,7 +32,7 @@ Parameters practiced:
 
     + cons: the time interval between volleys is not so even.
 
-  + $c=(1,0.5,1.5,1,0.42,0.7,2)$, **syn**
+  + 2. $c=(1,0.5,1.5,1,0.42,0.7,2)$, **syn**
 
     + Last group of parameter is modified to get this group.  Only $c_1,c_3$ are increased which means that the external input is driving the E neurons faster. However the result is significant, oscillations and time intervals become much more regular than the last group. We can also diminish $c_8$ to increase the width of each volley, which in fact makes the inhibition slower.
 
@@ -40,4 +40,16 @@ Parameters practiced:
 
       
 
-  
++ 2. reduced network model
+
+  + 1. $c=(1,0.5,1,1,0.42,0.7,1.3)$
+
+    + Based on the parameter 1.1, only $c_1$ is increased and $c_8$ is decreased. The reasons are similar to that of 1.2. In fact, only increasing $c_1$ to $1$ and keeping $c_8$ unchanged is also good. 1.2 has also been practiced but $c_3$ is kept unchanged at last keeping in mind that less modification from 1.1 is much reasonable.
+    + pros: regular gamma oscillation can be seen.
+    + cons: the width of volley is still a little bit large compared with full model. And sometimes there is a large gap between adjacent volley, which is twice as much wide as usual gap.
+
+  + 2. $c=(1,0.5,1,1,0.42*0.6,0.7*0.6,1.3*0.6)$
+
+    + Note that the cons of 2.1 is that the volley is a little bit wide. So I diminish the three probability related to pending spikes $c_5,c_6,c_8$ at a given ratio to narrow the volley.
+    + pros: regular gamma oscillation can be seen with the width of volley narrower.
+    + cons: sometimes there is a large gap between adjacent volley, which is twice as much wide as usual gap.
