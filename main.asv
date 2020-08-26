@@ -463,7 +463,7 @@ param11.method     ='truncate' % or 'extend'
 
 load('res7');
 res=res6;%the struct in res7.mat is res6
-q=[1,0.5,1.5,1,0.42,0.7,1.3];
+q=[1,0.5,1.0,1,0.42*0.7,0.7*0.7,1.3*0.7];
 
 name11 = 'n=100-t=1000-syn-noref';
 save=false;
@@ -498,7 +498,7 @@ param12.method     ='truncate' % or 'extend'
 
 load('res7');
 res=res6;%the struct in res7.mat is res6
-q=[1,0.5,1.5,1,0.42,0.7,1.3];
+q=[1,0.5,1.0,1,0.42,0.7,1.3];
 
 name10 = 'n=100-t=1000-reg-noref';
 save=false;
@@ -533,8 +533,8 @@ param13.method     ='truncate' % or 'extend'
 
 load('res7');
 res=res6;
-q=[1,0.5,1.5,1,0.42,0.7,1.3];
-    
+q=[1.5,0.5,1,1,0.42,0.7,1.3];
+
 name13 = 'n=100-t=1000-hom-noref';
 save=false;
 param13.type       ='hom';
