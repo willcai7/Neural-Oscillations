@@ -160,6 +160,7 @@ scatterplot(res4, param4, name4,save);
 % hist_v(res4,param4, name4,save)
 % hist_t(res4,param4, name4,save)
 % firing_rate4
+%dynamical_motion(res4,param4, name4,save)
 
 %% Full model: Reg, small-size 
 
@@ -202,12 +203,13 @@ runtime5 = etime(clock, t);
 
 % 
 % firing_rate5 = firing_rate(res5, param5);
-scatterplot(res5, param5,name5,save);
+% scatterplot(res5, param5,name5,save);
 % correlation(res5, param5,name5,save);
 % hist_h(res5,pram5,name5,save);
 % hist_v(res5,pram5,name5,save);
 % hist_t(res5,pram5,name5,save);
 %firing_rate5
+%dynamical_motion(res5,pram5,name5,save);
 
 %% Full model: Syn, small-size 
 
@@ -250,6 +252,7 @@ t = clock;
 res6 = model_full(s, duration_time, param6);
 runtime6 = etime(clock,t);
 
+
 %firing_rate6 = firing_rate(res6, param6);
 %scatterplot(res6,param6,name6,save)
 %correlation(res6,param6,name6,save)
@@ -257,6 +260,7 @@ runtime6 = etime(clock,t);
 %hist_v(res6,param6,name6,save)
 %hist_t(res6,param6,name6,save)
 %firing_rate6
+% dynamical_motion(res6,param6,name6,save)
 
 %% Full model: Hom, small-size, noref
 
@@ -297,13 +301,14 @@ runtime7 = etime(clock,t);
 
 
 
-scatterplot(res7, param7, name7,save);
+% scatterplot(res7, param7, name7,save);
 % firing_rate7 = firing_rate(res7, param7);
 % correlation(res7, param7, name7,save)
 % hist_h(res7, param7, name7,save)
 % hist_v(res7, param7, name7,savee)
 % hist_t(res7, param7, name7,save)
 % firing_rate7
+dynamical_motion(res7,param7,name7,save)
 
 %% Full model: Reg, small-size, noref
 
@@ -329,7 +334,7 @@ param8.gate      = 70;
 param8.time_delta = 1;
 duration_time   = 1000;
 name8 = 'n=100-t=1000-reg-noref';
-save=false;
+save=f;
 param8.type    ='reg';
 param8.fix = false;
 % random inilialization
@@ -346,12 +351,13 @@ runtime8 = etime(clock, t);
 
 % 
 % firing_rate8 = firing_rate(res8, param8);
-scatterplot(res8, param8,name8,save);
+% scatterplot(res8, param8,name8,save);
 % correlation(res8, param8, name8, save);
 % hist_h(res8, param8, name8, save);
 % hist_v(res8, param8, name8, save);
 % hist_t(res8, param8, name8, save);
 %firing_rate8
+dynamical_motion(res8, param8, name8, save);
 %% Full model: Syn, small-size, noref
 
 param9.ne       = 75;
@@ -400,7 +406,7 @@ runtime9 = etime(clock,t);
 %hist_v(res9,param9,name9,save)
 %hist_t(res9,param9,name9,save)
 %firing_rate9
-
+dynamical_motion(res9,param9,name9,save)
 %% Coarse grained fixed probabiliy model:
 
 c=0.2;
