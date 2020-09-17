@@ -117,7 +117,7 @@ param9.tau_ee   = 1.3;
 param9.tau_ie   = 0.95;
 param9.tau_i    = 4.5;
 param9.gate     = 70;
-duration_time   = 60000;
+duration_time   = 5000;
 param9.time_delta = 1;
 param9.fix = false;
 name9 = 'n=100-t=1000-syn-noref';
@@ -135,6 +135,11 @@ s(1,:) = unidrnd(param9.M+param9.Mr+1,[1,param9.ne+param9.ni])- param9.Mr-1;
 t = clock;
 res9 = model_full(s, duration_time, param9);
 runtime9 = etime(clock,t);
+%% Rare events simulation
+param9.simulation_times=150;
+rare_res9=rare_model_full(res9,param9);
+
+
 
 %% Calculate the P
 
@@ -143,6 +148,15 @@ V_e = res.V_e;
 V_i = res.V_i;
 N_GI = res.N_GI;
 N_GE = res.N_GE;
+
+V_e = [V_e,rare_res9.V_e];
+V_i = [V_i,rare_res9.V_i];
+N_GI = [N_GI,rare_res9.N_GI];
+N_GE = [N_GE,rare_res9.N_GE];
+
+
+
+
 
 P1.P_BE_Ex = zeros(1, 76);
 P1.P_GE_Ex = zeros(1, 76);

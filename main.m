@@ -274,7 +274,7 @@ param7.s_ee     = 25;
 param7.s_ie     = 10;
 param7.s_ei     = 25;
 param7.s_ii     = 25;
-param7.tau_r    = 2.5;
+param7.tau_r    = 0;
 param7.M        = 100;
 param7.Mr       = 66;
 param7.lambda_e = 1/7;
@@ -308,7 +308,7 @@ runtime7 = etime(clock,t);
 % hist_v(res7, param7, name7,savee)
 % hist_t(res7, param7, name7,save)
 % firing_rate7
-dynamical_motion(res7,param7,name7,save)
+% dynamical_motion(res7,param7,name7,save)
 
 %% Full model: Reg, small-size, noref
 
@@ -322,7 +322,7 @@ param8.s_ee     = 25;
 param8.s_ie     = 10;
 param8.s_ei     = 25;
 param8.s_ii     = 25;
-param8.tau_r    = 2.5;
+param8.tau_r    = 0;
 param8.M        = 100;
 param8.Mr       = 66;
 param8.lambda_e = 1/7;
@@ -334,7 +334,7 @@ param8.gate      = 70;
 param8.time_delta = 1;
 duration_time   = 1000;
 name8 = 'n=100-t=1000-reg-noref';
-save=f;
+save=false;
 param8.type    ='reg';
 param8.fix = false;
 % random inilialization
@@ -357,7 +357,7 @@ runtime8 = etime(clock, t);
 % hist_v(res8, param8, name8, save);
 % hist_t(res8, param8, name8, save);
 %firing_rate8
-dynamical_motion(res8, param8, name8, save);
+% dynamical_motion(res8, param8, name8, save);
 %% Full model: Syn, small-size, noref
 
 param9.ne       = 75;
@@ -406,7 +406,7 @@ runtime9 = etime(clock,t);
 %hist_v(res9,param9,name9,save)
 %hist_t(res9,param9,name9,save)
 %firing_rate9
-dynamical_motion(res9,param9,name9,save)
+% dynamical_motion(res9,param9,name9,save)
 %% Coarse grained fixed probabiliy model:
 
 c=0.2;
@@ -419,7 +419,7 @@ param10.P_GE_Ex=0.02*ones(1,76)*c;
 param10.P_GI_Ex=0.00247*ones(1,26)*c;
 param10.P_BE_E=0.029*ones(1,76)*c;
 param10.P_BI_E=0.07*ones(1,26)*c;
-param10.P_BE_E=ones(1,76)*c;
+param10.P_GE_E=ones(1,76)*c;
 param10.P_GI_E=ones(1,26)*c;
 param10.P_GE_I=ones(1,76)*c;
 param10.P_GI_I=ones(1,26)*c;
