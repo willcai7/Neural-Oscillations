@@ -44,6 +44,8 @@
     * 补上P_generation.m 里面关于rare_model 的部分并且check是否正确
     * 跑一下三种noref full model和相关的rare_model， 可以简单调参，check一下结果
     * 根据Yao Li上次的idea设计一个给coarse grained model 画raster plot的 办法
+    * 跑一下有ref full model 的结果
+    * 调整 noref syn 的参数
   * 榆杭：
     * 仔细调整关于统计法里面如果bar下移，某些概率的计算
     * 跑三种noref fullmodel的low bar的P，观察不调整参数是否可以有好结果
