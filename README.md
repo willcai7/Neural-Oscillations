@@ -19,7 +19,7 @@
 * output:
   * model_full:  Results of full model.
   * model_reduced_twos: Results of two state reduced model.
-  * model_reduced_twos: Results of coarse grained model.
+  * model_reduced_coag: Results of coarse grained model.
 * reference:
   * Notes
   * Papers
