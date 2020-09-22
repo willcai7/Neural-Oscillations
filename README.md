@@ -12,36 +12,40 @@
     * Res.t
   * model_reduced_network.m 
   * coarse_grained.m
-  * P_generation_gaussian.m (V_e, V_i)
+  * P_generation_statistics.m
   * P_generation_histogram.m
+  * rare_model_full.m
   * firing_rate.m
 * output:
-  * reg:
-  * syn:
-  * hom:
+  * model_full:  Results of full model.
+  * model_reduced_twos: Results of two state reduced model.
+  * model_reduced_twos: Results of coarse grained model.
 * reference:
   * Notes
   * Papers
 * graphics:
   * correlation.m
-  * Rasterplot.m
+  * scatterplot.m
   * line_graph.m (Raster & Projection)
   * dynamical_motion.m
-  * line_graph_coarse.m 
+  * coarse_grained_plot.m 
 * main.m
-  * delete start_time
+  * main_model_full.m
+  * main_model_reduced.m
+  * P_generation.m
 
 
 
-## Variable
+## Todo
 
-* P
+* 2020.9.21
+  * 天一：
+    * Check rare_model_full.m 里面参数是不是有问题
+    * 补上P_generation.m 里面关于rare_model 的部分并且check是否正确
+    * 跑一下三种noref full model和相关的rare_model， 可以简单调参，check一下结果
+    * 根据Yao Li上次的idea设计一个给coarse grained model 画raster plot的 办法
+  * 榆杭：
+    * 仔细调整关于统计法里面如果bar下移，某些概率的计算
+    * 跑三种noref fullmodel的low bar的P，观察不调整参数是否可以有好结果
 
-
-
-## Progress
-
-* s_ee=25, s_ie=15, s_ei=25, s_ii= 25,
-* gate =75 ,  
-* p_generation, start from 0.5,
 

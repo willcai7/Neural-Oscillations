@@ -388,8 +388,8 @@ param9.tau_ie   = 0.95;
 param9.tau_i    = 4.5;
 param9.gate      = 70;
 param9.time_delta = 1;
-duration_time   = 1000;
-param9.model    = 'model_full';
+duration_time    = 1000;
+param9.model      = 'model_full';
 
 name9 = 'syn-noref-n=100-t=1000';
 save=true;

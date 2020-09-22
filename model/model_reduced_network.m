@@ -1,4 +1,4 @@
-function [res] = model_reduced_network_P(s,duration_time,param, P,q)
+function [res] = model_reduced_network(s,duration_time,param, P,q)
 c                                 = zeros(4,param.ne + param.ni);
 c(1,1:param.ne)                   = param.lambda_e;
 c(1,param.ne+1:param.ne+param.ni) = param.lambda_i;

@@ -6,37 +6,33 @@ addpath(genpath(pwd));
 
 %% Reduced network: Syn, small-size
 
-param11.ne       = 75;
-param11.ni       = 25;
-param11.p_ee     = 0.15;
-param11.p_ie     = 0.5;
-param11.p_ei     = 0.5;
-param11.p_ii     = 0.4;
-param11.s_ee     = 25;
-param11.s_ie     = 10;
-param11.M        = 100;
-param11.Mr       = 66;
-param11.lambda_e = 1/7;
-param11.lambda_i = 1/7;
-param11.tau_ee   = 1.3;
-param11.tau_ie   = 0.95;
-param11.tau_i    = 4.5;
+param1.ne       = 75;
+param1.ni       = 25;
+param1.p_ee     = 0.15;
+param1.p_ie     = 0.5;
+param1.p_ei     = 0.5;
+param1.p_ii     = 0.4;
+param1.s_ee     = 25;
+param1.s_ie     = 10;
+param1.M        = 100;
+param1.Mr       = 66;
+param1.lambda_e = 1/7;
+param1.lambda_i = 1/7;
+param1.tau_ee   = 1.3;
+param1.tau_ie   = 0.95;
+param1.tau_i    = 4.5;
+param1.model    = 'model_reduced_twos';
 
-load('res7');
-res=res6;%the struct in res7.mat is res6
-q=[1,0.5,1.5,1,0.42,0.7,1.3];
+q               =[1,0.5,1.5,1,0.42,0.7,1.3];
 
-name11 = 'n=100-t=1000-syn-noref';
-save=false;
-param11.type       ='syn';
+name1          = 'syn-noref-n=100-t=1000';
+save            = false;
+param1.type     = 'syn';
+s               = false;
+duration_time   = 1000;
 
-s=false;
-
-duration_time=1000;
-
-P = P_generation_histogram(param11, res);
-res11 = model_reduced_network_P(s,duration_time,param11, P,q);
-scatterplot(res11,param11,name11,save);
+res1 = model_reduced_network(s,duration_time,param1, P,q);
+scatterplot(res1,param1,name1,save);
 
 %% Reduced network: Reg, small-size
 
@@ -55,13 +51,11 @@ param2.lambda_i = 1/7;
 param2.tau_ee   = 2;
 param2.tau_ie   = 1.2;
 param2.tau_i    = 4.5;
-param2.method     ='truncate' % or 'extend' 
+param2.model    = 'model_reduced_twos';
 
-load('res7');
-res=res6;%the struct in res7.mat is res6
 q=[1,0.5,1.5,1,0.42,0.7,1.3];
 
-name2 = 'n=100-t=1000-reg-noref';
+name2 = 'reg-noref-n=100-t=1000';
 save=false;
 param2.type       ='reg';
 
@@ -69,8 +63,7 @@ s=false;
 
 duration_time=1000;
 
-P = P_generation_histogram(param2, res);
-res2 = model_reduced_network_P(s,duration_time,param2, P,q);
+res2 = model_reduced_network(s,duration_time,param2, P,q);
 scatterplot(res2,param2,name2,save);
 
 %% Reduced network: Hom, small-size
@@ -90,22 +83,18 @@ param3.lambda_i = 1/7;
 param3.tau_ee   = 4;
 param3.tau_ie   = 1.2;
 param3.tau_i    = 4.5;
-param3.method     ='truncate' % or 'extend' 
+param3.model    = 'model_reduced_twos';
 
-load('res7');
-res=res6;
 q=[1,0.5,1.5,1,0.42,0.7,1.3];
     
-name3 = 'n=100-t=1000-hom-noref';
-save=false;
+name3 = 'hom-noref-n=100-t=1000';
+save  = false;
 param3.type       ='hom';
 
 s=false;
-
 duration_time=1000;
 
-P = P_generation_histogram(param3, res);
-res3 = model_reduced_network_P(s,duration_time,param3, P,q);
+res3 = model_reduced_network(s,duration_time,param3, P,q);
 scatterplot(res13,param3,name3,save);
 
 %% Coarse grained fixed probabiliy model: Syn, small-size
