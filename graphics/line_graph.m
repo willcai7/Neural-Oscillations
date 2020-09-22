@@ -2,7 +2,7 @@ function [] = line_graph(res,param,name,save)
 time_delta = param.time_delta;
 ne = param.ne;
 ni = param.ni;
-type = param.type;
+model = param.model;
 num = length(res.H_ee);
 time = linspace(1,num* time_delta, num);
 subplot(3,1,1);
@@ -29,7 +29,7 @@ legend('N_{GE}/N_{E}','N_{GI}/N_I');
 xlabel('t/ms');
 set(gcf,'Position',[10,10,1000,600]);
 if save==true
-saveas(gcf,['output\',type,'\graphline-',name,'.png']);
+saveas(gcf,['output\',model,'\graphline-',name,'.png']);
 end
 end
 

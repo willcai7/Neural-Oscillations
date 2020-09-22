@@ -2,7 +2,7 @@ function [] = dynamical_motion(res,param,name,save)
 n=length(res.V_e)/param.ne;
 % ',param.type,'
 if save==true
-    filename=['output/',param.type,'/',name];
+    filename=['output/',param.model,'/dynamical_motion-',name];
     out=VideoWriter(filename);
     out.FrameRate=10;
     open(out);

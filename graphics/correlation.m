@@ -2,7 +2,7 @@ function [] = correlation(res,param,name,save)
 % A function to compute and show correlation.
 ne = param.ne;
 ni = param.ni;
-type = param.type;
+model = param.model;
 spike = res.spike;
 timewindow_upper=985; %note that timewindow_upper <= duration_time-15
 timewindow_lower=785; %note that timewindow_lower >= 15
@@ -81,23 +81,23 @@ corr_ii=corr_ii/(num_i*ni);
 x=(-14.5:14.5);
 subplot(1,4,1);
 bar(x,corr_ee,1,'b');
-ylim([0 1]);
+ylim([0 0.2]);
 title('E spikes conditioned on E at t=0');
 subplot(1,4,2);
 bar(x,corr_ie,1,'b');
-ylim([0 1]);
+ylim([0 0.2]);
 title('I spikes conditioned on E at t=0');
 subplot(1,4,3);
 bar(x,corr_ei,1,'b');
-ylim([0 1]);
+ylim([0 0.2]);
 title('E spikes conditioned on I at t=0');
 subplot(1,4,4);
 bar(x,corr_ii,1,'b');
-ylim([0 1]);
+ylim([0 0.2]);
 title('I spikes conditioned on I at t=0');
 set(gcf,'Position',[10,10,2000,150]);
 if save==true
-saveas(gcf,['output\',type,'\correlation-',name,'.png']);
+saveas(gcf,['output\',model,'\correlation-',name,'.png']);
 end
 
 end

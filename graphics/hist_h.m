@@ -1,5 +1,5 @@
 function [] = hist_h(res,param,name,save)
-type = param.type;
+model = param.model;
 subplot(4,1,1);
 histogram(res.H_ee);
 title("H_{ee}");
@@ -14,6 +14,6 @@ histogram(res.H_ii);
 title("H_{ii}");
 set(gcf,'Position',[10,10,500,500]);
 if save==true
-saveas(gcf,['output\',type,'\pending_spike-',name,'.png']);
+saveas(gcf,['output\',model,'\pending_spike-',name,'.png']);
 end
 
