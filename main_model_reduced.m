@@ -23,15 +23,17 @@ param1.tau_ie   = 0.95;
 param1.tau_i    = 4.5;
 param1.model    = 'model_reduced_twos';
 
-q               =[1,0.5,1.5,1,0.42,0.7,1.3];
+% q             = [1,0.5,1.5,1,0.42,0.7,1.3];
+q = 1*ones(1,7);
 
-name1          = 'syn-noref-n=100-t=1000';
-save            = false;
+name1          = 'syn-ref-n=100-t=1000';
+save            = true;
 param1.type     = 'syn';
 s               = false;
 duration_time   = 1000;
 
-res1 = model_reduced_network(s,duration_time,param1, P,q);
+%res1 = model_reduced_network(s,duration_time,param1, P,q);
+res1 = model_reduced_network(s,duration_time,param1, P3_stat,q);
 scatterplot(res1,param1,name1,save);
 
 %% Reduced network: Reg, small-size
@@ -53,17 +55,19 @@ param2.tau_ie   = 1.2;
 param2.tau_i    = 4.5;
 param2.model    = 'model_reduced_twos';
 
-q=[1,0.5,1.5,1,0.42,0.7,1.3];
+% q=[1,0.5,1.5,1,0.42,0.7,1.3];
+q = ones(1,7);
 
-name2 = 'reg-noref-n=100-t=1000';
+name2 = 'reg-ref-n=100-t=1000';
 save=false;
-param2.type       ='reg';
+param2.type       ='reg';  
 
 s=false;
 
 duration_time=1000;
 
-res2 = model_reduced_network(s,duration_time,param2, P,q);
+%res2 = model_reduced_network(s,duration_time,param2, P,q);
+res2 = model_reduced_network(s,duration_time,param2, P2_stat_ref,q);
 scatterplot(res2,param2,name2,save);
 
 %% Reduced network: Hom, small-size
@@ -85,17 +89,19 @@ param3.tau_ie   = 1.2;
 param3.tau_i    = 4.5;
 param3.model    = 'model_reduced_twos';
 
-q=[1,0.5,1.5,1,0.42,0.7,1.3];
-    
-name3 = 'hom-noref-n=100-t=1000';
+% q=[1,0.5,1.5,1,0.42,0.7,1.3];
+q = ones(1,7);
+
+name3 = 'hom-ref-n=100-t=1000';
 save  = false;
 param3.type       ='hom';
 
 s=false;
 duration_time=1000;
 
-res3 = model_reduced_network(s,duration_time,param3, P,q);
-scatterplot(res13,param3,name3,save);
+%res3 = model_reduced_network(s,duration_time,param3, P,q);
+res3 = model_reduced_network(s,duration_time,param3, P1_stat_ref,q);
+scatterplot(res3,param3,name3,save);
 
 %% Coarse grained fixed probabiliy model: Syn, small-size
 
