@@ -27,7 +27,7 @@ res.H_ei = 0;
 res.N_GE = 0;
 res.N_GI = 0;
 
-time_check = 10;
+time_check = 0.5;
 time_delta = 0;
 
 while t<= duration_time
@@ -82,12 +82,12 @@ while t<= duration_time
             end
         elseif s(1,y)==0 && y> param.ne
             if rand(1)<P_BI_E
-                s(1,y)=1;
+                s(1,y) = 1;
             end
         elseif s(1,y)==1 && y<= param.ne
             if rand(1)<P_GE_E
                 s(1,y)= 0;
-                is_spike =1;
+                is_spike = 1;
             end
         else
             if rand(1)<P_GI_E

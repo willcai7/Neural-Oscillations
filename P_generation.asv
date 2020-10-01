@@ -126,7 +126,7 @@ param3.time_delta = 1;
 
 param3.rare_range_e=3;           %range definition of rare events of e neurons
 param3.rare_range_i=1;           %range definition of rare events of i neurons
-param3.simulation_times=7000;     %times of rare events simulation
+param3.simulation_times=5000;     %times of rare events simulation
 param3.simulation_duration=1;    %duration of each simulation
 
 param3.fix = false;
@@ -156,14 +156,14 @@ res3_ref = model_full(s, duration_time, param3);
 rare_res3_ref=rare_model_full(res3_ref,param3);
 
 %% Calculate the P
-bar.e = 60;
-bar.i = 60;
+bar.e = 75;
+bar.i = 75;
 % Statistical method
-% P1_stat = P_generation_statistics(res1, rare_res1, param1, bar);
-% P1_stat_ref = P_generation_statistics(res1_ref, rare_res1_ref, param1, bar);
-% 
-% P2_stat = P_generation_statistics(res2, rare_res2, param2, bar);
-% P2_stat_ref = P_generation_statistics(res2_ref, rare_res2_ref, param2, bar);
+P1_stat = P_generation_statistics(res1, rare_res1, param1, bar);
+P1_stat_ref = P_generation_statistics(res1_ref, rare_res1_ref, param1, bar);
+
+P2_stat = P_generation_statistics(res2, rare_res2, param2, bar);
+P2_stat_ref = P_generation_statistics(res2_ref, rare_res2_ref, param2, bar);
 
 P3_stat = P_generation_statistics(res3, rare_res3, param3, bar);
 P3_stat_ref = P_generation_statistics(res3_ref, rare_res3_ref, param3, bar);

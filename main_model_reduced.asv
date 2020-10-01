@@ -136,15 +136,14 @@ param4.a_ei=0.79;
 param4.a_ii=0.21;
 param4.pending_i_maximum=2000000;
 param4.pending_e_maximum=1000000;
-param4.model = 'model_reduced_coag';
 duration_time   = 1000;
 
 %random initialization
 s=ones(1,4);
 q = ones(1,10);
-name = '1';
-res4=model_coarse_grained(s,duration_time,param4, P3_stat_ref, q);
-coarse_grained_plot(res4,param4, name, save)
+name = '1
+res4=model_coarse_grained(s,duration_time,param4,P3_stat_ref, q);
+coarse_grained_plot(param4, res4, name, save)
 % line_graph(res7,time_delta,ne, ni, name)
 
 %% Coarse grained fixed probabiliy model: Reg, small-size

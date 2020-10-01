@@ -37,11 +37,14 @@ P.P_GI_E  = zeros(1, ni+1);
 P.P_GI_I  = zeros(1, ni+1);
 
 
-max_N_GE = max(N_GE);
-max_N_GI = max(N_GI);
+
 check_times = length(N_GE);
 V_e = reshape(V_e, ne, check_times);
 V_i = reshape(V_i, ni, check_times);
+N_GE = sum(V_e>bar_e);
+N_GI = sum(V_i>bar_i);
+max_N_GE = max(N_GE);
+max_N_GI = max(N_GI);
 
 for i =1:max_N_GE+1
 V_e_temp = V_e(:, N_GE==(i-1));
@@ -64,7 +67,7 @@ PDF_i_temp = PDF_i_temp.Values;
 close;
 
 P.P_BI_Ex(i) = PDF_i_temp(bar_i+ Mr +1)/sum(PDF_i_temp(1: (bar_i + Mr + 1)));
-P.P_GI_Ex(i) = PDF_i_temp(Mr+M)/sum(PDF_i_temp(bar_i+Mr+2: Mr+M+1));
+P.P_GI_Ex(i) = PDF_i_temp(M+Mr)/sum(PDF_i_temp(bar_i+Mr+2: Mr+M+1));
 P.P_BI_E(i) = sum(PDF_i_temp((bar_i+Mr+2-s_ie): bar_i+Mr+1))/sum(PDF_i_temp(1:bar_i+Mr+1));
 P.P_GI_E(i) = min(sum(PDF_i_temp((M+Mr+2-s_ie):M+Mr+1))/sum(PDF_i_temp(bar_i+Mr+2:M+Mr+1)),1);
 P.P_GI_I(i) = min(sum(PDF_i_temp(bar_i+Mr+2:bar_i+Mr+s_ii+1))/sum(PDF_i_temp(bar_i+Mr+2: M+Mr+1)),1);

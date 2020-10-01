@@ -23,7 +23,6 @@ subplot(3,1,3);
 plot(res.rec(5,:),res.rec(3,:));
 hold on
 plot(res.rec(5,:),res.rec(4,:));
-ylim([0 param.pending_i_maximum]);
 legend('H_e','H_i');
 title('number of pending spikes');
 set(gcf,'Position',[10,10,2000,1500]);
