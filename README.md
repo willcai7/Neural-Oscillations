@@ -51,3 +51,10 @@
     * 跑三种noref fullmodel的low bar的P，观察不调整参数是否可以有好结果
 
 
+
+* 2020.9.30
+  * 天一：
+    * 调出三个regime的reduced network和coarse grained model
+    * 画图，P关于不同bar的变化（可以是3D，也可以是画几条线，每条线代表不同的bar）
+    * 画图，P关于不同$\tau_e/\tau_i$的变化（3D或者几条线）
+    * 画图，关于不同的输入，就是external drive的频率变化，P怎么变（同上）
