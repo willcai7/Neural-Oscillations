@@ -1,4 +1,5 @@
 function []=coarse_grained_plot(res,param,name,save)
+
 ne = param.ne;
 ni = param.ni;
 model = param.model;
@@ -25,7 +26,7 @@ hold on
 plot(res.rec(5,:),res.rec(4,:));
 legend('H_e','H_i');
 title('number of pending spikes');
-set(gcf,'Position',[10,10,2000,1500]);
+set(gcf,'Position',[10,10,1000,600]);
 if save==true
     saveas(gcf,['output\',model,'\',name,'.png']);
 end

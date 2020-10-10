@@ -95,7 +95,7 @@ subplot(1,4,4);
 bar(x,corr_ii,1,'b');
 ylim([0 0.2]);
 title('I spikes conditioned on I at t=0');
-set(gcf,'Position',[10,10,2000,150]);
+set(gcf,'Position',[10,10,1000,200]);
 if save==true
 saveas(gcf,['output\',model,'\correlation-',name,'.png']);
 end

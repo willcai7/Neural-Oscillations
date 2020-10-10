@@ -1,4 +1,4 @@
-function [res] = model_full(s,duration_time,param)
+function [res] = model_full(s,param)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
@@ -41,6 +41,7 @@ c(2,1:param.ne)                   = param.tau_ee;
 c(2,param.ne+1:param.ne+param.ni) = param.tau_ie;
 c(3,:)                            = param.tau_i;
 c(4,:)                            = param.tau_r;
+duration_time                     = param.duration;
 %c is time constant matrix. The first row is lambda_e(i), the second row
 %correspond to H_e, the third row correspond to H_i, the fourth row
 %correspond to tau_r.
