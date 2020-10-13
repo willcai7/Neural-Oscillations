@@ -160,7 +160,7 @@ P_res4          = model_full(s, param4);
 runtime4        = etime(clock,t);
 rare_res4       = rare_model_full(P_res4,param4, bar);
 
-% Full model: Bertween reg & syn, small-size, long time
+%% Full model: Between reg & syn, small-size, long time
 
 param5            = param;
 param5.tau_ee     = 1.65;
