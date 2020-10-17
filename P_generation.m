@@ -156,7 +156,7 @@ t               = clock;
 runtime4        = etime(clock,t);
 %rare_res4       = rare_model_full(P_res4,param4, bar);
 
-% Full model: Bertween reg & syn, small-size, long time
+%% Full model: Between reg & syn, small-size, long time
 
 param5            = param;
 param5.tau_ee     = 1.65;
@@ -201,11 +201,11 @@ bar.i = 40;
 %P2_stat_noref = P_generation_statistics(res2_noref, rare_res2_noref, param2, bar);
 %P3_stat_noref = P_generation_statistics(res3_noref, rare_res3_noref, param3, bar);
 
-P1_stat = P_generation_statistics(P_res1, rare_res1, param1, bar);
-P2_stat = P_generation_statistics(P_res2, rare_res2, param2, bar);
-P3_stat = P_generation_statistics(P_res3, rare_res3, param3, bar);
-P4_stat = P_generation_statistics(P_res4, rare_res4, param4, bar);
-P5_stat = P_generation_statistics(P_res5, rare_res5, param5, bar);
+P1_stat = P_generation_statistics(P_res1, rare_res1, param, bar);
+P2_stat = P_generation_statistics(P_res2, rare_res2, param, bar);
+P3_stat = P_generation_statistics(P_res3, rare_res3, param, bar);
+P4_stat = P_generation_statistics(P_res4, rare_res4, param, bar);
+P5_stat = P_generation_statistics(P_res5, rare_res5, param, bar);
 
 %% P versus different tau_ee/tau_ie
 ne = param.ne;
