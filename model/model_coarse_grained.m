@@ -31,30 +31,31 @@ a_ii=param.a_ii;
 
 t=0;
 
-res.spike = zeros(2,2000);
+res.spike = zeros(2,5000);
 res.rec   = zeros(5,900);
-res.t     = [];
+
 
 count=0;
 
 while t<= duration_time
-   c=[P_BE_Ex(s(1)+1)/lambda_e, P_BI_Ex(s(2)+1)/lambda_i,P_GE_Ex(s(1)+1)/lambda_e,P_GI_Ex(s(2)+1)/lambda_i,...
+   c=[P_BE_Ex(s(1)+1)/lambda_e, P_BI_Ex(s(2)+1)/lambda_i,P_GE_Ex(s(1)+1)/lambda_e,P_GI_Ex(s(2)+1)/lambda_i,0,...
         P_BE_E(s(1)+1)*a_ee/tau_ee, P_BI_E(s(2)+1)*a_ie/tau_ie,P_GE_E(s(1)+1)*a_ee/tau_ee,P_GI_E(s(2)+1)*a_ie/tau_ie,0,...
         P_GE_I(s(1)+1)*a_ei/tau_i,P_GI_I(s(2)+1)*a_ii/tau_i,0];
-    q=[ne-s(1),ni-s(2),s(1),s(2),(1-s(1)/ne)*s(3),(1-s(2)/ni)*s(3),s(1)*s(3)/ne,...
-        s(2)*s(3)/ni,0,s(1)*s(4)/ne,s(2)*s(4)/ni,0];   
+    q=[ne-s(1),ni-s(2),s(1),s(2),0,(1-s(1)/(ne))*s(3),(1-s(2)/(ni))*s(3),s(1)*s(3)/(ne),...
+        s(2)*s(3)/(ni),0,s(1)*s(4)/ne,s(2)*s(4)/ni,0];   
     q=q.*c;
-    q(9)= a_ee*s(3)/tau_ee + a_ie*s(3)/tau_ie - q(5) - q(6) - q(7) - q(8);
-    q(12)=s(4)/tau_i-q(10)-q(11);
+    q(5) = ne/lambda_e + ni/lambda_i - q(1) - q(2) - q(3) -q(4);
+    q(10)= a_ee*s(3)/tau_ee + a_ie*s(3)/tau_ie - q(6) - q(7) - q(8) - q(9);
+    q(13)=s(4)/tau_i-q(11)-q(12);
     dt=exprnd(1/sum(q));
     t=t+dt;
-    t
-    res.t = [res.t t];
     if floor(t)-floor((t-dt))==1
+        t
         count=count+1;
         res.rec(:,count)=[s,t-dt]';
     end
     q=q/sum(q);
+    
     d=rand(1);
     per=q(1);
     i=1;
@@ -62,6 +63,7 @@ while t<= duration_time
         i=i+1;
         per=per+q(i);
     end
+    if i~=5
     if i==1
         s(1)=s(1)+1;
     elseif i==2
@@ -82,13 +84,13 @@ while t<= duration_time
         if s(4)>max_pi
             s(4)=max_pi;
         end
-    elseif i==5
+    elseif i==6
         s(1)=s(1)+1;
         s(3)=s(3)-1;
-    elseif i==6
+    elseif i==7
         s(2)=s(2)+1;
         s(3)=s(3)-1;
-    elseif i==7
+    elseif i==8
         s(1)=s(1)-1;
         s(3)=s(3)-1+P_e;
         res.spike(1,1)=res.spike(1,1)+1;
@@ -96,7 +98,7 @@ while t<= duration_time
         if s(3)>max_pe
             s(3)=max_pe;
         end
-    elseif i==8
+    elseif i==9
         s(2)=s(2)-1;
         s(3)=s(3)-1;
         s(4)=s(4)+P_i;
@@ -105,16 +107,17 @@ while t<= duration_time
         if s(4)>max_pi
             s(4)=max_pi;
         end
-    elseif i==9
-        s(3)=s(3)-1;
     elseif i==10
+        s(3)=s(3)-1;
+    elseif i==11
         s(1)=s(1)-1;
         s(4)=s(4)-1;
-    elseif i==11
+    elseif i==12
         s(2)=s(2)-1;
         s(4)=s(4)-1;
-    elseif i==12
+    elseif i==13
         s(4)=s(4)-1;
+    end
     end
 end
 

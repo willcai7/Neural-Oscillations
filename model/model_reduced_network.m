@@ -27,7 +27,7 @@ res.H_ei = [];
 res.N_GE = [];
 res.N_GI = [];
 res.t = [];
-
+res.ratio =[];
 time_check = 1;
 time_delta = 0;
 
@@ -125,14 +125,29 @@ while t<= duration_time
         res.spike(1,y)=res.spike(1,y)+1; %write down the spike time
         res.spike(res.spike(1,y)+1,y)=t;
     end
-    
     time_delta = time_delta + a(x,y);
+
     if time_delta >= time_check
         res.t    = [res.t t];
+        res.V_e  = [res.V_e, s(1,1:param.ne)];
+        res.V_i  = [res.V_i, s(1,param.ne+1: param.ne+ param.ni)];
         res.H_ee = [res.H_ee s(2,1:param.ne)];
         res.H_ei = [res.H_ei s(3,1:param.ne)];
         res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)];
         res.H_ii = [res.H_ii s(3,param.ne+1:param.ne+param.ni)];
+        a_ee = sum(s(2,1:param.ne))/sum(s(2,:));
+        a_ei = sum(s(3,1:param.ne))/sum(s(3,:));
+        H_ee = s(2,1:param.ne);
+        H_ei = s(3,1:param.ne);
+        H_ie = s(2,1+param.ne: param.ne+ param.ni);
+        H_ii = s(3,1+param.ne: param.ne+ param.ni);
+        V_e = s(1,1:param.ne);
+        V_i = s(1, param.ne+1:param.ne+ param.ni);
+        ratio_H_ee = mean(H_ee(V_e==1))/mean(H_ee(V_e==0));
+        ratio_H_ei = mean(H_ei(V_e==1))/mean(H_ei(V_e==0));
+        ratio_H_ie = mean(H_ie(V_i==1))/mean(H_ie(V_i==0));
+        ratio_H_ii = mean(H_ii(V_i==1))/mean(H_ii(V_i==0));
+        res.ratio = [res.ratio [a_ee a_ei ratio_H_ee ratio_H_ei ratio_H_ie ratio_H_ii]'];
         time_delta = 0;
         res.N_GE = [res.N_GE s(1, 1:param.ne)*ones(param.ne,1)];
         res.N_GI = [res.N_GI s(1,param.ne+1:param.ne+param.ni)*ones(param.ni,1)];

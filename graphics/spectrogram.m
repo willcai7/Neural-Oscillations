@@ -31,7 +31,7 @@ ylabel('Freq(Hz)');
 hcb=colorbar;
 ylabel(hcb,'(spikes/sec)^2/Hz');
 colormap turbo;
-caxis([0 300]);
+caxis([0 800]);
 set(gcf,'Position',[10,10,1000,200]);
 title(name);
 if save==true

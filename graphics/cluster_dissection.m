@@ -53,7 +53,7 @@ background=zeros(1,time);
 for i=1:length(coordinate(1,:))
     background(coordinate(1,i):coordinate(2,i))=1;
 end
-background=200*background;
+background=600*background;
 
 bar(times,background,'y');
 hold on
@@ -65,7 +65,7 @@ hold on
 plot(times,mu*(1+delta)*ones(1,time),'k');
 xlabel('Time(ms)');
 set(gcf,'Position',[10,10,1000,200]);
-ylim([0, 200]);
+ylim([0, 400]);
 title(name);
 if save==true
 saveas(gcf,['output\',model,'\cluster-',name,'.png']);

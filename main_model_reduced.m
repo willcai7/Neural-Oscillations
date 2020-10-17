@@ -146,7 +146,7 @@ two_param3.duration = 1000;
 
 %res3 = model_reduced_network(s,duration_time,param3, P,q);
 t = clock;
-two_res3 = model_reduced_network(s,two_param3, P3_stat1);
+two_res3 = model_reduced_network(s,two_param3, P3_stat_ref);
 runtime3 = etime(clock,t);
 % rasterplot(two_res3,two_param3,name3,save);
 % firing_rate3 = firing_rate(two_res3, two_param3);
@@ -157,48 +157,63 @@ runtime3 = etime(clock,t);
 % spectrogram(two_sd3.e, two_param3, name3, save);
 % cluster_dissection(two_sd3.e, two_param3, name3, save);
 
-%% Coarse grained fixed probabiliy model: Syn, small-size
+%%
+res = two_res3;
+t = res.t;
+subplot(6,1,1);
+plot(t, res.ratio(1,:));
+subplot(6,1,2);
+plot(t, res.ratio(2,:));
+subplot(6,1,3);
+plot(t, res.ratio(3,:));
+subplot(6,1,4);
+plot(t, res.ratio(4,:));
+subplot(6,1,5);
+plot(t, res.ratio(5,:));
+subplot(6,1,6);
+plot(t, res.ratio(6,:));
 
-c=0.2;
+%% Coarse grained fixed probabiliy model: Syn, small-size
 param4.ne=75;
 param4.ni=25;
-
-param4.P_BE_Ex=0.0067*ones(1,76)*c;
-param4.P_BI_Ex=0.0104*ones(1,26)*c;
-param4.P_GE_Ex=0.02*ones(1,76)*c;
-param4.P_GI_Ex=0.00247*ones(1,26)*c;
-param4.P_BE_E=0.029*ones(1,76)*c;
-param4.P_BI_E=0.07*ones(1,26)*c;
-param4.P_BE_E=ones(1,76)*c;
-param4.P_GI_E=ones(1,26)*c;
-param4.P_GE_I=ones(1,76)*c;
-param4.P_GI_I=ones(1,26)*c;
-
-
-
-
 param4.lambda_e = 1/7;
 param4.lambda_i = 1/7;
 param4.tau_ee   = 1.3;
 param4.tau_ie   = 0.95;
 param4.tau_i    = 4.5;
+param4.S_ee = 11;
+param4.S_ie = 13;
 param4.S_e = 24;
 param4.S_i = 48;
-param4.a_ee=0.55;
-param4.a_ie=0.45;
+param4.a_ee=0.455;
+param4.a_ie=0.545;
 param4.a_ei=0.79;
 param4.a_ii=0.21;
 param4.pending_i_maximum=2000000;
 param4.pending_e_maximum=1000000;
 param4.model = 'model_reduced_coag';
-param4.duration = 1000;
+param4.duration= 3000;
+param4.cluster_delta = 0.33;
+param4.cluster_eps   = 8;
 
+% SSI
+param4. w = 7;
+
+% spectrogram
+param4.sdbin = 2.5;
+param4.spectrogram_timewindow = 200;
+param4.frequency_range = [10,80];
 %random initialization
 s=ones(1,4);
 q = ones(1,10);
-name = '1';
-res4=model_coarse_grained(s,param4, P3_stat1);
-coarse_grained_plot(res4,param4, name, save);
+save = true;
+name = 'syn-reduced-n=100-t=3000';
+res4 = model_coarse_grained(s,param4, P3_stat);
+%coarse_grained_plot(res4,param4, name, save);
+%sd4 = spikedensity_coarse(res4, param4);
+%coarse_grained_rasterplot(res4, param4, save, name);
+%cluster_dissection(sd4.e, param4, name, save);
+spectrogram(sd4.e, param4,name, save);
 % line_graph(res7,time_delta,ne, ni, name);
 
 %% Coarse grained fixed probabiliy model: Reg, small-size
@@ -207,77 +222,77 @@ c=0.2;
 param5.ne=75;
 param5.ni=25;
 
-param5.P_BE_Ex=0.0067*ones(1,76)*c;
-param5.P_BI_Ex=0.0104*ones(1,26)*c;
-param5.P_GE_Ex=0.02*ones(1,76)*c;
-param5.P_GI_Ex=0.00247*ones(1,26)*c;
-param5.P_BE_E=0.029*ones(1,76)*c;
-param5.P_BI_E=0.07*ones(1,26)*c;
-param5.P_BE_E=ones(1,76)*c;
-param5.P_GI_E=ones(1,26)*c;
-param5.P_GE_I=ones(1,76)*c;
-param5.P_GI_I=ones(1,26)*c;
-
 
 
 
 param5.lambda_e = 1/7;
 param5.lambda_i = 1/7;
-param5.tau_ee   = 1.3;
-param5.tau_ie   = 0.95;
+param5.tau_ee   = 2;
+param5.tau_ie   = 1.2;
 param5.tau_i    = 4.5;
 param5.S_e = 24;
 param5.S_i = 48;
-param5.a_ee=0.55;
-param5.a_ie=0.45;
+param5.a_ee=0.49;
+param5.a_ie=0.51;
 param5.a_ei=0.79;
 param5.a_ii=0.21;
 param5.pending_i_maximum=2000000;
 param5.pending_e_maximum=1000000;
-param5.duration   = 1000;
-
+param5.duration   = 3000;
+param5.model = 'model_reduced_coag';
+name = 'reg-reduced-n=100-t=3000';
 %random initialization
+
+% spectrogram
+param5. w = 7;
+param5.sdbin = 2.5;
+param5.spectrogram_timewindow = 200;
+param5.frequency_range = [10,80];
+param5.cluster_delta = 0.33;
+param5.cluster_eps   = 8;
 s=ones(1,4);
 res5=model_coarse_grained(s,param5,P2_stat);
-coarse_grained_plot(param5, res5, duration_time,'syn','111',false)
+coarse_grained_plot(res5, param5, name, save);
+%coarse_grained_rasterplot(res5, param5, save, name);
 % line_graph(res7,time_delta,ne, ni, name)
-
+sd5 = spikedensity_coarse(res5, param5);
+spectrogram(sd5.e, param5,name, save);
+cluster_dissection(sd5.e, param5, name, save);
 %% Coarse grained fixed probabiliy model: Hom, small-size
 
 c=0.2;
 param6.ne=75;
 param6.ni=25;
 
-param6.P_BE_Ex=0.0067*ones(1,76)*c;
-param6.P_BI_Ex=0.0104*ones(1,26)*c;
-param6.P_GE_Ex=0.02*ones(1,76)*c;
-param6.P_GI_Ex=0.00247*ones(1,26)*c;
-param6.P_BE_E=0.029*ones(1,76)*c;
-param6.P_BI_E=0.07*ones(1,26)*c;
-param6.P_BE_E=ones(1,76)*c;
-param6.P_GI_E=ones(1,26)*c;
-param6.P_GE_I=ones(1,76)*c;
-param6.P_GI_I=ones(1,26)*c;
-
-
-
 param6.lambda_e = 1/7;
 param6.lambda_i = 1/7;
-param6.tau_ee   = 1.3;
-param6.tau_ie   = 0.95;
+param6.tau_ee   = 4;
+param6.tau_ie   = 1.2;
 param6.tau_i    = 4.5;
 param6.S_e = 24;
 param6.S_i = 48;
-param6.a_ee=0.55;
-param6.a_ie=0.45;
+param6.a_ee=0.63;
+param6.a_ie=0.37;
 param6.a_ei=0.79;
 param6.a_ii=0.21;
 param6.pending_i_maximum=2000000;
 param6.pending_e_maximum=1000000;
-duration_time   = 11;
-
+param6.duration = 3000;
+param6.model = 'model_reduced_coag';
+name = 'hom-reduced-n=100-t=3000';
 %random initialization
+param6. w = 7;
+param6.sdbin = 2.5;
+param6.spectrogram_timewindow = 200;
+param6.frequency_range = [10,80];
+param6.cluster_delta = 0.33;
+param6.cluster_eps   = 8;
+
+
 s=ones(1,4);
-res6=model_coarse_grained(s,duration_time,param6,P1, 0.2,0.15);
-coarse_grained_plot(param6, res6, duration_time,'syn','111',false)
-% line_graph(res6,time_delta,ne, ni, name)
+res6=model_coarse_grained(s,param6,P1_stat);
+%coarse_grained_plot(res6, param6, name, save)
+coarse_grained_rasterplot(res6, param6, save, name);
+sd6 = spikedensity_coarse(res6, param6);
+spectrogram(sd6.e, param6,name, save);
+cluster_dissection(sd6.e, param6, name, save);
