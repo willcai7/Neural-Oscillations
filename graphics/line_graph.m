@@ -27,7 +27,7 @@ xlim([param.duration-1000,param.duration+100]);
 ylim([0 1000]);
 legend('H_{EE}','H_{IE}','H_{EI}','H_{II}');
 subplot(2,1,2);
-if isempty(res.V_e)
+if param.model == 'model_reduced_twos'
 N_GE = res.N_GE;
 N_GI = res.N_GI;
 else

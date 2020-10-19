@@ -13,6 +13,8 @@ s_ee    = param.s_ee;
 s_ie    = param.s_ie;
 s_ei    = param.s_ei;
 s_ii    = param.s_ii;  
+s_ei    = ceil((66*s_ei+bar_e*166)/(166-s_ei) - bar_e);
+s_ii    = ceil((66*s_ii+bar_i*166)/(166-s_ii) - bar_i);
 
 V_e = [V_e,rare_res.V_e];
 V_i = [V_i,rare_res.V_i];

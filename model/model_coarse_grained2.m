@@ -11,7 +11,7 @@ P_GE_Ex=P.P_GE_Ex;
 P_GI_Ex=P.P_GI_Ex;
 P_BE_E=P.P_BE_E;
 P_BI_E=P.P_BI_E;
-P_GE_E=P.P_BE_E;
+P_GE_E=P.P_GE_E;
 P_GI_E=P.P_GI_E;
 P_GE_I=P.P_GE_I;
 P_GI_I=P.P_GI_I;
@@ -41,19 +41,24 @@ while t<= duration_time
     c=[P_BE_Ex(s(1)+1)/lambda_e, P_BI_Ex(s(2)+1)/lambda_i,P_GE_Ex(s(1)+1)/lambda_e,P_GI_Ex(s(2)+1)/lambda_i,0,...
         P_BE_E(s(1)+1)/tau_ee, P_BI_E(s(2)+1)/tau_ie,P_GE_E(s(1)+1)/tau_ee,P_GI_E(s(2)+1)/tau_ie,0,0,...
         P_GE_I(s(1)+1)*a_ei/tau_i,P_GI_I(s(2)+1)*a_ii/tau_i,0];
-    q=[ne-s(1),ni-s(2),s(1),s(2),0,(1-s(1)/ne)*s(3),(1-s(2)/ni)*s(4),s(1)*s(3)/ne,...
-        s(2)*s(4)/ni,0,0,s(1)*s(5)/ne,s(2)*s(5)/ni,0];
+    q=[ne-s(1),ni-s(2),s(1),s(2),0,...
+        (1-s(1)/(ne))*s(3),(1-s(2)/(ni))*s(4),s(1)*s(3)/(ne),s(2)*s(4)/(ni),0,0,...
+        s(1)*s(5)/ne,s(2)*s(5)/ni,0];
     q=q.*c;
     q(5)=ne/lambda_e+ni/lambda_i-q(1)-q(2)-q(3)-q(4);
     q(5) = 0;
     q(10)= s(3)/tau_ee - q(6) - q(8);
     q(11)= s(4)/tau_ie - q(7) - q(9);
-    q(14)=s(5)/tau_i-q(10)-q(11);
+    q(14)=s(5)/tau_i-q(12)-q(13);
     dt=exprnd(1/sum(q));
     t=t+dt;
     if floor(t)-floor((t-dt))==1
         t
         count=count+1;
+        s_ = zeros(1,4);
+        s_(1:2) = s(1:2);
+        s_(3) = s(3) + s(4);
+        s_(4) = s(5);
         res.rec(:,count)=[s,t-dt]';
     end
     q=q/sum(q);

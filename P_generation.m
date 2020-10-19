@@ -197,15 +197,15 @@ runtime5        = etime(clock,t);
 bar.e = 40;
 bar.i = 40;
 % Statistical method
-%P1_stat_noref = P_generation_statistics(res1_noref, rare_res1_noref, param1, bar);
-%P2_stat_noref = P_generation_statistics(res2_noref, rare_res2_noref, param2, bar);
-%P3_stat_noref = P_generation_statistics(res3_noref, rare_res3_noref, param3, bar);
+P1_stat_noref = P_generation_statistics(P_res1_noref, rare_res1_noref, param1, bar);
+P2_stat_noref = P_generation_statistics(P_res2_noref, rare_res2_noref, param2, bar);
+P3_stat_noref = P_generation_statistics(P_res3_noref, rare_res3_noref, param3, bar);
 
-P1_stat = P_generation_statistics(P_res1, rare_res1, param, bar);
-P2_stat = P_generation_statistics(P_res2, rare_res2, param, bar);
-P3_stat = P_generation_statistics(P_res3, rare_res3, param, bar);
-P4_stat = P_generation_statistics(P_res4, rare_res4, param, bar);
-P5_stat = P_generation_statistics(P_res5, rare_res5, param, bar);
+% P1_stat1 = P_generation_statistics(P_res1, rare_res1, param, bar);
+% P2_stat1 = P_generation_statistics(P_res2, rare_res2, param, bar);
+% P3_stat1 = P_generation_statistics(P_res3, rare_res3, param, bar);
+% P4_stat = P_generation_statistics(P_res4, rare_res4, param, bar);
+% P5_stat = P_generation_statistics(P_res5, rare_res5, param, bar);
 
 %% P versus different tau_ee/tau_ie
 ne = param.ne;
