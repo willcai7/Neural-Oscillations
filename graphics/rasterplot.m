@@ -1,34 +1,34 @@
-function [] = rasterplot(res,param,name,save)
+function [] = rasterplot(res,param)
 % A function to show scatterplots and save them in folder output
 
 ne = param.ne;
 ni = param.ni;
 model = param.model;
 duration = param.duration;
-
 for i=1:ne
 times = res.spike(:,i);
-times = times(times > duration - 1000);
+times = times(times > 1000);
+times = times(times < 3000);
 num   = size(times, 1);
-scatter(times, i*ones(num, 1),0.5,'.','r');
+scatter(times, i*ones(num, 1),10,'.','r');
 hold on
 end
 
 for i=(ne+1):(ne+ni)
 times = res.spike(:,i);
-times = times(times > duration - 1000);
+times = times(times > 1000);
+times = times(times < 3000);
 num   = size(times, 1);
-scatter(times, i*ones(num, 1),0.5,'.','b');
+scatter(times, i*ones(num, 1),10,'.','b');
 hold on
 end
-
-title(name);
-xlabel('Time(ms)');
-ylabel('Neuron');
-set(gcf,'Position',[10,10,1000,200]);
-if save==true
-saveas(gcf,['output\', model,'\raster-',name,'.png']);
+xlim([1000, 3000]);
+%title(name);
+yticks([25 50 75]);
+xticks([]);
+%set(gca, 'xtick',[]);
+ylabel('Index');
+set(gca,'fontsize',11);
 end
 
-end
 

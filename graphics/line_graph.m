@@ -1,4 +1,4 @@
-function [] = line_graph(res,param,name,save, bar)
+function [] = line_graph(res,param, bar)
 ne = param.ne;
 ni = param.ni;
 model = param.model;
@@ -12,22 +12,31 @@ H_ee = sum(H_ee);
 H_ie = sum(H_ie);
 H_ei = sum(H_ei);
 H_ii = sum(H_ii);
-
-subplot(2,1,1);
-index = time> param.duration -1000;
-plot(time(index), H_ee(index), 'r');
-hold on
+subplot(3,1,1);
+index = time> 1000 & time<3000;
 plot(time(index), H_ie(index), 'b');
-title(name);
 hold on
+plot(time(index), H_ee(index), 'r');
+xlim([1000, 3000]);
+ylim([0 600]);
+yticks([150,300,450]);
+%ylabel('Number of pending spikes');
+xticks([]);
+legend('H_{IE}','H_{EE}','Location','northeastoutside','Position',[0.82,0.84,0.12,0.12],'fontsize',9);
+set(gca,'Position',[0.1, 0.78, 0.7, 0.18],'fontsize',11);
+subplot(3,1,2);
 plot(time(index), H_ei(index),'Color','black');
 hold on
 plot(time(index), H_ii(index), 'g');
-xlim([param.duration-1000,param.duration+100]);
-ylim([0 1000]);
-legend('H_{EE}','H_{IE}','H_{EI}','H_{II}');
-subplot(2,1,2);
-if param.model == 'model_reduced_twos'
+xlim([1000, 3000]);
+ylim([0 2000]);
+%ylabel('Number of pending spikes');
+yticks([500,1000,1500]);
+xticks([]);
+legend('H_{EI}','H_{II}','Location','northeastoutside','Position',[0.82,0.63,0.12,0.12],'fontsize',9);
+set(gca,'Position',[0.1, 0.57, 0.7, 0.18],'fontsize',11);
+subplot(3,1,3);
+if strcmp(model, 'model_full') == 0
 N_GE = res.N_GE;
 N_GI = res.N_GI;
 else
@@ -44,13 +53,15 @@ N_GI = N_GI/ni;
 plot(time(index), N_GE(index),'r');
 hold on
 plot(time(index), N_GI(index),'b');
-xlim([param.duration-1000, param.duration+100]);
+xlim([1000, 3000]);
 ylim([0 1]);
-legend('N_{GE}/N_{E}','N_{GI}/N_I');
-xlabel('Time(ms)');
-set(gcf,'Position',[10,10,1000,400]);
-if save==true
-saveas(gcf,['output\',model,'\graphline-',name,'.png']);
-end
+yticks([0.25, 0.5, 0.75]);
+%ylabel('Ratio of gate neurons');
+xticks([]);
+legend('N_{GE}/N_{E}','N_{GI}/N_I', 'Location','northeastoutside','Position',[0.82,0.42,0.15,0.12],'fontsize',9);
+%xlabel('ms');
+set(gca,'Position',[0.1, 0.36, 0.7, 0.18],'fontsize',11);
+hold off
+
 end
 

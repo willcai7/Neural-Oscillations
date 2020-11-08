@@ -1,0 +1,16 @@
+figure
+ax1 = axes('Position', [0.01, 0.01, 0.8, 0.2]);
+ax2 = axes('Position', [0.01, 0.22, 0.8, 0.2]);
+ax3 = axes('Position', [0.01, 0.43,1000, 200]);
+axes(ax1);
+x = linspace(0,10);
+y = sin(x);
+plot(x,y);
+axes(ax2);
+x = linspace(0,10);
+y = sin(x);
+plot(x,y);
+axes(ax3);
+x = linspace(0,10);
+y = sin(x);
+plot(x,y);

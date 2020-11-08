@@ -1,18 +1,19 @@
-function [coordinate]=cluster_dissection(sd,param,name, save)
+function []=cluster_dissection(sd,param)
 %This function dissects the sd into volleys given eps and delta.
 ne = param.ne;
 eps=param.cluster_eps;
 delta=param.cluster_delta;
 bin=param.sdbin;
-model = param.model;
 duration = param.duration;
-initial_index= ceil((duration - 2000)/bin);
-sd1 = sd(1,initial_index:end);
+initial_index= ceil((1000)/bin);
+end_index = ceil((3000+20)/bin);
+sd1 = sd(1,initial_index:end_index);
 kernel=ones(1,eps);
 phi=conv(sd1 * ne* bin/1000,kernel,'valid');
+length(phi);
 time = length(phi);
 times = 0:(length(phi)-1);
-times = times * bin  + duration - 2000;
+times = times * bin  + 1000;
 mu = mean(phi);
 i=0;
 coordinate =[];
@@ -34,7 +35,6 @@ while i<time
     end
 end
 i=1;
-coordinate
 if isempty(coordinate) ==0
 while i<length(coordinate(1,:))
     while coordinate(1,i+1)-coordinate(2,i)<=eps/2
@@ -53,24 +53,21 @@ background=zeros(1,time);
 for i=1:length(coordinate(1,:))
     background(coordinate(1,i):coordinate(2,i))=1;
 end
-background=600*background;
-
-bar(times,background,'y');
-hold on
+background=200*background;
 end
-bar(times, phi, 'b','FaceAlpha',0.7);
-hold on
+bar(times,background,'y');
+hold on;
+bar(times, phi, 'b');
+hold on;
 plot(times,mu*ones(1,time),'k');
-hold on
+hold on;
 plot(times,mu*(1+delta)*ones(1,time),'k');
 xlabel('Time(ms)');
-set(gcf,'Position',[10,10,1000,200]);
-ylim([0, 400]);
-title(name);
-if save==true
-saveas(gcf,['output\',model,'\cluster-',name,'.png']);
-end
-
+ylim([0, 200]);
+yticks([50, 100, 150]);
+xticks([1000,1400, 1800,2200,2600,3000]);
+set(gca,'fontsize',11);
+hold off;
 
 end
 

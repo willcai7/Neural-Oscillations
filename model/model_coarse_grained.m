@@ -1,5 +1,5 @@
 function [res] = model_coarse_grained(s, param,P)
-
+% fop=fopen('status.txt','wt');
 ne=param.ne;
 ni=param.ni;
 max_pe=param.pending_e_maximum;
@@ -28,8 +28,10 @@ a_ee=param.a_ee;
 a_ie=param.a_ie;
 a_ei=param.a_ei;
 a_ii=param.a_ii;
+res.status = [];
 
 t=0;
+t1 = 0;
 
 res.spike = zeros(2,5000);
 res.rec   = zeros(5,900);
@@ -49,8 +51,9 @@ while t<= duration_time
     q(13)=s(4)/tau_i-q(11)-q(12);
     dt=exprnd(1/sum(q));
     t=t+dt;
-    if floor(t)-floor((t-dt))==1
+    if t-t1>=0.2
         t
+        t1 = t;
         count=count+1;
         res.rec(:,count)=[s,t-dt]';
     end
@@ -64,6 +67,12 @@ while t<= duration_time
         per=per+q(i);
     end
     if i~=5
+%         fprintf(fop, ' %s', num2str(s(1)));
+%         fprintf(fop, ' %s', num2str(s(2)));
+%         fprintf(fop, ' %s', num2str(s(3)));
+%         fprintf(fop, ' %s', num2str(s(4)));
+%         fprintf(fop, '\n' );
+        %res.status = [res.status, s'];
     if i==1
         s(1)=s(1)+1;
     elseif i==2
@@ -120,7 +129,7 @@ while t<= duration_time
     end
     end
 end
-
+% back = fclose( fop ) ;
 end
 
 
