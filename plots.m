@@ -285,8 +285,12 @@ N_GE = reshape(res.V_e, 75, num_t);
 N_GI = reshape(res.V_i, 25, num_t);
 N_GE = sum(N_GE > 45);
 N_GI = sum(N_GI > 45);
+H_i = H_i(end-1000:end);
+H_e = H_e(end-1000:end);
+N_GE = N_GE(end-1000:end);
+N_GI = N_GI(end-1000: end);
 %3D
-subplot(1,3,1);
+subplot(3,3,1);
 a=plot3(H_e, H_i, N_GE);
 a.Color(4)=0.2;
 xlabel('H_e');
@@ -294,30 +298,31 @@ ylabel('H_i');
 zlabel('N_{GE}');
 % 开启网格
 grid on;
-xlim([0,1200]);
-ylim([0,2400]);
-zlim([0,60]);
+xlim([0,500]);
+ylim([0,1500]);
+zlim([0,75]);
 % view 调角度
-view([-70, 20]);
+view([-40, 30]);
 
 %N_GE vs N_GI
-subplot(1,3,2);
+subplot(3,3,2);
 b=plot(N_GI, N_GE);
 % 调透明度
 b.Color(4)=0.2;
 xlabel('N_{GI}');
 ylabel('N_{GE}');
-
-subplot(1,3,3);
+ylim([0 75]);
+subplot(3,3,3);
 c=plot(H_i, N_GE);
 % 调透明度
 c.Color(4)=0.2;
 xlabel('H_I');
 ylabel('N_{GE}');
+ylim([0 75]);
+xlim([0 3000]);
+% set(gcf,'Position',[10,10, 1200, 300]);
 
-set(gcf,'Position',[10,10, 1200, 300]);
-
-%% Fig 7-B
+% Fig 7-B
 load('data/res_coarse');
 res = res6;
 
@@ -326,36 +331,44 @@ N_GI = res.rec(2, :);
 H_e = res.rec(3, :);
 H_i = res.rec(4, :);
 num_t = length(N_GE);
+H_i = H_i(end-1000:end);
+H_e = H_e(end-1000:end);
+N_GE = N_GE(end-1000:end);
+N_GI = N_GI(end-1000: end);
+
 %3D
-subplot(1,3,1);
+subplot(3,3,4);
 a=plot3(H_e, H_i, N_GE);
 a.Color(4)=0.2;
 xlabel('H_e');
 ylabel('H_i');
 zlabel('N_{GE}');
 grid on;
-xlim([0,1200]);
-ylim([0,2400]);
-zlim([0,60]);
-view([-70, 20]);
+xlim([0,500]);
+ylim([0, 1500]);
+zlim([0,75]);
+view([-40, 30]);
 
 %N_GE vs N_GI
-subplot(1,3,2);
+subplot(3,3,5);
 b=plot(N_GI, N_GE);
 % 调透明度
 b.Color(4)=0.2;
 xlabel('N_{GI}');
 ylabel('N_{GE}');
+ylim([0 75]);
+subplot(3,3,6);
 
-subplot(1,3,3);
 c=plot(H_i, N_GE);
 % 调透明度
 c.Color(4)=0.2;
 xlabel('H_I');
 ylabel('N_{GE}');
+ylim([0 75]);
+% set(gcf,'Position',[10,10, 1200, 300]);
 
-set(gcf,'Position',[10,10, 1200, 300]);
-%% Fig 7-C
+
+% Fig 7-C
 % 3D
 X = load('data/X.txt');
 Y = load('data/Y.txt');
@@ -363,31 +376,38 @@ Z = load('data/Z.txt');
 val = load('data/val.txt');
 
 % 3D
-subplot(1,3,1);
-index = val>0.1*10^(-5);
-scatter3(Y(index)*24,Z(index)*24,X(index),1,log(val(index)),'MarkerFaceAlpha',.2,'MarkerEdgeAlpha',.2);
+subplot(3,3,7);
+index = val>10^(-5);
+scatter3(Y(index)*24,Z(index)*24,X(index),1,log(val(index)),'MarkerFaceAlpha',.6,'MarkerEdgeAlpha',.6);
 % Face,EdgeAlpha 是透明度
-view([-70, 20]);
+view([-40, 30]);
 % view 调角度
 xlabel('H_e');
 ylabel('H_i');
 zlabel('N_{GE}');
-xlim([0,1200]);
-ylim([0,2400]);
-zlim([0,60]);
+ xlim([0,500]);
+ ylim([0,1500]);
+ zlim([0,75]);
 
 % N_GE vs N_GI
-subplot(1,3,2);
+subplot(3,3,8);
 distribution = load('data/N_GEvN_GI.txt');
+
 imagesc(distribution);
 set(gca,'YDir','normal');
 xlabel('N_{GI}');
 ylabel('N_{GE}');
 % N_GE vs H_i
-subplot(1,3,3);
+subplot(3,3,9);
 distribution = load('data/N_GEvH_I.txt');
-imagesc(distribution);
+
+distribution_l = zeros(76, 126);
+distribution_l(1:76, 1:101) = distribution;
+imagesc(distribution_l);
+xticks([1, 1000/24, 2000/24, 3000/24]);
+xticklabels([0,1000,2000,3000]);
 set(gca,'YDir','normal');
 xlabel('H_I');
 ylabel('N_{GE}');
-set(gcf,'Position',[10,10, 1200, 300]);
+set(gcf,'Position',[10,10, 1200, 1000]);
+saveas(gcf, 'output/fig7-ABC.pdf');
