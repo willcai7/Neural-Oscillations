@@ -81,7 +81,7 @@ corr_ii=corr_ii/(num_i*ni);
 x=(-14.5:14.5);
 subplot(1,4,1);
 bar(x,corr_ee,1,'b');
-ylim([0 0.6]);
+ylim([0 0.4]);
 xlabel('Time(ms)','fontsize',11);
 set(gca,'ytick',[0 0.2 0.4 0.6], 'Position', [0.1, 0.12, 0.1725, 0.11],'fontsize',11);
 text(-13,0.3,'E');
@@ -90,7 +90,7 @@ text(-13,0.3,'E');
 %title('E spikes conditioned on E at t=0');
 subplot(1,4,2);
 bar(x,corr_ie,1,'b');
-ylim([0 0.6]);
+ylim([0 0.4]);
 
 set(gca,'ytick',[], 'Position', [0.30, 0.12, 0.17, 0.11],'fontsize',11);
 text(-13,0.3,'I');
@@ -98,7 +98,7 @@ text(-13,0.3,'I');
 %title('I spikes conditioned on E at t=0');
 subplot(1,4,3);
 bar(x,corr_ei,1,'b');
-ylim([0 0.6]);
+ylim([0 0.4]);
 xlabel('Time(ms)','fontsize',11);
 text(-13,0.3,'E');
 set(gca,'ytick',[],'Position', [0.50, 0.12, 0.17, 0.11],'fontsize',11);
@@ -106,7 +106,7 @@ set(gca,'ytick',[],'Position', [0.50, 0.12, 0.17, 0.11],'fontsize',11);
 %title('E spikes conditioned on I at t=0');
 subplot(1,4,4);
 bar(x,corr_ii,1,'b');
-ylim([0 0.6]);
+ylim([0 0.4]);
 text(-13,0.3,'I');
 set(gca,'ytick',[],'Position', [0.70, 0.12, 0.17, 0.11],'fontsize',11)
 end

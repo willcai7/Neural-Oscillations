@@ -281,7 +281,7 @@ param6.cluster_eps   = 8;
 
 
 s=ones(1,4);
-res6=model_coarse_grained(s,param6,P3_stat_noref);
+%res6=model_coarse_grained(s,param6,P3_stat_noref);
 
 
 %% Plots
