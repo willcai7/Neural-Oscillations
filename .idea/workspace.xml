@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="Neuron-Oscillations" targetName="Neuron-Oscillations" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+    </configurations>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b747befa-9eea-4731-a317-71f16d418ca6" name="Default Changelist" comment="" />
+    <list default="true" id="b747befa-9eea-4731-a317-71f16d418ca6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/fig7-ABC.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/output/fig7-ABC.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots.m" beforeDir="false" afterPath="$PROJECT_DIR$/plots.m" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -25,10 +47,24 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/optimization" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RunManager">
+    <configuration name="Neuron-Oscillations" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Neuron-Oscillations" TARGET_NAME="Neuron-Oscillations" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Neuron-Oscillations" RUN_TARGET_NAME="Neuron-Oscillations">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="Neural-Oscillations" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -63,20 +99,27 @@
       <workItem from="1603944602725" duration="3587000" />
       <workItem from="1604032106660" duration="7048000" />
       <workItem from="1604275659889" duration="28000" />
+      <workItem from="1607269540656" duration="965000" />
+      <workItem from="1607300479623" duration="344000" />
+      <workItem from="1607300833604" duration="172000" />
+      <workItem from="1607301019306" duration="2442000" />
+      <workItem from="1607305472170" duration="5427000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="944" y="315" key="FileChooserDialogImpl" timestamp="1604275683499">
-      <screen x="0" y="0" width="2752" height="1112" />
-    </state>
-    <state x="944" y="315" key="FileChooserDialogImpl/0.0.2752.1112/-1440.0.1152.2008@0.0.2752.1112" timestamp="1604275683499" />
-    <state width="896" height="558" key="XDebugger.FullValuePopup" timestamp="1604035251213">
-      <screen x="0" y="0" width="2752" height="1112" />
-    </state>
-    <state width="896" height="558" key="XDebugger.FullValuePopup/0.0.2752.1112/-1440.0.1152.2008@0.0.2752.1112" timestamp="1604035251213" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

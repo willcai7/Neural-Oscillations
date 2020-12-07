@@ -377,18 +377,24 @@ val = load('data/val.txt');
 
 % 3D
 subplot(3,3,7);
-index = val>10^(-5);
-scatter3(Y(index)*24,Z(index)*24,X(index),1,log(val(index)),'MarkerFaceAlpha',.6,'MarkerEdgeAlpha',.6);
+%%
+index = val>1*10^(-5);
+a=plot3(H_e, H_i, N_GE,'Color', 'k');
+a.Color(4)=0.1;
+hold on
+scatter3(Y(index)*24,Z(index)*24,X(index),1,log(val(index)),'MarkerFaceAlpha',.2,'MarkerEdgeAlpha',.2);
+%colormap(cool);
 % Face,EdgeAlpha 是透明度
 view([-40, 30]);
 % view 调角度
 xlabel('H_e');
 ylabel('H_i');
 zlabel('N_{GE}');
- xlim([0,500]);
- ylim([0,1500]);
- zlim([0,75]);
-
+grid on;
+%  xlim([0,500]);
+%  ylim([0,1500]);
+%  zlim([0,75]);
+%%
 % N_GE vs N_GI
 subplot(3,3,8);
 distribution = load('data/N_GEvN_GI.txt');

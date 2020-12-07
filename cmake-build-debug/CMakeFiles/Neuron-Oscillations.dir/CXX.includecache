@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Work/Github/Neural-Oscillations/Markov_simple.cpp
+omp.h
+-
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+time.h
+-
+iostream
+-
+fstream
+-
+sys/time.h
+-
+cstdlib
+-
+float.h
+-
+random
+-
+stdint.h
+-
+algorithm
+-
+cstdio
+-
+climits
+-
+vector
+-
+
