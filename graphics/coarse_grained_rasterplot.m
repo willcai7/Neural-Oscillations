@@ -11,7 +11,7 @@ index_i = index_i + ne;
 spike = spike(:, 2:end);
 for i = 1:ne
     times = spike(1, (index_e ==i));
-    times = times(times> duration -1000);
+    times = times(times> duration -1200);
     num   = size(times, 2);
     scatter(times, i*ones(num, 1),10,'.','r');
     hold on
@@ -19,7 +19,7 @@ end
 
 for i=ne+1:ne+ni
     times = spike(2,(index_i ==i));
-    times = times(times> duration-1000);
+    times = times(times> duration-1200);
     num = size(times,2 );
     scatter(times, i*ones(num, 1),10,'.','b');
     hold on

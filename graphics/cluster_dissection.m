@@ -1,4 +1,4 @@
-function []=cluster_dissection(sd,param)
+function [coordinate]=cluster_dissection(sd,param)
 %This function dissects the sd into volleys given eps and delta.
 ne = param.ne;
 eps=param.cluster_eps;

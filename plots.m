@@ -227,7 +227,7 @@ saveas(gcf ,['output/',name_fig1],'epsc');
 rasterplot(res9, param9);
 set(gcf,'Position',[10, 10, 800, 200]);
 saveas(gcf ,['output/','raster-syn'],'epsc');
-%% Fig 7
+%% Fig 7-1
 name_fig7='fig7';
 
 ax1 = axes('Position',[0.1,0.15, 0.8,0.32]);
@@ -247,7 +247,7 @@ saveas(gcf ,['output/',name_fig7,'.png']);
 %saveas(gcf ,['output/',name_fig7,'.eps'],'epsc');
 
 
-%% Fig 8
+%% Fig 7-2
 name_fig8='fig8';
 
 ax1 = axes('Position',[0.1,0.15, 0.8,0.32]);
@@ -266,7 +266,73 @@ set(gcf,'Position',[10, 10, 800, 400]);
 %saveas(gcf ,['output/',name_fig8,'.png']);
 saveas(gcf ,['output/',name_fig8,'.eps'], 'epsc');
 
+%% Fig 7-3
+subplot(3,1,1);
+rasterplot(res9, param9);
+xlim([2000, 3000]);
+xticks([2000,2200, 2400, 2600, 2800, 3000]);
+xlabel('Time(ms)');
+subplot(3,1,2);
+rasterplot(two_res3, two_param3);
+xlim([2000, 3000]);
+xticks([2000,2200, 2400, 2600, 2800, 3000]);
+xlabel('Time(ms)');
+subplot(3,1,3);
+coarse_grained_rasterplot(res6, param6);
+xlim([2000, 3000]);
+xticks([2000,2200, 2400, 2600, 2800, 3000]);
+xlabel('Time(ms)');
+set(gcf,'Position',[10, 10, 800, 600]);
 
+%% Fig 7 calculation
+two_param3.sdbin = 1;
+two_param3.cluster_delta = 0.15;
+param6.sdbin = 1;
+param6.cluster_delta = 0.15;
+param9.sdbin = 1;
+param9.cluster_delta = 0.15;
+sd3 = spikedensity(two_res3, two_param3);
+sd6 = spikedensity_coarse(res6, param6);
+sd9 = spikedensity(res9, param9);
+coordinate9 = cluster_dissection(sd9.e, param9);
+coordinate6 = cluster_dissection(sd6.e, param6);
+coordinate3 = cluster_dissection(sd3.e, two_param3);
+% Spike Length
+
+% Length
+length3 = (coordinate3(2,:)- coordinate3(1,:));
+length6 = (coordinate6(2,:)- coordinate6(1,:));
+length9 = (coordinate9(2,:)- coordinate9(1,:));
+
+% Mean
+m3 = mean(length3);
+m6 = mean(length6);
+m9 = mean(length9);
+n3 = length(length3);
+n6 = length(length6);
+n9 = length(length9);
+sd3 = std(length3);
+sd6 = std(length6);
+sd9 = std(length9);
+
+% test1
+t39 = (m3-m9)/sqrt(sd3^2+ sd9^2);
+t69 = (m6-m9)/sqrt(sd6^2+ sd9^2);
+f39 = n3+n9-2;
+f69 = n6+n9 -2;
+data_box = [ length9'; length3';length6'];
+g = [repmat({'Full model'},67,1);repmat({'Reduced network model'},60,1);repmat({'Coarse grained model'},62,1) ];
+
+[h36,p36]=ttest2(length6,length3,'Vartype','unequal');
+[h39,p39]=ttest2(length9,length3,'Vartype','unequal');
+[h69,p69]=ttest2(length6,length9,'Vartype','unequal');
+
+%%
+boxplot(data_box,g,'DataLim',[0,23]);
+ylabel('MFE duration (ms)');
+set(gca,'FontSize',12);
+set(gcf,'Position',[10, 10, 800, 400]);
+saveas(gcf ,['output/','fig8','.eps'], 'epsc');
 %% Fig 7-A
 load('data/res_full');
 res = res9;

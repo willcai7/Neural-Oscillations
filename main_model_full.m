@@ -471,7 +471,7 @@ param9.w = 1;
 param9.sdbin = 2.5;
 param9.spectrogram_timewindow = 200;
 param9.frequency_range = [10,80];
-param9.cluster_delta = 0.33;
+param9.cluster_delta = 0.15;
 param9.cluster_eps   = 8;
 
 % model_full_video(s, duration_time, param9);
