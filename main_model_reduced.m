@@ -39,7 +39,7 @@ two_param1.spectrogram_timewindow = 200;
 two_param1.frequency_range = [10,80];
 
 t = clock;
-%two_res1 = model_reduced_network(s,two_param1, P1_stat_noref);
+two_res1 = model_reduced_network(s,two_param1, P1_stat_noref);
 runtime1 = etime(clock,t);
 
 
@@ -118,7 +118,7 @@ s=false;
 two_param3.duration = 3200;
 
 t = clock;
-%two_res3 = model_reduced_network(s,two_param3, P3_stat_noref);
+two_res3 = model_reduced_network(s,two_param3, P3_stat_noref);
 runtime3 = etime(clock,t);
 
 %% Plots
