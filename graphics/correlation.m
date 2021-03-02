@@ -4,8 +4,8 @@ ne = param.ne;
 ni = param.ni;
 model = param.model;
 spike = res.spike;
-timewindow_upper=985; %note that timewindow_upper <= duration_time-15
-timewindow_lower=785; %note that timewindow_lower >= 15
+timewindow_upper=param.duration-100; %note that timewindow_upper <= duration_time-15
+timewindow_lower=200; %note that timewindow_lower >= 15
 
 corr_ee=zeros(1,30); %conditioned on e at t=0, count the e spikes nearby.
 corr_ie=zeros(1,30); %conditioned on e at t=0, count the i spikes nearby.

@@ -3,8 +3,7 @@ function [] = rasterplot(res,param)
 
 ne = param.ne;
 ni = param.ni;
-model = param.model;
-duration = param.duration;
+
 for i=1:ne
 times = res.spike(:,i);
 times = times(times > 1000);
@@ -23,10 +22,10 @@ scatter(times, i*ones(num, 1),10,'.','b');
 hold on
 end
 xlim([1000, 3000]);
-%title(name);
-yticks([25 50 75]);
-xticks([]);
-%set(gca, 'xtick',[]);
+% %title(name);
+% yticks([25 50 75]);
+% xticks([]);
+% %set(gca, 'xtick',[]);
 ylabel('Index');
 set(gca,'fontsize',11);
 end

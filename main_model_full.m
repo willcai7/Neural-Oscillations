@@ -37,25 +37,25 @@ param1.spectrogram_timewindow = 200;
 param1.frequency_range = [40,80];
 
 %About 300 ms
-s               = false;
-param1.model    = 'model_full';
-param1.type     = 'syn';
-param1.fix      = false;                                                        % to decide whether the pending spike ratio is fixed.
-save            = true;
-name1           ='hom-n=400-t=3000';
+% s is initial state
+s               = false; 
+                                                 
+
 param1.time_delta = 1;
 t = clock;
-res1 = model_full(s, duration_time, param1);
+res1 = model_full(s,param1);
 runtime1 = etime(clock, t);
+param1.bar=40;
 
-% rasterplot(res1, param1, name1, save);
+
+% rasterplot(res1, param1);
 % firing_rate1 = firing_rate(res1, param1);
 % SSI1 = spike_synchrony_index(res1, param1);
-% correlation(res1, param1, name1, save);
-% line_graph(res1, param1, name1, save, 40);
+% correlation(res1, param1);
+% line_graph(res1, param1);
 % sd1 = spikedensity(res1, param1);
-% spectrogram(sd1.e, param1, name1, save);
-% cluster_dissection(sd1.e, param1, name1, save);
+% spectrogram(sd1.e, param1);
+% cluster_dissection(sd1.e, param1);
 
 %% Full model: Reg
 
@@ -79,20 +79,19 @@ param2.tau_ie   = 1.2;
 param2.tau_i    = 4.5;
 param2.gate      = 70;
 param2.duration  = 3000;
-param2.model    = 'model_full';
-param2.type      = 'reg';
-param2.fix = false;
-name2           ='reg-n=400-t=3000';
+
+param2.fix = flse;
+
 s               = false;
-save            = true;
+
 param2.time_delta = 1;
 t = clock;
-res2 = model_full(s, duration_time, param2);
+res2 = model_full(s,param2);
 runtime2 = etime(clock, t);
 % cluster
 param2.cluster_delta = 0.33;
 param2.cluster_eps   = 8;
-
+param2.bar = 40;
 % SSI
 param2. w = 1;
 
@@ -101,14 +100,14 @@ param2.sdbin = 2.5;
 param2.spectrogram_timewindow = 200;
 param2.frequency_range = [40,80];
 
-% rasterplot(res2, param2,name2,save);
+% rasterplot(res2, param2);
 % firing_rate2 = firing_rate(res2, param2);
-% correlation(res2, param2,name2,save);
+% correlation(res2, param2);
 % SSI2 = spike_synchrony_index(res2, param2);
-% line_graph(res2, param2, name2, save, 40);
+% line_graph(res2, param2);
 % sd2 = spikedensity(res2, param2);
-% spectrogram(sd2.e, param2, name2, save);
-% cluster_dissection(sd2.e, param2, name2, save);
+% spectrogram(sd2.e, param2);
+% cluster_dissection(sd2.e, param2);
 
 %% Full model: Syn
 param3.ne       = 300;
@@ -131,18 +130,16 @@ param3.tau_ie   = 0.95;
 param3.tau_i    = 4.5;
 param3.gate     = 70;
 param3.duration  = 3000;
-param3.type     = 'syn';
-param3.model    = 'model_full';
-param3.fix = false;
-name3           ='syn-n=400-t=3000';
+
+
 s               = false;
-save            = true;
+
 param3.time_delta = 1;
 t=clock;
 % cluster
 param3.cluster_delta = 0.33;
 param3.cluster_eps   = 8;
-
+param3.bar = 40;
 % SSI
 param3. w = 1;
 
@@ -153,14 +150,14 @@ param3.frequency_range = [40,80];
 res3 = model_full(s, duration_time, param3);
 runtime3 = etime(clock, t);
 
-% rasterplot(res3, param3, name3, save);
+% rasterplot(res3, param3);
 % firing_rate3 = firing_rate(res3, param3);
-% correlation(res3, param3,name3,save);
+% correlation(res3, param3);
 % SSI3 = spike_synchrony_index(res3, param3);
-% line_graph(res3, param3, name3, save, 40);
+% line_graph(res3, param3);
 % sd3 = spikedensity(res3, param3);
-% spectrogram(sd3.e, param3, name3, save);
-% cluster_dissection(sd3.e, param3, name3, save);
+% spectrogram(sd3.e, param3);
+% cluster_dissection(sd3.e, param3);
 
 %% Full model: Hom, small-size 
 
@@ -184,17 +181,15 @@ param4.tau_ie   = 1.2;
 param4.tau_i    = 4.5;
 param4.gate     = 70;
 param4.duration = 1000;
-param4.type     = 'hom';
-param4.model    = 'model_full';
-param4.fix = false; 
+
+
 param4.time_delta = 1;
 
-name4 = 'hom-n=100-t=3000';
-save=true;
 
 % cluster
 param4.cluster_delta = 0.33;
 param4.cluster_eps   = 8;
+param4.bar = 40;
 
 % SSI
 param4. w = 1;
@@ -210,20 +205,20 @@ s(2:3,:) = double(rand(2,param4.ne+param4.ni)>0.8);
 s(1,:) = unidrnd(param4.M+param4.Mr+1,[1,param4.ne+param4.ni])- param4.Mr-1;
 
 
-%  model_full_video(s, duration_time, param4);
+
 t=clock;
 %res4 = model_full(s, param4);
 runtime4 = etime(clock,t);
 
 
-% rasterplot(res4, param4, name4, save);
+% rasterplot(res4, param4);
 % firing_rate4 = firing_rate(res4, param4);
-% correlation(res4, param4,name4,save);
+% correlation(res4, param4);
 % SSI4 = spike_synchrony_index(res4, param4);
-% line_graph(res4, param4, name4, save, 40);
+% line_graph(res4, param4);
 % sd4 = spikedensity(res4, param4);
-% spectrogram(sd4.e, param4, name4, save);
-% cluster_dissection(sd4.e, param4, name4, save);
+% spectrogram(sd4.e, param4);
+% cluster_dissection(sd4.e, param4);
 
 %% Full model: Reg, small-size 
 
@@ -247,16 +242,14 @@ param5.tau_ie   = 1.2;
 param5.tau_i    = 4.5;
 param5.gate     = 70;
 param5.duration = 3000;
-name5 = 'reg-n=100-t=3000';
+
 param5.time_delta = 1;
-param5.model    = 'model_full';
-save=true;
-param5.type    ='reg';
-param5.fix = false;
+
+
 % cluster
 param5.cluster_delta = 0.33;
 param5.cluster_eps   = 8;
-
+param5.bar = 40;
 % SSI
 param5. w = 1;
 
@@ -272,20 +265,20 @@ s(1,:) = unidrnd(param5.M+param5.Mr+1,[1,param5.ne+param5.ni]) - param5.Mr - 1;
 
 
 
-% model_full_video(s, duration_time, param5);
+
 t = clock;
 res5 = model_full(s,  param5);
 runtime5 = etime(clock, t);
 
-% rasterplot(res5, param5, name5, save)
+% rasterplot(res5, param5)
 % firing_rate5 = firing_rate(res5, param5);
-% correlation(res5, param5,name5,save);
+% correlation(res5, param5);
 SSI5 = spike_synchrony_index(res5, param5);
 disp(num2str(SSI5));
-% line_graph(res5, param5, name5, save, 40);
+% line_graph(res5, param5);
 % sd5 = spikedensity(res5, param5);
-% spectrogram(sd5.e, param5, name5, save);
-% cluster_dissection(sd5.e, param5, name5, save);
+% spectrogram(sd5.e, param5);
+% cluster_dissection(sd5.e, param5);
 
 
 %% Full model: Syn, small-size 
@@ -310,18 +303,13 @@ param6.tau_ie   = 0.95;
 param6.tau_i    = 4.5;
 param6.gate      = 70;
 param6.duration   = 3000;
-param6.model    = 'model_full';
 param6.time_delta = 1;
 
-name6 = 'syn-n=100-t=3000';
-save=true;
-param6.type       ='syn';
-param6.fix = false;
 
 % cluster
 param6.cluster_delta = 0.33;
 param6.cluster_eps   = 8;
-
+param6.bar = 40;
 % SSI
 param6. w = 1;
 
@@ -337,20 +325,20 @@ s(1,:) = unidrnd(param6.M+param6.Mr+1,[1,param6.ne+param6.ni])- param6.Mr-1;
 
 
 
-% model_full_video(s, duration_time, param6);
+
 t = clock;
-%res6 = model_full(s,  param6);
+%res6 = model_full(s,param6);
 runtime6 = etime(clock,t);
 
 
-% rasterplot(res6, param6, name6, save);
+% rasterplot(res6, param6);
 % firing_rate6 = firing_rate(res6, param6);
-% correlation(res6, param6,name6,save);
+% correlation(res6, param6);
 % SSI6 = spike_synchrony_index(res6, param6);
-% line_graph(res6, param6, name6, save, 40);
+% line_graph(res6, param6);
 % sd6 = spikedensity(res6, param6);
-% spectrogram(sd6.e, param6, name6, save);
-% cluster_dissection(sd6.e, param6, name6, save);
+% spectrogram(sd6.e, param6);
+% cluster_dissection(sd6.e, param6);
 
 %% Full model: Hom, small-size, noref
 
@@ -374,9 +362,8 @@ param7.tau_ie   = 1.2;
 param7.tau_i    = 4.5;
 param7.gate      = 70;
 param7.duration  = 3200;
-param7.type      ='hom';
-param7.model    = 'model_full';
-param7.fix = false;
+
+
 param7.time_delta = 1;
 
 % random inilialization
@@ -417,9 +404,7 @@ param8.tau_i    = 4.5;
 param8.gate      = 70;
 param8.time_delta = 1;
 param8.duration   = 3200;
-param8.model    = 'model_full';
-param8.type    ='reg';
-param8.fix = false;
+
 % random inilialization
 s = zeros(4,param8.ne+param8.ni);
 s(2:3,:) = double(rand(2,param8.ne+param8.ni)>0.8);
@@ -459,9 +444,6 @@ param9.tau_i    = 4.5;
 param9.gate      = 70;
 param9.time_delta = 1;
 param9.duration   = 3200;
-param9.model      = 'model_full';
-param9.type       ='syn';
-param9.fix = false;
 
 %random inilialization
 s = false;
@@ -480,7 +462,9 @@ t = clock;
 runtime9 = etime(clock,t);
 
 %% Plot
-
+param7.bar = 40;
+param8.bar = 40;
+param9.bar = 40;
 save = 1;
 name7 = 'hom-noref-n=100-t=3000';
 name8 = 'reg-noref-n=100-t=3000';
@@ -489,29 +473,29 @@ name9 = 'syn-noref-n=100-t=3000';
 % Nonref, small-size, hom
 firing_rate7 = firing_rate(res7, param7);
 SSI7 = spike_synchrony_index(res7, param7);
-rasterplot(res7, param7, name7, save);
-correlation(res7, param7, name7,save);
-line_graph(res7, param7, name7, save, 40);
+rasterplot(res7, param7);
+correlation(res7, param7);
+line_graph(res7, param7);
 sd7 = spikedensity(res7, param7);
-spectrogram(sd7.e, param7, name7, save);
+spectrogram(sd7.e, param7);
 
 % Nonref, small-size, reg
 firing_rate8 = firing_rate(res8, param8);
 SSI8 = spike_synchrony_index(res8, param8);
-rasterplot(res8, param8, name8, save);
-correlation(res8, param8, name8, save);
-line_graph(res8, param8, name8, save, 40);
+rasterplot(res8, param8);
+correlation(res8, param8);
+line_graph(res8, param8);
 sd8 = spikedensity(res8, param8);
-spectrogram(sd8.e, param8, name8, save);
+spectrogram(sd8.e, param8);
 
 % Nonref, small-size, syn
 firing_rate9 = firing_rate(res9, param9);
 SSI9 = spike_synchrony_index(res9, param9);
-rasterplot(res9, param9, name9, save);
-correlation(res9, param9, name9,save);
-line_graph(res9, param9, name9, save, 40);
+rasterplot(res9, param9);
+correlation(res9, param9);
+line_graph(res9, param9);
 sd9 = spikedensity(res9, param9);
-spectrogram(sd9.e, param9, name9, save);
-cluster_dissection(sd9.e, param9,name9, save);
+spectrogram(sd9.e, param9);
+cluster_dissection(sd9.e, param9);
 
 

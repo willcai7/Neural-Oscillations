@@ -1,4 +1,5 @@
-function [] = line_graph(res,param, bar)
+function [] = line_graph(res,param)
+bar=param.bar;
 ne = param.ne;
 ni = param.ni;
 model = param.model;
@@ -36,16 +37,16 @@ xticks([]);
 legend('H_{EI}','H_{II}','Location','northeastoutside','Position',[0.82,0.63,0.12,0.12],'fontsize',9);
 set(gca,'Position',[0.1, 0.57, 0.7, 0.18],'fontsize',11);
 subplot(3,1,3);
-if strcmp(model, 'model_full') == 0
-N_GE = res.N_GE;
-N_GI = res.N_GI;
+if max(res.V_e)==1
+    N_GE = res.N_GE;
+    N_GI = res.N_GI;
 else
-V_e = res.V_e;
-V_i = res.V_i;
-V_e = reshape(V_e, ne, num);
-V_i = reshape(V_i, ni, num);
-N_GE = sum(V_e>bar);
-N_GI = sum(V_i>bar);
+    V_e = res.V_e;
+    V_i = res.V_i;
+    V_e = reshape(V_e, ne, num);
+    V_i = reshape(V_i, ni, num);
+    N_GE = sum(V_e>bar);
+    N_GI = sum(V_i>bar);
 end
 N_GE = N_GE/ne;
 N_GI = N_GI/ni;

@@ -145,17 +145,6 @@ while t<= duration_time
         time_delta = 0;
         res.N_GE = [res.N_GE s(1, 1:param.ne)*ones(param.ne,1)];
         res.N_GI = [res.N_GI s(1,param.ne+1:param.ne+param.ni)*ones(param.ni,1)];
-        H_ee = s(2,1:param.ne);
-        H_ei = s(3,1:param.ne);
-        H_ie = s(2,1+param.ne: param.ne + param.ni);
-        H_ii = s(3,1+param.ne: param.ne + param.ni);
-        V_e = s(1,1:param.ne);
-        V_i = s(1, param.ne+1:param.ne+ param.ni);
-        ratio_H_ee = mean(H_ee(V_e==1))/mean(H_ee(V_e==0));
-        ratio_H_ei = mean(H_ei(V_e==1))/mean(H_ei(V_e==0));
-        ratio_H_ie = mean(H_ie(V_i==1))/mean(H_ie(V_i==0));
-        ratio_H_ii = mean(H_ii(V_i==1))/mean(H_ii(V_i==0));
-        res.ratio = [res.ratio [ratio_H_ee ratio_H_ei ratio_H_ie ratio_H_ii]'];
     end
 end
 

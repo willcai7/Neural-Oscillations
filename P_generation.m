@@ -28,15 +28,13 @@ param1.tau_ie     = 1.2;
 param1.tau_i      = 4.5;
 param1.gate       = 40;
 param1.duration   = 10000;
-param1.type       = 'hom';
-param1.fix        = false;
 param1.time_delta = 0.2;
 
 param1.rare_range_e        = 15;                                            % range definition of rare events of e neurons
 param1.rare_range_i        = 5;                                             % range definition of rare events of i neurons
 param1.simulation_times    = 6000;                                          % times of rare events simulation
 param1.simulation_duration = 1;                                             % duration of each simulation
-save                       = false;
+
 
 % random inilialization
 s        = false;
@@ -46,7 +44,7 @@ param1.tau_r          = 0;
 t                     = clock;
 %P_res1_noref          = model_full(s, param1);
 runtime1              = etime(clock,t);
-%rare_res1_noref       = rare_model_full(P_res1_noref,param1, bar);
+%rare_res1_noref       = rare_model_full(P_res1_noref ,param1, bar);
 
 %% Full model: Reg, small-size, noref, long time
 
@@ -61,10 +59,8 @@ param2.rare_range_e         = 15;                                           % ra
 param2.rare_range_i         = 5;                                            % range definition of rare events of i neurons
 param2.simulation_times     = 6000;                                         % times of rare events simulation
 param2.simulation_duration  = 1;                                            % duration of each simulation
-name2           = 'n=100-t=1000-reg-noref';
-save            = false;
-param2.type     = 'reg';
-param2.fix      = false;
+
+
 s               = false;
 
 param2.tau_r    = 0;
@@ -88,10 +84,6 @@ param3.rare_range_i         = 5;                                            % ra
 param3.simulation_times     = 6000;                                         % times of rare events simulation
 param3.simulation_duration  = 1;                                            % duration of each simulation
 
-param3.fix          = false;
-name3               = 'n=100-t=1000-syn-noref';
-save                = false;
-param3.type         = 'syn';
 %random inilialization
 s                   = false;
 
@@ -100,7 +92,44 @@ param3.tau_r    = 0;
 t               = clock;
 %P_res3_noref    = model_full(s,  param3);
 runtime3        = etime(clock,t);
-%rare_res3_noref = rare_model_full(P_res3_noref,param3, bar);
+%rare_res3_noref = rare_
+model_full(P_res3_noref,param3, bar);
+
+%% Full model: Syn, 400, noref, long time, load from txt
+param3            = param;
+param3.ne         = 300;
+param3.ni         = 100;
+param3.s_ee       = 5;
+param3.s_ie       = 2;
+param3.s_ei       = 5;
+param3.s_ii       = 5;
+param3.tau_ee     = 1.4;
+param3.tau_ie     = 1.2;
+param3.tau_i      = 4.5;
+param3.gate       = 40;
+param3.duration   = 10000;
+param3.time_delta = 0.2;
+param3.rare_range_e         = 15;                                           % range definition of rare events of e neurons
+param3.rare_range_i         = 5;                                            % range definition of rare events of i neurons
+param3.simulation_times     = 6000;                                         % times of rare events simulation
+param3.simulation_duration  = 1;                                            % duration of each simulation
+
+
+load('data/400_neuron_data/membrane_potential.txt');
+mp=membrane_potential;
+res3_noref_400.V_e=mp(:,1:300)';
+[nr,nc]=size(res3_noref_400.V_e);
+res3_noref_400.V_e=reshape(res3_noref_400.V_e,1,nr*nc);
+
+res3_noref_400.V_i=mp(:,301:400)';
+[nr,nc]=size(res3_noref_400.V_i);
+res3_noref_400.V_i=reshape(res3_noref_400.V_i,1,nr*nc);
+
+rare_res3_noref_400.V_e=[];
+rare_res3_noref_400.V_i=[];
+
+
+
 
 
 
@@ -112,8 +141,7 @@ param4.tau_ie     = 1.2;
 param4.tau_i      = 4.5;
 param4.gate       = 70;
 param4.duration   = 10000;
-param4.type       = 'hom';
-param4.fix        = false;
+
 param4.time_delta = 0.2;
 
 param4.rare_range_e=15;                                                     % range definition of rare events of e neurons
@@ -121,9 +149,7 @@ param4.rare_range_i=5;                                                      % ra
 param4.simulation_times=6000;                                               % times of rare events simulation
 param4.simulation_duration=1;                                               % duration of each simulation
 
-name4 = 'n=100-t=1000-hom-noref';
-param4.method   = 'extend';
-save        =false;
+
 
 % random inilialization
 s        = false;
@@ -150,17 +176,14 @@ param5.tau_ie     = 1.075;
 param5.tau_i      = 4.5;
 param5.gate       = 70;
 param5.duration   = 10000;
-param5.type       = 'hom';
-param5.fix        = false;
+
 param5.time_delta = 0.2;
 param5.rare_range_e=15;                                                     % range definition of rare events of e neurons
 param5.rare_range_i=5;                                                      % range definition of rare events of i neurons
 param5.simulation_times=6000;                                               % times of rare events simulation
 param5.simulation_duration=1;                                               % duration of each simulation
 
-name5 = 'n=100-t=1000-hom-noref';
-param5.method   = 'extend';
-save        =false;
+
 
 % random inilialization
 s        = false;
@@ -177,19 +200,20 @@ param5.tau_r    = 2.5;
 t               = clock;
 %P_res5            = model_full(s, param5);
 runtime5        = etime(clock,t);
-%rare_res5       = rare_model_full(P_res5,param5, bar);
+%rare_res5       = rare_model_full(P_res5, param5, bar);
 
 %% Calculate the P
-bar.e = 45;
-bar.i = 45;
+bar.e = 40;
+bar.i = 40;
 % Statistical method
 %P1_stat_noref = P_generation_statistics(P_res1_noref, rare_res1_noref, param1, bar);
 %P2_stat_noref = P_generation_statistics(P_res2_noref, rare_res2_noref, param2, bar);
 %P3_stat_noref = P_generation_statistics(P_res3_noref, rare_res3_noref, param3, bar);
+P3_stat_noref = P_generation_statistics(res3_noref_400, rare_res3_noref_400, param3, bar);
 
 % P1_stat1 = P_generation_statistics(P_res1, rare_res1, param, bar);
 % P2_stat1 = P_generation_statistics(P_res2, rare_res2, param, bar);
- P3_stat1 = P_generation_statistics(P_res3, rare_res3, param, bar);
+% P3_stat1 = P_generation_statistics(P_res3, rare_res3, param, bar);
 % P4_stat = P_generation_statistics(P_res4, rare_res4, param, bar);
 % P5_stat = P_generation_statistics(P_res5, rare_res5, param, bar);
 
@@ -427,5 +451,9 @@ xlabel('N_{GI}');
 
 hl=legend('bar=30','bar=40','bar=50','bar=60','bar=70','orientation','horizontal');
 set(gcf,'Position',[10,10,1000,800]);
+
+%% read res from txt(by c++) and write generated probability to txt.
+
+
 
 

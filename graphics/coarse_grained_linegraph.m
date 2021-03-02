@@ -27,8 +27,5 @@ legend('H_e','H_i');
 title('number of pending spikes');
 set(gcf,'Position',[10,10,800,320]);
 hold off;
-if save==true
-    saveas(gcf,['output\',model,'\linegraph-',name,'.eps'],'psc2');
-end
 end
     

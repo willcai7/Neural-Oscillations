@@ -36,6 +36,7 @@ P.P_GI_I  = zeros(1, ni+1);
 check_times = length(V_e)/ne;
 V_e = reshape(V_e, ne, check_times);
 V_i = reshape(V_i, ni, check_times);
+
 N_GE = sum(V_e>bar_e);
 N_GI = sum(V_i>bar_i);
 max_N_GE = max(N_GE);
@@ -43,9 +44,10 @@ max_N_GI = max(N_GI);
 
 for i =1:max_N_GE+1
 V_e_temp = V_e(:, N_GE==(i-1));
-V_e_temp = reshape(V_e_temp, 1, ne * sum(N_GE==(i-1)));
+% V_e_temp = reshape(V_e_temp, 1, ne * sum(N_GE==(i-1)));
 PDF_e_temp = histogram(V_e_temp,[-Mr-0.5:1:M+0.5],'normalization','probability');
 PDF_e_temp = PDF_e_temp.Values;
+% pause(0.1);
 close;
 P.P_BE_Ex(i) = PDF_e_temp(bar_e+Mr+1)/sum(PDF_e_temp(1: (bar_e+Mr+1)));
 P.P_GE_Ex(i) = PDF_e_temp(M+Mr)/sum(PDF_e_temp(bar_e+Mr+2: M+Mr+1));

@@ -23,14 +23,16 @@ H_e = H_e(end-1000:end);
 N_GE = N_GE(end-1000:end);
 N_GI = N_GI(end-1000: end);
 
+max(H_i)
+max(H_e)
 %3D
 h = subplot(1,3,1); 
 po = get( h, 'Position' ); 
 subplot( 'Position', [po(1)-0.05, 0.1640, 0.2134, 0.7610]);
 a=plot3(H_e, H_i, N_GE);
 a.Color(4)=0.2;
-xlabel('H_e');
-ylabel('H_i');
+xlabel('H^E');
+ylabel('H^I');
 zlabel('N_{GE}');
 % å¼?å�¯ç½�?�æ�??
 grid on;
@@ -63,11 +65,10 @@ set(gca,'fontsize',15,'fontname','Arial');
 h=subplot(1,3,3);
 po = get( h, 'Position' ); 
 subplot( 'Position', [po(1)+0.03, 0.1640, 0.2134, 0.7610]);
-a=45
-c=plot(H_i(1:a), N_GE(1:a));
+c=plot(H_i, N_GE);
 % è°ƒé?�æ˜Žå�??
 c.Color(4)=0.2;
-xlabel('H_I');
+xlabel('H^I');
 ylabel('N_{GE}');
 ylim([0 75]);
 xlim([0 3000]);
@@ -111,8 +112,8 @@ scatter3(Y(index),Z(index),X(index),5,log10(val(index)),'MarkerFaceAlpha',0.1,'M
 % Face,EdgeAlpha æ˜¯é?�æ˜Žå�??
 view([-40, 30]);
 % view è°ƒè§’å�??
-xlabel('H_e');
-ylabel('H_i');
+xlabel('H^E');
+ylabel('H^I');
 zlabel('N_{GE}');
 xticks([0, 250, 500]);
 zticks([0 15 30 45 60 75]);
@@ -168,7 +169,7 @@ xticklabels([0,1000,2000,3000]);
 yticks([1 15 30 45 60 75]);
 yticklabels([0 15 30 45 60 75]);
 set(gca,'YDir','normal');
-xlabel('H_I');
+xlabel('H^I');
 ylabel('N_{GE}');
 caxis([0,2.2]*10^(-3));
 colorbar('Ticks',[0 1 2]*10^-3,'position',[0.911+0.03 0.1640 0.01 0.7610]);
@@ -196,8 +197,8 @@ po = get( h, 'Position' );
 subplot( 'Position', [po(1)-0.05, 0.1640, 0.2134, 0.7610]);
 a=plot3(H_e, H_i, N_GE);
 a.Color(4)=0.2;
-xlabel('H_e');
-ylabel('H_i');
+xlabel('H^E');
+ylabel('H^I');
 zlabel('N_{GE}');
 grid on;
 xticks([0, 250, 500]);
@@ -232,7 +233,7 @@ subplot( 'Position', [po(1)+0.03, 0.1640, 0.2134, 0.7610]);
 c=plot(H_i, N_GE);
 % è°ƒé?�æ˜Žå�??
 c.Color(4)=0.2;
-xlabel('H_I');
+xlabel('H^I');
 ylabel('N_{GE}');
 ylim([0 75]);
 xlim([0 3000]);
@@ -263,8 +264,8 @@ scatter3(Y(index)*24,Z(index)*24,X(index),5,log10(val(index)),'MarkerFaceAlpha',
 % Face,EdgeAlpha æ˜¯é?�æ˜Žå�??
 view([-40, 30]);
 % view è°ƒè§’å�??
-xlabel('H_e');
-ylabel('H_i');
+xlabel('H^E');
+ylabel('H^I');
 zlabel('N_{GE}');
 xticks([0, 250, 500]);
 zticks([0 15 30 45 60 75]);
@@ -311,7 +312,7 @@ xticklabels([0,1000,2000,3000]);
 yticks([1 15 30 45 60 75]);
 yticklabels([0 15 30 45 60 75]);
 set(gca,'YDir','normal');
-xlabel('H_I');
+xlabel('H^I');
 ylabel('N_{GE}');
 caxis([0,2.2]*10^(-3));
 colorbar('Ticks',[0 1 2]*10^-3,'position',[0.911+0.03 0.1640 0.01 0.7610]);
@@ -328,7 +329,7 @@ set(gcf,'Position',[10,10,1500,400]);
 % lle3d(3,:)=-lle3d(3,:);
 % tra=trajectory_info_selected;
 
-% 
+
 % [x3,y3,z3,val3]=kde(lle3d,0.1,100);
 % [x2,y2,z2,val2]=kde(lle2d,0.1,100);
 
@@ -338,12 +339,12 @@ subplot( 'Position', [po1(1)-0.05, 0.1640, 0.2134, 0.7610]);
 
 colormap(jet);
 % 
-dim=localpca(tra,100);
+% dim=localpca(tra,100);
 scatter3(tra(3,:),tra(4,:),tra(1,:),5,dim,'MarkerFaceAlpha',.2,'MarkerEdgeAlpha',.2);
 
 view([-40, 30]);
-xlabel('H_e');
-ylabel('H_i');
+xlabel('H^E');
+ylabel('H^I');
 zlabel('N_{GE}');
 xticks([0, 250, 500]);
 zticks([0 15 30 45 60 75]);
