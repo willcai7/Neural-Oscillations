@@ -2,7 +2,7 @@ function [] = scatterplot(res,param,name,save)
 % A function to show scatterplots and save them in folder output
 ne = param.ne;
 ni = param.ni;
-type = param.type;
+model = param.model;
 for i=1:ne
 maxrow = res.spike(1,i);
 scatter(res.spike(2:maxrow+1,i), i*ones(1,maxrow),'.','r');
@@ -16,7 +16,7 @@ end
 title(name);
 set(gcf,'Position',[10,10,2000,400]);
 if save==true
-saveas(gcf,['output\',type,'\scatter-',name,'.png']);
+saveas(gcf,['output\', model,'\scatter-',name,'.png']);
 end
 
 end

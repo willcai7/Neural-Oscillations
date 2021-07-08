@@ -2,7 +2,7 @@ function [] = line_graph(res,param,name,save)
 time_delta = param.time_delta;
 ne = param.ne;
 ni = param.ni;
-type = param.type;
+model = param.type;
 num = length(res.H_ee);
 time = linspace(1,num* time_delta, num);
 subplot(3,1,1);
