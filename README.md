@@ -12,36 +12,27 @@
     * Res.t
   * model_reduced_network.m 
   * coarse_grained.m
-  * P_generation_gaussian.m (V_e, V_i)
+  * P_generation_statistics.m
   * P_generation_histogram.m
+  * rare_model_full.m
   * firing_rate.m
 * output:
-  * reg:
-  * syn:
-  * hom:
+  * model_full:  Results of full model.
+  * model_reduced_twos: Results of two state reduced model.
+  * model_reduced_coag: Results of coarse grained model.
 * reference:
   * Notes
   * Papers
 * graphics:
   * correlation.m
-  * Rasterplot.m
+  * scatterplot.m
   * line_graph.m (Raster & Projection)
   * dynamical_motion.m
-  * line_graph_coarse.m 
+  * coarse_grained_plot.m 
 * main.m
-  * delete start_time
+  * main_model_full.m
+  * main_model_reduced.m
+  * P_generation.m
 
 
-
-## Variable
-
-* P
-
-
-
-## Progress
-
-* s_ee=25, s_ie=15, s_ei=25, s_ii= 25,
-* gate =75 ,  
-* p_generation, start from 0.5,
 

@@ -1,4 +1,4 @@
-function [res] = model_full(s,duration_time,param)
+function [res] = model_full(s,param)
 %==========================================================================
 % model_full is a function to simulate the full model from paper
 % 'How well do reduced models capture the dynamics in models of interacting
@@ -41,6 +41,7 @@ c(2,1:param.ne)                   = param.tau_ee;
 c(2,param.ne+1:param.ne+param.ni) = param.tau_ie;
 c(3,:)                            = param.tau_i;
 c(4,:)                            = param.tau_r;
+duration_time                     = param.duration;
 %c is time constant matrix. The first row is lambda_e(i), the second row
 %correspond to H_e, the third row correspond to H_i, the fourth row
 %correspond to tau_r.
@@ -68,40 +69,20 @@ res.H_ie = [];
 res.H_ii = [];
 res.H_ee = [];
 res.H_ei = [];
-res.N_GI = [];
-res.N_GE = [];
-res.V_e_P = []; %the membrane E potential while mean<0 (mean is substracted then)
-res.V_i_P = []; %the membrane I potential while mean<0 (mean is substracted then)
+
+
 res.t = [];
 
 
 time_check = param.time_delta;
 time_delta = 0;
 
-if param.type=='syn'
-    aee=0.55;
-elseif param.type=='reg'
-    aee=0.6;
-elseif param.type=='hom'
-    aee=0.66;
-end
-aei=0.79;
-   
 
 
-while t<= duration_time   
-    if param.fix==true
-    ratio1=sum(s(2,1:param.ne))/sum(s(2,:));
-    ratio2=sum(s(2,param.ne+1:param.ne+param.ni))/sum(s(2,:));
-    s(2,1:param.ne)=s(2,1:param.ne)*aee/ratio1;
-    s(2,param.ne+1:param.ne+param.ni)=s(2,param.ne+1:param.ne+param.ni)*(1-aee)/ratio2;
-    
-    ratio1=sum(s(3,1:param.ne))/sum(s(3,:));
-    ratio2=sum(s(3,param.ne+1:param.ne+param.ni))/sum(s(3,:));
-    s(3,1:param.ne)=s(3,1:param.ne)*aei/ratio1;
-    s(3,param.ne+1:param.ne+param.ni)=s(3,param.ne+1:param.ne+param.ni)*(1-aei)/ratio2;
-    end
-    %disp(["iteration: ", step]);
+
+
+
+while t<= duration_time
     m(2:4,:)=c(2:4,:)./s(2:4,:);
     a=exprnd(m);
     %exponential distribution random variable
@@ -170,18 +151,9 @@ while t<= duration_time
     
     time_delta = time_delta + a(x,y);
     if time_delta >= time_check
-        mean=sum(s(1,1:param.ne))/param.ne;
-        if mean<0
-            res.V_e_P=[res.V_e_P, s(1,1:param.ne)-mean];
-        end
-        mean=sum(s(1,param.ne+1:param.ne+param.ni))/param.ni;
-        if mean<0
-            res.V_i_P=[res.V_i_P, s(1,param.ne+1:param.ne+param.ni)-mean];
-        end
+
         res.V_e = [res.V_e,s(1,1:param.ne)];
         res.V_i = [res.V_i,s(1,param.ne+1:param.ne+param.ni)];
-        res.N_GE = [res.N_GE sum(s(1,1:param.ne)>75)];
-        res.N_GI = [res.N_GI sum(s(1,param.ne+1:param.ne+param.ni)>75)];
         res.H_ee = [res.H_ee s(2,1:param.ne)];
         res.H_ei = [res.H_ei s(3,1:param.ne)];
         res.H_ie = [res.H_ie s(2,param.ne+1:param.ne+param.ni)];
